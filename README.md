@@ -16,7 +16,7 @@ Alltime – Statistiken und Statistiken der letzten 30 Tage
 ## Projekttermine	
 ### Projektstart:	
 24.Februar	
-## Projektende: 
+### Projektende: 
 10.Juli
 ### Meilensteine	
 ### Meilenstein 1:
