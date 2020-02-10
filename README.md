@@ -14,13 +14,21 @@ Statistiksystem
 ## Projektabgrenzung	Kein Privatchat zwischen Freunden (Freunde können nur eingeladen werden)
 Alltime – Statistiken und Statistiken der letzten 30 Tage
 ## Projekttermine	
-## Projektstart:	24.Februar	
-## Projektende: 10.Juli
-### Meilensteine	Meilenstein 1: Grundoberfläche mit Zeichenfunktion
-### Meilenstein 2: Datenbank für Begriffe und Chatsystem
-### Meilenstein 3: Multiplayer mit Sockets + Statistiken
-### Meilenstein 4: Freunde / Lobbysystem
-### Meilenstein 5: Shopsystem
+### Projektstart:	
+24.Februar	
+## Projektende: 
+10.Juli
+### Meilensteine	
+### Meilenstein 1:
+Grundoberfläche mit Zeichenfunktion
+### Meilenstein 2: 
+Datenbank für Begriffe und Chatsystem
+### Meilenstein 3: 
+Multiplayer mit Sockets + Statistiken
+### Meilenstein 4:
+Freunde / Lobbysystem
+### Meilenstein 5:
+Shopsystem
 	
 Projektkosten	Freizeit
 
