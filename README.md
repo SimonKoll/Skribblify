@@ -31,9 +31,11 @@ Freunde / Lobbysystem
 ### Meilenstein 5:
 Shopsystem
 	
-Projektkosten	Freizeit
+## Projektkosten	
+Freizeit
 
 	
-Auftraggeber	Manfred Widmann
+### Auftraggeber	
+Manfred Widmann
 
 
