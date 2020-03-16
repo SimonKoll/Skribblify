@@ -3,10 +3,18 @@
   <component name="ProjectModuleManager">
     <modules>
 <<<<<<< HEAD
+<<<<<<< Updated upstream
+      <module fileurl="file://$PROJECT_DIR$/.idea/skribblify.iml" filepath="$PROJECT_DIR$/.idea/skribblify.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/Skribblify.iml" filepath="$PROJECT_DIR$/.idea/Skribblify.iml" />
+>>>>>>> Stashed changes
+=======
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/Skribblify_Project.iml" filepath="$PROJECT_DIR$/.idea/Skribblify_Project.iml" />
 =======
       <module fileurl="file://$PROJECT_DIR$/.idea/skribblify.iml" filepath="$PROJECT_DIR$/.idea/skribblify.iml" />
 >>>>>>> origin/master
+>>>>>>> 5d12b748046e7f2333cb941a0e722a1b2869e830
     </modules>
   </component>
 </project>
