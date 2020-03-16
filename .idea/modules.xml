@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< Updated upstream
       <module fileurl="file://$PROJECT_DIR$/.idea/skribblify.iml" filepath="$PROJECT_DIR$/.idea/skribblify.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/Skribblify.iml" filepath="$PROJECT_DIR$/.idea/Skribblify.iml" />
+>>>>>>> Stashed changes
     </modules>
   </component>
 </project>
