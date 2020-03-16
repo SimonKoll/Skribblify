@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Skribblify.iml" filepath="$PROJECT_DIR$/.idea/Skribblify.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Skribblify_Project.iml" filepath="$PROJECT_DIR$/.idea/Skribblify_Project.iml" />
     </modules>
   </component>
 </project>
