@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_ui.GameUi">
+   <children>
+      <Pane layoutX="56.0" layoutY="454.0" prefHeight="72.0" prefWidth="849.0" style="-fx-border-color: black;" />
+      <Pane layoutX="56.0" layoutY="14.0" prefHeight="53.0" prefWidth="849.0">
+         <children>
+            <TextField editable="false" layoutX="200.0" layoutY="-7.0" prefHeight="53.0" prefWidth="404.0" style="-fx-background-color: #FF5151;" text="_ _ _ _ _ _ _ _ _ _ _ _">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="32.0" />
+               </font>
+            </TextField>
+         </children>
+      </Pane>
+      <Pane layoutX="56.0" layoutY="78.0" prefHeight="365.0" prefWidth="849.0">
+         <children>
+            <Pane layoutX="568.0" layoutY="187.0" prefHeight="178.0" prefWidth="281.0" style="-fx-border-color: black;" />
+            <Pane layoutX="568.0" layoutY="-1.0" prefHeight="172.0" prefWidth="281.0" style="-fx-border-color: black;" />
+            <Pane prefHeight="365.0" prefWidth="554.0" style="-fx-border-color: black;" />
+         </children>
+      </Pane>
+      <Pane prefHeight="94.0" prefWidth="92.0">
+         <children>
+            <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0" stylesheets="@../style/noPercent.css" />
+            <Text layoutX="40.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="80" wrappingWidth="37.13671875">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
