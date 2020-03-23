@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dashboard.Dashboard"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashboard.Dashboard">
+   <children>
+      <FlowPane prefHeight="540.0" prefWidth="960.0">
+         <children>
+            <Pane prefHeight="540.0" prefWidth="181.0" style="-fx-background-color: E7EAEF;">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="32.0" layoutY="87.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <Text fill="#005b80" layoutX="45.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skribblify">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="54.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angelina Doe" wrappingWidth="72.0078125">
+                     <font>
+                        <Font name="Calibri Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="54.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#P9V099J">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </FlowPane>
+   </children>
 </AnchorPane>
