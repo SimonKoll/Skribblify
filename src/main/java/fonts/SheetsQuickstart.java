@@ -33,12 +33,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class SheetsQuickstart {
     private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
+    public static HashMap<String, String> fontFamilyLink = new HashMap<String, String>();
 
     /**
      * Global instance of the scopes required by this quickstart.
@@ -93,14 +95,22 @@ public class SheetsQuickstart {
         } else {
             System.out.println("Font-Link");
             for (List row : values) {
-                // Print columns A and E, which correspond to indices 0 and 4.
-                System.out.printf("%s\n", row.get(0));
+                String [] fontFamily = row.get(0).toString().split("=")[1].split("&");
+                fontFamilyLink.put(fontFamily[0], row.get(0).toString() );
             }
         }
     }
+
+    public static void showEntries(){
+        fontFamilyLink.forEach((k,v) -> System.out.println(k + ":" + v));
+    }
+
     public static void main(String... args) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         loadData();
+        showEntries();
     }
+
+
 }
 // [END sheets_quickstart]
