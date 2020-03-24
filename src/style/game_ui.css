@@ -1,3 +1,8 @@
 .text-field{
     -fx-text-fill: white;
 }
+
+.pane{
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 4, 4);
+    -fx-background-color: white;
+}
