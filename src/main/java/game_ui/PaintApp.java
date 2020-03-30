@@ -9,7 +9,13 @@ public class PaintApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(FXMLLoader.load(PaintApp.class.getClassLoader().getResource("game_ui.fxml"))));
+        Scene myScene = new Scene(FXMLLoader.load(PaintApp.class.getClassLoader().getResource("game_ui.fxml")));
+
+        myScene.getStylesheets().add(PaintApp.class.getClassLoader().getResource("style/noPercent.css").toExternalForm());
+        myScene.getStylesheets().add(PaintApp.class.getClassLoader().getResource("style/game_ui.css").toExternalForm());
+
+        stage.setScene(myScene);
+
         stage.setTitle("Paint App");
         stage.show();
     }
