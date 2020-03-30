@@ -33,9 +33,10 @@
             </MenuBar>
             <ToolBar>
                <HBox alignment="CENTER" spacing="5">
-                     <Slider fx:id="brushSize" blockIncrement="9.0" majorTickUnit="3.0" max="20.0" min="5.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
+                     <Slider fx:id="brushSize" blockIncrement="9.0" majorTickUnit="3.0" max="60.0" min="5.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
                   <ColorPicker fx:id="colorPicker" />
                   <CheckBox fx:id="eraser" text="Eraser" />
+                  <CheckBox fx:id="bucket" text="Fill" />
                </HBox>
             </ToolBar>
          </VBox>
