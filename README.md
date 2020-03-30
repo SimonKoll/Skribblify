@@ -2,8 +2,8 @@
 ITP/SEW-Projekt 2020
 
 
- Leiter: Matthias Riener	
- Tristan Hill,Simon Koll	
+ Leiter: Matthias Riener	 <br>
+ Tristan Hill, Simon Koll	
 	
 ## Ausgangslage
 Wir müssen ein JavaFX Projekt im zweiten Semester des dritten Jahrgangs für den Zweig IT-Medientechnik der HTBLA Leonding bewerkstelligen.
