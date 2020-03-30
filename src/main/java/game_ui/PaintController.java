@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 
@@ -21,7 +22,7 @@ public class PaintController {
     private ColorPicker colorPicker;
 
     @FXML
-    private TextField brushSize;
+    private Slider brushSize;
 
     @FXML
     private CheckBox eraser;
@@ -30,7 +31,7 @@ public class PaintController {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         canvas.setOnMouseDragged(e -> {
-            double size = Double.parseDouble(brushSize.getText());
+            double size = brushSize.getValue();
             double x = e.getX() - size / 2;
             double y = e.getY() - size / 2;
 
