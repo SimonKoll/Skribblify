@@ -104,7 +104,6 @@ public class SheetsQuickstart {
         if (values == null || values.isEmpty()) {
             System.out.println("No data found.");
         } else {
-            System.out.println("Font-Link");
             for (List row : values) {
                 String [] fontFamily = row.get(0).toString().split("=")[1].split("&");
 
@@ -131,18 +130,16 @@ public class SheetsQuickstart {
         flow.setPrefWidth(750);
 
         for (Map.Entry<String, String> entry : fontFamilyLink.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             final Text key = new Text(entry.getKey());
 
             key.setStyle("-fx-font-family: " + entry.getKey() + "; -fx-font-size:80;");
-            //t2.setStyle("-fx-font-family: 'New Rocker'; -fx-font-size: 80; -fx-fill: orange;");
+
             flow.getChildren().add(key);
         }
 
 
         Scene scene = new Scene(flow);
         for(String value : fontFamilyLink.values()){
-            System.out.println("Lol");
             scene.getStylesheets().add(value);
         }
 
