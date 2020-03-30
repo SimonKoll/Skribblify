@@ -27,6 +27,9 @@ public class PaintController {
     @FXML
     private CheckBox eraser;
 
+    @FXML
+    private CheckBox bucket;
+
     public void initialize(){
         GraphicsContext g = canvas.getGraphicsContext2D();
 
@@ -39,7 +42,12 @@ public class PaintController {
                 g.clearRect(x, y, size, size);
             }else{
                 g.setFill(colorPicker.getValue());
-                g.fillRect(x, y, size, size);
+
+                if(bucket.isSelected()){
+                    g.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
+                }else{
+                    g.fillRect(x, y, size, size);
+                }
             }
         });
     }
