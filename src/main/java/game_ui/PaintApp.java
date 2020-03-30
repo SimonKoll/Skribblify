@@ -11,7 +11,7 @@ public class PaintApp extends Application {
     public void start(Stage stage) throws Exception {
         Scene myScene = new Scene(FXMLLoader.load(PaintApp.class.getClassLoader().getResource("game_ui.fxml")));
 
-        myScene.getStylesheets().add(PaintApp.class.getClassLoader().getResource("style/noPercent.css").toExternalForm());
+
         myScene.getStylesheets().add(PaintApp.class.getClassLoader().getResource("style/game_ui.css").toExternalForm());
 
         stage.setScene(myScene);
