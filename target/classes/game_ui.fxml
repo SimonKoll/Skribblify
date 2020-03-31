@@ -28,7 +28,6 @@
             <MenuBar>
                <Menu text="File">
                   <MenuItem onAction="#onSave" text="Save" />
-                  <MenuItem onAction="#onExit" text="Exit" />
                </Menu>
             </MenuBar>
             <ToolBar>
@@ -54,7 +53,7 @@
          <children>
             <Pane layoutX="568.0" layoutY="187.0" prefHeight="178.0" prefWidth="281.0" style="-fx-border-color: black;" />
             <Pane layoutX="568.0" layoutY="-1.0" prefHeight="172.0" prefWidth="281.0" style="-fx-border-color: black;" />
-            <BorderPane prefHeight="365.0" prefWidth="559.0">
+            <BorderPane  prefHeight="365.0" prefWidth="559.0">
                <top>
                   <Pane prefHeight="361.0" prefWidth="559.0" style="-fx-background-color: white;" styleClass="pane" BorderPane.alignment="CENTER">
                      <children>
