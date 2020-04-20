@@ -25,7 +25,7 @@
       </Pane>
       <ImageView fitHeight="264.0" fitWidth="843.0" layoutX="98.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../LogoMakr_03kiIU.png" />
+            <Image url="@../../../../LogoMakr_03kiIU.png" />
          </image>
       </ImageView>
     <Button layoutX="406.0" layoutY="422.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Login" textAlignment="CENTER" />
