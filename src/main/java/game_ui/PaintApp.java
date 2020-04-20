@@ -9,9 +9,7 @@ public class PaintApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Scene myScene = new Scene(FXMLLoader.load(PaintApp.class.getClassLoader().getResource("game_ui.fxml")));
-
-
+        Scene myScene = new Scene(FXMLLoader.load(PaintApp.class.getClassLoader().getResource("game_ui/game_ui.fxml")));
         myScene.getStylesheets().add(PaintApp.class.getClassLoader().getResource("style/game_ui.css").toExternalForm());
 
         stage.setScene(myScene);

@@ -1,5 +1,5 @@
 .text-field{
-    -fx-text-fill: white;
+    -fx-text-fill: white
 }
 
 .pane{
@@ -9,4 +9,27 @@
 
 .progress-indicator .percentage {
     -fx-fill:null;
+}
+
+.user-element{
+    -fx-background-color: white;
+
+}
+
+.users{
+  -fx-background-color: red;
+}
+
+.user-profile{
+  -fx-background-image: url("https://www.pngitem.com/pimgs/m/563-5634811_doge-meme-png-photos-dog-meme-transparent-png.png");
+  -fx-background-position: center center;
+  -fx-background-size: cover;
+  -fx-background-radius: 30px;
+  -fx-border-radius: 50px;
+  -fx-background-color:translate;
+}
+
+
+.word-guessed{
+  -fx-text-fill: green !important;
 }
