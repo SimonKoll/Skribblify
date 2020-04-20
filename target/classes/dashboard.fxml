@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../../res/fonts.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashboard.Dashboard">
+   <children>
+      <FlowPane prefHeight="540.0" prefWidth="960.0">
+         <children>
+            <Pane prefHeight="540.0" prefWidth="181.0" style="-fx-background-color: white;">
+               <children>
+                  <Circle layoutX="32.0" layoutY="87.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: red;">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="#ff9000" />
+                              <Stop color="#ff9000" offset="0.007662835249042145" />
+                              <Stop color="#f6ff00" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Text fill="#005b80" layoutX="45.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skribblify">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="54.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angelina Doe" wrappingWidth="72.0078125">
+                     <font>
+                        <Font name="Calibri Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="54.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#P9V099J">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Text>
+                  <Pane layoutY="133.0" prefHeight="36.0" prefWidth="181.0">
+                     <children>
+                        <Text fill="#61d9f7" layoutX="24.0" layoutY="22.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Pane layoutY="169.0" prefHeight="36.0" prefWidth="181.0">
+                     <children>
+                        <Text fill="#61d9f7" layoutX="24.0" layoutY="22.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Pane layoutY="205.0" prefHeight="36.0" prefWidth="181.0">
+                     <children>
+                        <Text fill="#61d9f7" layoutX="24.0" layoutY="22.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="540.0" prefWidth="779.0">
+               <children>
+                  <SVGPath content="M560,0v289c-33.07,3.49-81.83,3.07-118-27c-37.81-31.43-27.38-66.62-64-91c-41.42-27.58-69.36,7.73-148-13c-48.85-12.88-41.27-27.34-106-47C74.75,96.04,52.12,98.87,30,78C6.31,55.64,1.01,22.89,0,0H560z" fill="#ff5151" layoutX="219.0" />
+                  <Pane layoutX="31.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #f8b87c, #ff8191);" />
+                  <Pane layoutX="287.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #629cdc, #7b7bf2);" />
+                  <TableView layoutX="31.0" layoutY="297.0" prefHeight="234.0" prefWidth="716.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="name" />
+                      <TableColumn prefWidth="75.0" text="id" />
+                    </columns>
+                  </TableView>
+                  <Text layoutX="31.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Friendlist" />
+               </children>
+            </Pane>
+         </children>
+      </FlowPane>
+   </children>
+</AnchorPane>
