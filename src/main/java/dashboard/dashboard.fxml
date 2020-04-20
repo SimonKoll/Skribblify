@@ -8,9 +8,9 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../../res/fonts.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashboard.Dashboard">
    <children>
@@ -75,6 +75,7 @@
             </Pane>
             <Pane prefHeight="540.0" prefWidth="779.0">
                <children>
+                  <SVGPath content="M560,0v289c-33.07,3.49-81.83,3.07-118-27c-37.81-31.43-27.38-66.62-64-91c-41.42-27.58-69.36,7.73-148-13c-48.85-12.88-41.27-27.34-106-47C74.75,96.04,52.12,98.87,30,78C6.31,55.64,1.01,22.89,0,0H560z" fill="#ff5151" layoutX="219.0" />
                   <Pane layoutX="31.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #f8b87c, #ff8191);" />
                   <Pane layoutX="287.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #629cdc, #7b7bf2);" />
                   <TableView layoutX="31.0" layoutY="297.0" prefHeight="234.0" prefWidth="716.0">
