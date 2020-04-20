@@ -1,1 +1,14 @@
 Mon Apr 20 15:19:00 CEST 2020 : Apache Derby Network Server 10.14.2.0 - (1828579) wurde gestartet und ist bereit, Verbindungen auf Port 1527 zu akzeptieren.
+----------------------------------------------------------------
+Mon Apr 20 15:50:37 CEST 2020:
+Booten von Derby-Version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): Instanz a816c00e-0171-97bd-f3e2-ffffe68dfdb3
+für Datenbankverzeichnis C:\Users\Matthias\Desktop\skribblify\opt\db-derby-10.14.2.0-bin\bin\skribblify_database mit Class Loader sun.misc.Launcher$AppClassLoader@60e53b93
+Geladen aus file:/C:/Users/Matthias/Desktop/skribblify/opt/db-derby-10.14.2.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_111-b14
+user.dir=C:\Users\Matthias\Desktop\skribblify\opt\db-derby-10.14.2.0-bin\bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Matthias\Desktop\skribblify\opt\db-derby-10.14.2.0-bin\bin
+Datenbank-Class Loader wurde gestartet - derby.database.classpath=''
