@@ -246,7 +246,7 @@
                   </Pane>
       <Pane prefHeight="94.0" prefWidth="92.0">
          <children>
-            <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0" stylesheets="@style/noPercent.css" />
+            <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0"/>
             <Text layoutX="40.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="80" wrappingWidth="37.13671875">
                <font>
                   <Font size="34.0" />

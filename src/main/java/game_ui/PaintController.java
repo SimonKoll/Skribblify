@@ -50,6 +50,7 @@ public class PaintController {
         });
     }
 
+    @FXML
     public void onSave(){
         try{
             Image snapshot = canvas.snapshot(null, null);
