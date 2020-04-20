@@ -130,15 +130,15 @@ securerandom.source=file:/dev/random
 securerandom.strongAlgorithms=Windows-PRNG:SunMSCAPI,SHA1PRNG:SUN
 
 #
-# Class to instantiate as the javax.security.auth.login.Configuration
+# Class to instantiate as the javax.security.auth.login_and_register.Configuration
 # provider.
 #
-login.configuration.provider=sun.security.provider.ConfigFile
+login_and_register.configuration.provider=sun.security.provider.ConfigFile
 
 #
-# Default login configuration file
+# Default login_and_register configuration file
 #
-#login.config.url.1=file:${user.home}/.java.login.config
+#login_and_register.config.url.1=file:${user.home}/.java.login_and_register.config
 
 #
 # Class to instantiate as the system Policy. This is the name of the class

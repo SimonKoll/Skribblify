@@ -1373,7 +1373,7 @@ Add *.dtd and messages*.xml to list of exclusions for the derbydocs target.
 ------------------------------------------------------------------------
 r471104 | djd | 2006-11-03 18:47:29 -0800 (Fri, 03 Nov 2006) | 3 lines
 
-DERBY-2033 (partial) Add login in CleanDatabaseTestSetup to unset database properties as
+DERBY-2033 (partial) Add login_and_register in CleanDatabaseTestSetup to unset database properties as
 part of the cleanup. Specifcally unset derby.database.classpath for the DatabaseClassLoadingTest
 but others can be added in the future.
 ------------------------------------------------------------------------
