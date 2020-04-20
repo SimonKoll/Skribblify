@@ -72,7 +72,7 @@ public class PaintController {
             g.setFill(colorPicker.getValue());
 
             if(bucket.isSelected()){
-                g.fillOval(0,0, canvas.getWidth(), canvas.getHeight());
+                g.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
             }else{
                 g.fillOval(x, y, size, size);
             }
