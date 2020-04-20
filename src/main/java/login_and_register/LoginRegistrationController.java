@@ -1,5 +1,4 @@
-package FXMLSwitching;
-
+package login_and_register;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,34 +12,34 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLDocumentController implements Initializable {
-    
+public class LoginRegistrationController implements Initializable {
+
     @FXML
     private Label lbl1,lbl2;
-    
+
     @FXML
-    private Button btn1,btn2;
-    
+    private Button toLogin,toRegister;
+
     @FXML
     private void handleButtonAction (ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
-       
-        if(event.getSource()==btn1){
-            stage = (Stage) btn1.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/FXMLSwitching/FXML2.fxml"));
+
+        if(event.getSource()==toLogin){
+            stage = (Stage) toLogin.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("/login_and_register/login.fxml"));
         }
         else{
-            stage = (Stage) btn2.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/FXMLSwitching/FXMLDocument.fxml"));
+            stage = (Stage) toRegister.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("/login_and_register/register.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }       
+    }
 }

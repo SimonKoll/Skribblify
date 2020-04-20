@@ -577,13 +577,13 @@ implements <a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/DataSourc
  while attempting to connect to a database.  A value of zero
  means that the timeout is the default system timeout
  if there is one; otherwise it means that there is no timeout.
- When a data source object is created, the login timeout is
+ When a data source object is created, the login_and_register timeout is
  initially zero. See <a href="../../../../org/apache/derby/jdbc/BasicEmbeddedDataSource40.html#setLoginTimeout-int-"><code>setLoginTimeout(int)</code></a>.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/CommonDataSource.html?is-external=true#getLoginTimeout--" title="class or interface in javax.sql">getLoginTimeout</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/CommonDataSource.html?is-external=true" title="class or interface in javax.sql">CommonDataSource</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the data source login time limit</dd>
+<dd>the data source login_and_register time limit</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if a database access error occurs.</dd>
 </dl>
@@ -601,7 +601,7 @@ implements <a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/DataSourc
  while attempting to connect to a database.  A value of zero
  specifies that the timeout is the default system timeout
  if there is one; otherwise it specifies that there is no timeout.
- When a data source object is created, the login timeout is
+ When a data source object is created, the login_and_register timeout is
  initially zero.
  <p/>
  <b>Derby currently ignores this property.</b></div>
@@ -609,7 +609,7 @@ implements <a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/DataSourc
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/CommonDataSource.html?is-external=true#setLoginTimeout-int-" title="class or interface in javax.sql">setLoginTimeout</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.oracle.com/javase/8/docs/api/javax/sql/CommonDataSource.html?is-external=true" title="class or interface in javax.sql">CommonDataSource</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>seconds</code> - the data source login time limit</dd>
+<dd><code>seconds</code> - the data source login_and_register time limit</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/8/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if a database access error occurs.</dd>
 </dl>
