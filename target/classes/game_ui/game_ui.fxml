@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ColorPicker?>
@@ -23,15 +24,15 @@
 <AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../style/game_ui.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_ui.PaintController">
    <children>
       <SVGPath content="M814,0c-22.72,43.46-61.23,99.09-126,130c-36.81,17.57-52.14,12.85-109,25c-128.4,27.45-221.07,88.04-254,110c-74.02,49.35-67.5,65.86-140,113c-71.35,46.39-138.77,70.14-185,83V0H814" fill="#ff5151" />
-      <Pane layoutX="56.0" layoutY="454.0" prefHeight="72.0" prefWidth="849.0" style="-fx-border-color: black;">
+      <Pane layoutX="56.0" layoutY="454.0" prefHeight="72.0" prefWidth="849.0" style="-fx-border-color: lightgrey;">
          <children>
-         <VBox layoutX="1.0" layoutY="6.0" prefHeight="60.0" prefWidth="842.0">
+         <VBox layoutX="1.0" layoutY="6.0" prefHeight="72.0" prefWidth="849.0">
             <MenuBar>
                <Menu text="File">
                   <MenuItem onAction="#onSave" text="Save" />
                </Menu>
             </MenuBar>
-            <ToolBar>
+            <ToolBar prefHeight="39.0" prefWidth="847.0">
                <HBox alignment="CENTER" spacing="5">
                      <Slider fx:id="brushSize" blockIncrement="9.0" majorTickUnit="3.0" max="60.0" min="5.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
                   <ColorPicker fx:id="colorPicker" />
@@ -53,7 +54,7 @@
             </BorderPane>
       <Pane layoutX="56.0" layoutY="14.0" prefHeight="53.0" prefWidth="849.0">
          <children>
-            <TextField editable="false" layoutX="200.0" layoutY="-7.0" prefHeight="53.0" prefWidth="404.0" style="-fx-background-color: #FF5151;" text="_ _ _ _ _ _ _ _ _ _ _ _">
+            <TextField editable="false" layoutX="169.0" layoutY="-7.0" prefHeight="68.0" prefWidth="538.0" style="-fx-background-color: #FF5151;" text="B A N A N A S H A K E ">
                <font>
                   <Font name="Comic Sans MS Bold" size="32.0" />
                </font>
@@ -95,7 +96,7 @@
                               </Pane>
                               <Pane layoutX="-2.0" layoutY="45.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
                                  <children>
-                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#2">
                                        <font>
                                           <Font name="Arial" size="18.0" />
                                        </font>
@@ -115,7 +116,7 @@
                               </Pane>
                               <Pane layoutX="-3.0" layoutY="90.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
                                  <children>
-                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#3">
                                        <font>
                                           <Font name="Arial" size="18.0" />
                                        </font>
@@ -135,7 +136,7 @@
                               </Pane>
                               <Pane layoutX="-2.0" layoutY="135.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
                                  <children>
-                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#4">
                                        <font>
                                           <Font name="Arial" size="18.0" />
                                        </font>
@@ -159,11 +160,11 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane layoutX="568.0" layoutY="165.0" prefHeight="151.0" prefWidth="281.0">
+            <Pane layoutX="568.0" layoutY="159.0" prefHeight="148.0" prefWidth="281.0">
                <children>
                   <ScrollPane prefHeight="148.0" prefWidth="281.0" styleClass=".users" stylesheets="@../style/game_ui.css">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="151.0" prefWidth="280.0" styleClass=".users" stylesheets="@../style/game_ui.css">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="266.0" styleClass=".users" stylesheets="@../style/game_ui.css">
                            <children>
                               <Pane layoutX="-2.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
                                  <children>
@@ -180,7 +181,26 @@
                                     </Text>
                                  </children>
                               </Pane>
-                              <Pane layoutX="-3.0" layoutY="45.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                              <Pane layoutX="-2.0" layoutY="45.0" prefHeight="45.0" prefWidth="272.0" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text fill="#22ae53" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="System Message">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#22ae53" layoutX="14.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="word-guessed" text="Messy Mike guessed the word!">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="user-element" />
+                                    <String fx:value="system-message" />
+                                    <String fx:value="word-guessed" />
+                                 </styleClass>
+                              </Pane>
+                              <Pane layoutX="-3.0" layoutY="90.0" prefHeight="45.0" prefWidth="272.0" stylesheets="@../style/game_ui.css">
                                  <children>
                                     <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
                                     <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
@@ -188,14 +208,18 @@
                                           <Font name="Arial Bold" size="12.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dog">
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The word is ****">
                                        <font>
                                           <Font name="Arial" size="12.0" />
                                        </font>
                                     </Text>
                                  </children>
+                                 <styleClass>
+                                    <String fx:value="user-element" />
+                                    <String fx:value="already-guessed" />
+                                 </styleClass>
                               </Pane>
-                              <Pane layoutX="-3.0" layoutY="90.0" prefHeight="45.0" prefWidth="269.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                              <Pane layoutX="-2.0" layoutY="135.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
                                  <children>
                                     <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
                                     <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
@@ -203,9 +227,9 @@
                                           <Font name="Arial Bold" size="12.0" />
                                        </font>
                                     </Text>
-                                    <Text fill="#46b564" layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: green;" styleClass="word-guessed" text="Guessed the word!">
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The word is banana!">
                                        <font>
-                                          <Font name="Arial Bold" size="12.0" />
+                                          <Font name="Arial" size="12.0" />
                                        </font>
                                     </Text>
                                  </children>
@@ -222,7 +246,7 @@
                   </Pane>
       <Pane prefHeight="94.0" prefWidth="92.0">
          <children>
-            <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0" stylesheets="@style/noPercent.css" />
+            <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0"/>
             <Text layoutX="40.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="80" wrappingWidth="37.13671875">
                <font>
                   <Font size="34.0" />

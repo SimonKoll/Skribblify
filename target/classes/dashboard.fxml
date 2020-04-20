@@ -78,10 +78,11 @@
                   <SVGPath content="M560,0v289c-33.07,3.49-81.83,3.07-118-27c-37.81-31.43-27.38-66.62-64-91c-41.42-27.58-69.36,7.73-148-13c-48.85-12.88-41.27-27.34-106-47C74.75,96.04,52.12,98.87,30,78C6.31,55.64,1.01,22.89,0,0H560z" fill="#ff5151" layoutX="219.0" />
                   <Pane layoutX="31.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #f8b87c, #ff8191);" />
                   <Pane layoutX="287.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #629cdc, #7b7bf2);" />
-                  <TableView layoutX="31.0" layoutY="297.0" prefHeight="234.0" prefWidth="716.0">
+                  <TableView layoutX="31.0" layoutY="297.0" prefHeight="234.0" prefWidth="324.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="name" />
-                      <TableColumn prefWidth="75.0" text="id" />
+                      <TableColumn prefWidth="136.0" text="name" />
+                      <TableColumn minWidth="0.0" prefWidth="114.0" text="id" />
+                        <TableColumn prefWidth="75.0" text="Online" />
                     </columns>
                   </TableView>
                   <Text layoutX="31.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Friendlist" />
