@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@style/game_ui.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_ui.PaintController">
+<AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../style/game_ui.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_ui.PaintController">
    <children>
       <SVGPath content="M814,0c-22.72,43.46-61.23,99.09-126,130c-36.81,17.57-52.14,12.85-109,25c-128.4,27.45-221.07,88.04-254,110c-74.02,49.35-67.5,65.86-140,113c-71.35,46.39-138.77,70.14-185,83V0H814" fill="#ff5151" />
       <Pane layoutX="56.0" layoutY="454.0" prefHeight="72.0" prefWidth="849.0" style="-fx-border-color: black;">
