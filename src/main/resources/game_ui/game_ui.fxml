@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
@@ -51,9 +52,189 @@
       </Pane>
       <Pane layoutX="56.0" layoutY="78.0" prefHeight="365.0" prefWidth="849.0">
          <children>
-            <Pane layoutX="568.0" layoutY="187.0" prefHeight="178.0" prefWidth="281.0" style="-fx-border-color: black;" />
-            <Pane layoutX="568.0" layoutY="-1.0" prefHeight="172.0" prefWidth="281.0" style="-fx-border-color: black;" />
-            <BorderPane  prefHeight="365.0" prefWidth="559.0">
+            <Pane layoutX="568.0" layoutY="183.0" prefHeight="178.0" prefWidth="281.0" style="-fx-border-color: black;">
+               <children>
+                  <ScrollPane prefHeight="172.0" prefWidth="281.0" styleClass=".users" stylesheets="@../style/game_ui.css">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="266.0" styleClass=".users" stylesheets="@../style/game_ui.css">
+                           <children>
+                              <Pane layoutX="-2.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Banana">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="-3.0" layoutY="45.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dog">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="-3.0" layoutY="90.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Boiz... its clock!">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="-2.0" layoutY="135.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#46b564" layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-fill: green;" styleClass="word-guessed" text="Guessed the word!">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane layoutX="568.0" layoutY="-1.0" prefHeight="172.0" prefWidth="281.0" style="-fx-border-color: black;">
+               <children>
+                  <ScrollPane prefHeight="172.0" prefWidth="281.0" styleClass=".users" stylesheets="@../style/game_ui.css">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="266.0" styleClass=".users" stylesheets="@../style/game_ui.css">
+                           <children>
+                              <Pane layoutX="-2.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="530 Points">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="-2.0" layoutY="45.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="530 Points">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="-3.0" layoutY="90.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="530 Points">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="-2.0" layoutY="135.0" prefHeight="45.0" prefWidth="272.0" styleClass="user-element" stylesheets="@../style/game_ui.css">
+                                 <children>
+                                    <Text layoutX="237.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#1">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Pane layoutX="14.0" layoutY="5.0" prefHeight="35.0" prefWidth="35.0" styleClass="user-profile" stylesheets="@../style/game_ui.css" />
+                                    <Text layoutX="57.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messy Mike">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="57.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="530 Points">
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></Pane>
+            <BorderPane prefHeight="365.0" prefWidth="559.0">
                <top>
                   <Pane prefHeight="361.0" prefWidth="559.0" style="-fx-background-color: white;" styleClass="pane" BorderPane.alignment="CENTER">
                      <children>
