@@ -33,3 +33,29 @@
 .word-guessed{
   -fx-text-fill: green !important;
 }
+
+.input-field {
+    -fx-background-color: white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+    -fx-text-fill: black !important;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-border-color: grey transparent transparent transparent;
+  }
+
+.input-field:focused {
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+
+.system-message{
+  -fx-text-fill: green;
+  fx-border-style: solid solid none solid;
+  -fx-border-width: 1;
+  -fx-border-color: #22ae53;
+}
+
+
+.already-guessed{
+  -fx-opacity: .4;
+}

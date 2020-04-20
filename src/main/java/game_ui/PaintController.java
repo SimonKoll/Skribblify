@@ -36,7 +36,6 @@ public class PaintController {
         colorPicker.setValue(Color.BLACK);
         GraphicsContext g = canvas.getGraphicsContext2D();
 
-
         canvas.setOnMouseMoved(e -> {
 
 
