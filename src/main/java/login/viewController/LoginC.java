@@ -72,7 +72,8 @@ public class LoginC {
 
     @FXML
     private void login_pressed(ActionEvent event) {
-        try{
+        System.out.println("login pressed");
+        /*try{
             new Login(model).save(statement);
             model.clear();
             getUname().setText("Ok, gesichert!");
@@ -81,7 +82,7 @@ public class LoginC {
             getUname().setText(ex.getMessage());
             getUname().setText("-fx-text-inner-color:red;");
         }
-
+*/
 
     }
 

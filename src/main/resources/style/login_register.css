@@ -1,0 +1,23 @@
+.inputfield{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+    -fx-font-family: "Quicksand";
+     -fx-font-size: 14;
+     -fx-font-weight:700;
+-fx-border-width: 0 0 3 0; -fx-border-color: transparent transparent #FF5151 transparent;
+}
+
+
+.inputfield:focused{
+  -fx-background-color: white;
+}
+
+
+.button-design{
+  -fx-font-family: "Quicksand";
+   -fx-font-size: 18;
+   -fx-font-weight:700;
+  -fx-background-color: #FF5151;
+  -fx-text-fill:white;
+}
