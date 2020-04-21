@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="derbyclient">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/derbyclient.jar!/" />
       <root url="file://C:/Program Files/Java/jre1.8.0_111/lib" />
       <root url="file://$PROJECT_DIR$/libs/jdk1.8.0_111/lib" />
+      <root url="jar://$PROJECT_DIR$/opt/derbyclient.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

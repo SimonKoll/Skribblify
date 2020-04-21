@@ -1,4 +1,4 @@
-package login_and_register;
+package login.main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,11 +27,11 @@ public class LoginRegistrationController implements Initializable {
 
         if(event.getSource()==toLogin){
             stage = (Stage) toLogin.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/login_and_register/login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/login/LoginV.fxml"));
         }
         else{
             stage = (Stage) toRegister.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/login_and_register/register.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/registration/register.fxml"));
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
