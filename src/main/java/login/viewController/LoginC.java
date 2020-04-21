@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.animation.FillTransition;
+import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import login.model.Login;
 
 public class LoginC {
@@ -32,6 +38,10 @@ public class LoginC {
     private TextField password;
     @FXML
     private Button register_button;
+    @FXML
+    private static SVGPath svg_background;
+    @FXML
+    private Button register_button1;
 
 
 
@@ -40,9 +50,31 @@ public class LoginC {
     public LoginC(){
 
     }
+    public static void animationBackground(){
+        PathTransition pathTransition = new PathTransition();
 
+        String typicalDuration = "1000";
+        pathTransition.setDuration(Duration.valueOf(typicalDuration));
+        pathTransition.setDuration(new Duration((double)typicalDuration));
+        pathTransition.setNode(circle);
+        circle.setRotate(30);
+        //pathTransition.setPath(AnimationPath.createFromPath(path));
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(OrientationType.NONE);
+
+        timeline.setCycleCount(3);
+        timeline.setAutoReverse(true);
+    }
     public static void show(Stage stage, Statement statement){
+
+        // Animation test
+        animationBackground();
+
+
         try{
+
+
+
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login/LoginV.fxml"));
             Parent root = (Parent) loader.load();
 
