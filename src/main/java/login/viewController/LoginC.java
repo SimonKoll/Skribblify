@@ -50,26 +50,10 @@ public class LoginC {
     public LoginC(){
 
     }
-    public static void animationBackground(){
-        PathTransition pathTransition = new PathTransition();
 
-        String typicalDuration = "1000";
-        pathTransition.setDuration(Duration.valueOf(typicalDuration));
-        pathTransition.setDuration(new Duration((double)typicalDuration));
-        pathTransition.setNode(circle);
-        circle.setRotate(30);
-        //pathTransition.setPath(AnimationPath.createFromPath(path));
-        pathTransition.setPath(path);
-        pathTransition.setOrientation(OrientationType.NONE);
-
-        timeline.setCycleCount(3);
-        timeline.setAutoReverse(true);
-    }
     public static void show(Stage stage, Statement statement){
 
         // Animation test
-        animationBackground();
-
 
         try{
 
