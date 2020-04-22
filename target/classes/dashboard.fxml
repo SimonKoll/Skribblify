@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,13 +16,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../../res/fonts.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashboard.Dashboard">
+<AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../../resources/fonts.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dashboard.Dashboard">
    <children>
+      <SVGPath content="M0,0c16.89,16.23,43.57,37.08,81,48c13.68,3.99,17.01,3.22,38,8c11.79,2.69,57.83,13.66,96,33    c52.52,26.61,42.5,44.92,85,65c44.08,20.83,65.37,6.1,120,18c30.25,6.59,72.21,21.67,119,60H0L0,0z" fill="#ff5151" translateY="308.0" AnchorPane.bottomAnchor="308.0" AnchorPane.topAnchor="0.0" />
       <FlowPane prefHeight="540.0" prefWidth="960.0">
          <children>
-            <Pane prefHeight="540.0" prefWidth="181.0" style="-fx-background-color: white;">
+            <Pane prefHeight="540.0" prefWidth="181.0" style="-fx-background-color: transparent;">
                <children>
-                  <Circle layoutX="32.0" layoutY="87.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: red;">
+                  <Circle layoutX="32.0" layoutY="121.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-color: red;">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -29,63 +34,43 @@
                         </LinearGradient>
                      </fill>
                   </Circle>
-                  <Text fill="#005b80" layoutX="45.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skribblify">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="54.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angelina Doe" wrappingWidth="72.0078125">
+                  <Text fx:id="username" layoutX="54.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angelina Doe" wrappingWidth="72.0078125">
                      <font>
                         <Font name="Calibri Bold" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="54.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#P9V099J">
+                  <Text fx:id="userid" layoutX="54.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#P9V099J">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Text>
-                  <Pane layoutY="133.0" prefHeight="36.0" prefWidth="181.0">
-                     <children>
-                        <Text fill="#61d9f7" layoutX="24.0" layoutY="22.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
-                           <font>
-                              <Font name="Franklin Gothic Demi" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <Pane layoutY="169.0" prefHeight="36.0" prefWidth="181.0">
-                     <children>
-                        <Text fill="#61d9f7" layoutX="24.0" layoutY="22.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
-                           <font>
-                              <Font name="Franklin Gothic Demi" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <Pane layoutY="205.0" prefHeight="36.0" prefWidth="181.0">
-                     <children>
-                        <Text fill="#61d9f7" layoutX="24.0" layoutY="22.0" lineSpacing="3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
-                           <font>
-                              <Font name="Franklin Gothic Demi" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
+                  <Button layoutX="25.0" layoutY="182.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="button-design" stylesheets="@style/login_register.css" text="Play!" />
+                  <Button layoutX="25.0" layoutY="231.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="button-design" stylesheets="@style/login_register.css" text="Logout" />
+                  <ImageView fitHeight="57.0" fitWidth="134.0" layoutX="34.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@login/logo_skribblify.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane prefHeight="540.0" prefWidth="779.0">
                <children>
                   <SVGPath content="M560,0v289c-33.07,3.49-81.83,3.07-118-27c-37.81-31.43-27.38-66.62-64-91c-41.42-27.58-69.36,7.73-148-13c-48.85-12.88-41.27-27.34-106-47C74.75,96.04,52.12,98.87,30,78C6.31,55.64,1.01,22.89,0,0H560z" fill="#ff5151" layoutX="219.0" />
-                  <Pane layoutX="31.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #f8b87c, #ff8191);" />
-                  <Pane layoutX="287.0" layoutY="76.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #629cdc, #7b7bf2);" />
-                  <TableView layoutX="31.0" layoutY="297.0" prefHeight="234.0" prefWidth="324.0">
+                  <Pane fx:id="gameHighlights01" layoutX="114.0" layoutY="65.0" prefHeight="160.0" prefWidth="230.0" style="-fx-background-radius: 25px; -fx-background-color: linear-gradient(to top right, #f8b87c, #ff8191);" />
+                  <TableView layoutX="114.0" layoutY="290.0" prefHeight="234.0" prefWidth="551.0">
                     <columns>
-                      <TableColumn prefWidth="136.0" text="name" />
-                      <TableColumn minWidth="0.0" prefWidth="114.0" text="id" />
-                        <TableColumn prefWidth="75.0" text="Online" />
+                      <TableColumn fx:id="friendlist" prefWidth="136.0" text="All" />
+                      <TableColumn minWidth="0.0" prefWidth="114.0" text="Online" />
+                        <TableColumn prefWidth="75.0" text="Offline" />
+                        <TableColumn prefWidth="75.0" text="Pending" />
                     </columns>
                   </TableView>
-                  <Text layoutX="31.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Friendlist" />
+                  <Text layoutX="114.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Highlights">
+                     <font>
+                        <Font name="Cardenio Modern" size="48.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="114.0" layoutY="237.0" prefHeight="33.0" prefWidth="551.0" promptText="Search friend ..." styleClass="inputfield" stylesheets="@style/login_register.css" />
                </children>
             </Pane>
          </children>
