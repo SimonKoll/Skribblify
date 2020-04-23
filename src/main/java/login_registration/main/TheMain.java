@@ -1,12 +1,9 @@
-package login.main;
+package login_registration.main;
 
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import login.viewController.LoginC;
+import login_registration.login.viewController.LoginC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

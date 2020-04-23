@@ -1,4 +1,4 @@
-package login.model;
+package login_registration.model;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-public class Login {
+public class User {
 
 
     private final StringProperty username = new SimpleStringProperty();
@@ -20,7 +20,7 @@ public class Login {
     private final ObjectProperty<LocalDate> last_login = new SimpleObjectProperty<LocalDate>();
 
 
-    public Login(){
+    public User(){
         username.setValue(null);
         password.setValue(null);
         user_img.setValue(null);
@@ -42,7 +42,7 @@ public class Login {
     }
 
 
-    public Login checkExisting(String username, Statement statement) throws SQLException {
+    public User checkExisting(String username, Statement statement) throws SQLException {
         String sql
                 = " select user_id "
                 + "       ,username "
@@ -55,18 +55,18 @@ public class Login {
 
 
         ResultSet rSet = statement.executeQuery(sql);
-        Login login = null;
+        User user = null;
 
         if(rSet.next()){
-            login = new Login();
+            user = new User();
 
-            login.setUsername(rSet.getString("username"));
-            login.setPassword(rSet.getString("password"));
-            login.setUser_img(rSet.getString("user_img"));
-            login.setUser_status(Status.Y);
+            user.setUsername(rSet.getString("username"));
+            user.setPassword(rSet.getString("password"));
+            user.setUser_img(rSet.getString("user_img"));
+            user.setUser_status(Status.Y);
         }
 
-        return login;
+        return user;
     }
 
     public String getUsername() {

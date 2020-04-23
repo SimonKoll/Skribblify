@@ -62,12 +62,12 @@ completely.</p>
 
 <p>The second technique is to run the Network Server with a custom security
 policy that does not grant <samp class="codeph">derby.jar</samp> the permissions needed to
-register MBeans. For example, you can modify the Network Server's basic policy
+login_registration.registration MBeans. For example, you can modify the Network Server's basic policy
 by commenting out this section:</p>
 
 <pre>// Allows access to <span>Derby</span>'s built-in MBeans, within the domain
 // org.apache.derby.
-// <span>Derby</span> must be allowed to register and unregister these MBeans.
+// <span>Derby</span> must be allowed to login_registration.registration and unregister these MBeans.
 // It is possible to allow access only to specific MBeans, attributes or
 // operations. To fine tune this permission, see the javadoc of
 // javax.management.MBeanPermission or the JMX Instrumentation and Agent
@@ -77,7 +77,7 @@ permission javax.management.MBeanPermission
     "org.apache.derby.*#[org.apache.derby:*]",
     "registerMBean,unregisterMBean";</pre>
 
-<p>If the permission to register MBeans is not granted to
+<p>If the permission to login_registration.registration MBeans is not granted to
 <samp class="codeph">derby.jar</samp>,
 <span>Derby</span> will silently skip
 starting the management service at boot time.</p>

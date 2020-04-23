@@ -167,8 +167,8 @@ Top of page
 MEMBER ACCOUNT, PASSWORD, AND SECURITY.
 
 If any of the Services requires you to open an account, you must complete the
-registration process by providing us with current, complete and accurate
-information as prompted by the applicable registration form. You also will
+login_registration.registration process by providing us with current, complete and accurate
+information as prompted by the applicable login_registration.registration form. You also will
 choose a password and a user name. You are entirely responsible for maintaining
 the confidentiality of your password and account. Furthermore, you are entirely
 responsible for any and all activities that occur under your account. You agree

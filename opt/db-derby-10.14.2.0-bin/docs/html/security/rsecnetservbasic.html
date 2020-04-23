@@ -115,7 +115,7 @@ grant codeBase "${derby.install.url}derby.jar"
   //
   // Allows access to <span>Derby</span>'s built-in MBeans, within the domain
   // org.apache.derby.
-  // <span>Derby</span> must be allowed to register and unregister these MBeans.
+  // <span>Derby</span> must be allowed to login_registration.registration and unregister these MBeans.
   // It is possible to allow access only to specific MBeans, attributes 
   // or operations. To fine tune this permission, see the javadoc of 
   // javax.management.MBeanPermission or the JMX Instrumentation and 
@@ -125,10 +125,10 @@ grant codeBase "${derby.install.url}derby.jar"
       "org.apache.derby.*#[org.apache.derby:*]",
       "registerMBean,unregisterMBean";
   //
-  // Trusts <span>Derby</span> code to be a source of MBeans and to register these in
+  // Trusts <span>Derby</span> code to be a source of MBeans and to login_registration.registration these in
   // the MBean server.
   //
-  permission javax.management.MBeanTrustPermission "register";
+  permission javax.management.MBeanTrustPermission "login_registration.registration";
 
   // getProtectionDomain is an optional permission needed for printing
   // classpath information to derby.log

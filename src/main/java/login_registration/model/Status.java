@@ -1,4 +1,4 @@
-package login.model;
+package login_registration.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

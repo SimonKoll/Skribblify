@@ -123,7 +123,7 @@ grant principal javax.management.remote.JMXPrincipal "controlRole" {
       "invoke";
 
   // Extra permissions for application controlled ManagementMBean:
-  //   Not needed if you do not intend to create/register your own
+  //   Not needed if you do not intend to create/login_registration.registration your own
   //   <span>Derby</span> Management MBean.
   //   Wildcards (*) allow all domains, key properties and MBean members.
   //   You may want to be more specific here.
@@ -176,7 +176,7 @@ grant codeBase "${derby.install.url}derby.jar"
   permission javax.management.MBeanServerPermission "createMBeanServer";
 
   // Allows access to <span>Derby</span>'s built-in MBeans, within the domain 
-  //  org.apache.derby. <span>Derby</span> must be allowed to register and unregister
+  //  org.apache.derby. <span>Derby</span> must be allowed to login_registration.registration and unregister
   //  these MBeans.
   // It is possible to allow access only to specific MBeans, attributes,
   //  or operations. To fine-tune this permission, see the API doc of 
@@ -187,10 +187,10 @@ grant codeBase "${derby.install.url}derby.jar"
       "org.apache.derby.*#[org.apache.derby:*]", 
       "registerMBean,unregisterMBean";
 
-  // Trusts <span>Derby</span> code to be a source of MBeans and to register these in
+  // Trusts <span>Derby</span> code to be a source of MBeans and to login_registration.registration these in
   // the MBean server.
   //
-  permission javax.management.MBeanTrustPermission "register";
+  permission javax.management.MBeanTrustPermission "login_registration.registration";
 
   // Gives permission for JMX to be used against <span>Derby</span>.
   // If JMX user authentication is being used, a whole set of

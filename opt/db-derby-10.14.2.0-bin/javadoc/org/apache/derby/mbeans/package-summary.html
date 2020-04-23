@@ -140,7 +140,7 @@
 <h2 title="Package org.apache.derby.mbeans Description">Package org.apache.derby.mbeans Description</h2>
 <div class="block"><h2> JMX MBeans. </h2>
 When Derby (the embedded engine) is booted it will attempt to connect
-to the PlatformMBeanServer and register a number of MBeans to monitor and manage Derby.
+to the PlatformMBeanServer and login_registration.registration a number of MBeans to monitor and manage Derby.
 <P>
 Derby registers its JMX MBeans in the <code>org.apache.derby</code> domain and
 always includes values for <code>type</code> and <code>system</code> in the MBean's ObjectName's key
@@ -174,10 +174,10 @@ If Derby cannot connect to the PlatformMBeanServer then no MBeans will be regist
 Applications may use the <code>org.apache.derby.mbeans.Management</code> MBean to
 later enable Derby's JMX management.
 <P>
-If Derby cannot register a specific MBean (e.g. due to no permission to register
+If Derby cannot login_registration.registration a specific MBean (e.g. due to no permission to login_registration.registration
 that MBean) then it will simply be ignored. Subsequent re-starts of Derby's
 management service through <code>org.apache.derby.mbeans.ManagementMBean</code> will
-attempt to register such an MBean again (assuming it is still valid),
+attempt to login_registration.registration such an MBean again (assuming it is still valid),
 in case the security policy has been updated.</div>
 </div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->

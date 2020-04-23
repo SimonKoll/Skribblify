@@ -167,7 +167,7 @@ details, see "Using Java Management Extensions (JMX) technology" in the
 <dt class="dlterm">permission javax.management.MBeanPermission 
 "org.apache.derby.*#[org.apache.derby:*]", "registerMBean,unregisterMBean";</dt>
 
-<dd>Allows <span>Derby</span> to register
+<dd>Allows <span>Derby</span> to login_registration.registration
 and unregister its (JMX) MBeans. Such MBeans are associated with the domain
 <samp class="codeph">org.apache.derby</samp>, which is also the prefix of the fully
 qualified class name of all
@@ -181,10 +181,10 @@ To fine-tune this permission, see the API documentation for
 and Agent Specification.</dd>
 
 
-<dt class="dlterm">permission javax.management.MBeanTrustPermission "register";</dt>
+<dt class="dlterm">permission javax.management.MBeanTrustPermission "login_registration.registration";</dt>
 
 <dd>Trusts <span>Derby</span> code to be
-the source of MBeans and to register these in the MBean server.</dd>
+the source of MBeans and to login_registration.registration these in the MBean server.</dd>
 
 
 <dt class="dlterm">permission java.lang.RuntimePermission "getProtectionDomain";</dt>

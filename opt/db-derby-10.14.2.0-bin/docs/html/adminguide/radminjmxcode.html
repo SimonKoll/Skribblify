@@ -72,7 +72,7 @@ used).</p>
 
 <div class="section" id="radminjmxcode__connmbeanserver"><a name="radminjmxcode__connmbeanserver"><!-- --></a><h2 class="sectiontitle">Connecting to the MBean Server</h2>
 <p><span>Derby</span> will attempt to
-register its MBeans with the platform MBean server of the JVM running the
+login_registration.registration its MBeans with the platform MBean server of the JVM running the
 <span>Derby</span> system (embedded or
 Network Server). The following examples assume that you have configured the
 <span>Derby</span> JVM to enable remote
@@ -143,7 +143,7 @@ server. It is therefore recommended to use a different object name domain
 <samp class="codeph">type</samp> key property value (different from
 <samp class="codeph">Management</samp>).</p>
 
-<p>The following example code shows how to create and register a new
+<p>The following example code shows how to create and login_registration.registration a new
 <samp class="codeph">ManagementMBean</samp> with the MBean server:</p>
 
 <pre>    ObjectName mgmtObjName = new ObjectName("com.example.app", 

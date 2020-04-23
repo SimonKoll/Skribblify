@@ -88,7 +88,7 @@
                   <Button fx:id="playBtn1" layoutX="-42.0" layoutY="240.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="198.0" styleClass="button-sidebar-design" stylesheets="@../style/login_register.css" text="Stats" />
                   <ImageView fitHeight="57.0" fitWidth="134.0" layoutX="34.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../login/logo_skribblify.png" />
+                        <Image url="@../login_registration/login/logo_skribblify.png" />
                      </image>
                   </ImageView>
                </children>

@@ -24,7 +24,7 @@
 # by default.
 
 # In this file, various security properties are set for use by
-# java.security classes. This is where users can statically register
+# java.security classes. This is where users can statically login_registration.registration
 # Cryptography Package Providers ("providers" for short). The term
 # "provider" refers to a package or set of packages that supply a
 # concrete implementation of a subset of the cryptography aspects of
@@ -32,7 +32,7 @@
 # more digital signature algorithms or message digest algorithms.
 #
 # Each provider must implement a subclass of the Provider class.
-# To register a provider in this master security properties file,
+# To login_registration.registration a provider in this master security properties file,
 # specify the Provider subclass name and priority in the format
 #
 #    security.provider.<n>=<className>

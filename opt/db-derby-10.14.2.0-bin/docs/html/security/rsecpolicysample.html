@@ -106,7 +106,7 @@
   permission javax.management.MBeanServerPermission "createMBeanServer";
   //
   // Allows access to Derby's built-in MBeans, within the domain
-  // org.apache.derby. Derby must be allowed to register and unregister
+  // org.apache.derby. Derby must be allowed to login_registration.registration and unregister
   // these MBeans. It is possible to allow access only to specific
   // MBeans,   // attributes, or operations. To fine-tune this
   // permission, see the API documentation of
@@ -117,10 +117,10 @@
       "org.apache.derby.*#[org.apache.derby:*]",
       "registerMBean,unregisterMBean";
   //
-  // Trusts Derby code to be a source of MBeans and to register these in
+  // Trusts Derby code to be a source of MBeans and to login_registration.registration these in
   // the MBean server.
   //
-  permission javax.management.MBeanTrustPermission "register";
+  permission javax.management.MBeanTrustPermission "login_registration.registration";
 
   // getProtectionDomain is an optional permission needed for printing
   // classpath information to derby.log.

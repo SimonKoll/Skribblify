@@ -1363,7 +1363,7 @@ I only have some minor comments/questions:&lt;br/&gt;
 &lt;br/&gt;
  - I do not understand the javadoc for EXTDTAInputStream.isNUll.  What&lt;br/&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;do you mean by &amp;quot;determined in the constructor&amp;quot;?  It seems like the&lt;br/&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;only thing the constructor does is to register the parameter&lt;br/&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;only thing the constructor does is to login_registration.registration the parameter&lt;br/&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;values.&lt;br/&gt;
 &amp;nbsp;&amp;nbsp;&lt;br/&gt;
 +1 to commit, but would prefer that the comments discussed about is made clearer.</comment>
