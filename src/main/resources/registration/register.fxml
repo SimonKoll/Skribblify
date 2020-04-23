@@ -15,11 +15,11 @@
             <Image url="@../login/logo_skribblify.png" />
          </image>
       </ImageView>
-      <Button layoutX="406.0" layoutY="411.0" mnemonicParsing="false" onAction="#register_pressed" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" text="Register" />
-      <TextField layoutX="407.0" layoutY="347.0" promptText="Check Password" styleClass="inputfield" stylesheets="@../style/login_register.css" text="Check" />
-      <TextField layoutX="407.0" layoutY="305.0" promptText="Password" styleClass="inputfield" stylesheets="@../style/login_register.css" text="Password" />
-      <TextField layoutX="407.0" layoutY="261.0" promptText="Username" styleClass="inputfield" text="Username" />
-      <Button fx:id="toLogin" layoutX="406.0" layoutY="458.0" mnemonicParsing="false" onAction="#go_to_login" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" text="Already registerd?" />
+      <Button fx:id="registerBtn" layoutX="406.0" layoutY="411.0" mnemonicParsing="false" onAction="#register_pressed" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" text="Register" />
+      <TextField fx:id="password_2" layoutX="407.0" layoutY="347.0" promptText="Check Password" styleClass="inputfield" stylesheets="@../style/login_register.css" text="Check" />
+      <TextField fx:id="password_1" layoutX="407.0" layoutY="305.0" promptText="Password" styleClass="inputfield" stylesheets="@../style/login_register.css" text="Password" />
+      <TextField fx:id="username" layoutX="407.0" layoutY="261.0" promptText="Username" styleClass="inputfield" text="Username" />
+      <Button fx:id="goToLoginBtn" layoutX="406.0" layoutY="458.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" text="Already registerd?" />
          
    </children>
 </AnchorPane>
