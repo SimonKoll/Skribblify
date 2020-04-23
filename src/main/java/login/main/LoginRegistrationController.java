@@ -11,16 +11,24 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.TextField;
 
 public class LoginRegistrationController implements Initializable {
 
+    private Button toLogin;
     @FXML
-    private Label lbl1,lbl2;
+    private Button toRegister;
+    @FXML
+    private Button registerBtn;
+    @FXML
+    private TextField password_2;
+    @FXML
+    private TextField password_1;
+    @FXML
+    private TextField username;
+    @FXML
+    private Button goToLoginBtn;
 
-    @FXML
-    private Button toLogin,toRegister;
-
-    @FXML
     private void handleButtonAction (ActionEvent event) throws Exception {
         Stage stage;
         Parent root;
@@ -41,5 +49,13 @@ public class LoginRegistrationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+
+    @FXML
+    private void register_pressed(ActionEvent event) {
+    }
+
+    @FXML
+    private void goToLogin(ActionEvent event) {
     }
 }
