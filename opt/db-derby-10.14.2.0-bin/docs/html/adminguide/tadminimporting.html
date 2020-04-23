@@ -103,7 +103,7 @@ contains the LOB data</td>
 
 <tr>
 <td valign="top" width="33%" headers="N100A3">To import the data to a table, where the LOB data is
-stored in a separate file and the main import file contains all of the other
+stored in a separate file and the dashboard.main import file contains all of the other
 data with a reference to the LOB data</td>
 
 <td valign="top" width="67%" headers="N100AA"><pre>SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE
@@ -115,9 +115,9 @@ data with a reference to the LOB data</td>
   IN <a href="radminimport64241.html#radminimport64241__radminimportcodesetarg">CODESET</a> VARCHAR(128),
   IN <a href="radminimport64241.html#radminimport64241__radminimportreplace">REPLACE</a> SMALLINT)</pre>
 
-<p>The import utility looks in the main import file for a reference to the
+<p>The import utility looks in the dashboard.main import file for a reference to the
 location of the LOB data. The format of the reference to the LOB stored in the
-main import file must be
+dashboard.main import file must be
 <samp class="codeph"><em>lobsFileName</em>.<em>Offset</em>.<em>length</em>/</samp>.</p>
 
 </td>
@@ -149,7 +149,7 @@ a column in a table.</p>
 
 <tr>
 <td valign="top" width="33%" headers="N100A3">To import data to a subset of columns in a table, where
-the LOB data is stored in a separate file and the main import file contains all
+the LOB data is stored in a separate file and the dashboard.main import file contains all
 of the other data with a reference to the LOB data</td>
 
 <td valign="top" width="67%" headers="N100AA"><pre>SYSCS_UTIL.SYSCS_IMPORT_DATA_LOBS_FROM_EXTFILE
@@ -163,9 +163,9 @@ of the other data with a reference to the LOB data</td>
   IN <a href="radminimport64241.html#radminimport64241__radminimportcodesetarg">CODESET</a> VARCHAR(128),
   IN <a href="radminimport64241.html#radminimport64241__radminimportreplace">REPLACE</a> SMALLINT)</pre>
 
-<p>The import utility looks in the main import file for a reference to the
+<p>The import utility looks in the dashboard.main import file for a reference to the
 location of the LOB data. The format of the reference to the LOB stored in the
-main import file must be
+dashboard.main import file must be
 <samp class="codeph"><em>lobsFileName</em>.<em>Offset</em>.<em>length</em>/</samp>.</p>
 
 </td>

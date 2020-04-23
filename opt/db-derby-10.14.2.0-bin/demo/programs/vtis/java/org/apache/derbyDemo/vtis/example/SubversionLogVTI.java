@@ -204,7 +204,7 @@ public    class   SubversionLogVTI  extends FlatFileVTI
 
     /**
      * <p>
-     * Read the next field in the main line of the record. Fields are delimited
+     * Read the next field in the dashboard.main line of the record. Fields are delimited
      * by | or line-end.
      * </p>
      */

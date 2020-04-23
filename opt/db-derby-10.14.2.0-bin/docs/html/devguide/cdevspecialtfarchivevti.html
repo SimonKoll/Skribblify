@@ -66,11 +66,11 @@ import org.apache.derby.vti.VTIContext;
 /**
  * &lt;p&gt;
  * This table function acts like a union view on a set of archive tables.
- * The idea is that the old contents of a main table are periodically
+ * The idea is that the old contents of a dashboard.main table are periodically
  * moved to archive tables whose names start with $tableName$suffix.
  * Each bulk move of rows results in the creation of a new archive table.
- * The archive tables live in the same schema as the main table and have
- * its shape. This table function unions the main table together with all
+ * The archive tables live in the same schema as the dashboard.main table and have
+ * its shape. This table function unions the dashboard.main table together with all
  * of its archived snapshots. So, for instance, you might have the
  * following set of tables, which this table function unions together:
  * &lt;/p&gt;

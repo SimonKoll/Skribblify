@@ -62,7 +62,7 @@ procedures.</p>
 <p>CLOB and BLOB data can be exported to the same file as the rest of the column
 data, or the LOB column data can be exported to a separate external file. When
 the LOB column data is exported to a separate external file, reference to the
-location of the LOB data is placed in the LOB column in the main export
+location of the LOB data is placed in the LOB column in the dashboard.main export
 file.</p>
 
 <p>Importing and exporting LOB data using a separate external file might be
@@ -82,7 +82,7 @@ data</li>
 <div class="section"><h2 class="sectiontitle">Importing and exporting other binary data</h2>
 <p>When you export columns that contain the data types CHAR FOR BIT DATA,
 VARCHAR FOR BIT DATA, and LONG VARCHAR FOR BIT DATA, the column data is always
-exported to the main export file. The data is written in hexadecimal format. To
+exported to the dashboard.main export file. The data is written in hexadecimal format. To
 import data into a table that has columns of these data types, the data in the
 import file for those columns must be in hexadecimal format.</p>
 
@@ -104,11 +104,11 @@ data must be in hexadecimal format.</p>
 <p>You can use the
 <samp class="codeph">SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE</samp> and
 <samp class="codeph">SYSCS_UTIL.SYSCS_IMPORT_DATA_LOBS_FROM_EXTFILE</samp> procedures to
-import LOB data that is stored in a file that is separate from the main import
+import LOB data that is stored in a file that is separate from the dashboard.main import
 file. These procedures read the LOB data using the reference that is stored in
-the main import file.  If you are importing data from a
+the dashboard.main import file.  If you are importing data from a
 non-<span>Derby</span> source, the
-references to the LOB data must be in the main import file in the format
+references to the LOB data must be in the dashboard.main import file in the format
 <samp class="codeph"><em>lobsFileName</em>.<em>Offset</em>.<em>length</em>/</samp>. This is the
 same method that the <span>Derby</span>
 export procedures use to export the LOB data to a separate external file.</p>
@@ -142,7 +142,7 @@ write LOB data to a separate external file. These procedures include the
 external file for the LOB data.</p>
 
 <p>When you use these procedures, the location of the LOB data is written to the
-main export file. The format of the reference to the LOB stored in the main
+dashboard.main export file. The format of the reference to the LOB stored in the dashboard.main
 export file is
 <samp class="codeph"><em>lobsFileName</em>.<em>Offset</em>.<em>length</em>/</samp>.</p>
 
