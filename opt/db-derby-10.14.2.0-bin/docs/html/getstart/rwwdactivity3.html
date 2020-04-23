@@ -58,19 +58,19 @@ class code is not described here but is available for review in the file <samp c
 
 <div class="section"><h2 class="sectiontitle">Initialize the program</h2><p><cite>INITIALIZATION SECTION</cite>:
 The initial lines of code identify the Java packages used in the program,
-then set up the Java class <samp class="codeph">WwdEmbedded</samp> and the <samp class="codeph">main</samp> method
+then set up the Java class <samp class="codeph">WwdEmbedded</samp> and the <samp class="codeph">dashboard.main</samp> method
 signature.  Refer to a Java programming guide for information on these program
 constructs.</p>
  <pre>import java.sql.*;
 
 public class WwdEmbedded   
 {
-    public static void main(String[] args)
+    public static void dashboard.main(String[] args)
    {</pre>
  </div>
 
 <div class="section"><h2 class="sectiontitle">Define key variables and objects</h2><p><cite>DEFINE VARIABLES
-SECTION</cite>: The initial lines of the <samp class="codeph">main</samp> method define
+SECTION</cite>: The initial lines of the <samp class="codeph">dashboard.main</samp> method define
 the variables and objects used in the  program. This example uses variables
 to store the information needed to connect  to the <span>Derby</span> database.
 The use of variables for this information makes it easy to adapt the program

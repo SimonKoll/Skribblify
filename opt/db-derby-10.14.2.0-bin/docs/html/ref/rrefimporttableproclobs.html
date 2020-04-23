@@ -26,8 +26,8 @@
 <meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
 <meta content="reference" name="DC.Type" />
 <meta name="DC.Title" content="SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE system procedure" />
-<meta name="abstract" content="Use the SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE system procedure to import data to a table, where the LOB data is stored in a separate file. The main import file contains all of the other data and a reference to the location of the LOB data." />
-<meta name="description" content="Use the SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE system procedure to import data to a table, where the LOB data is stored in a separate file. The main import file contains all of the other data and a reference to the location of the LOB data." />
+<meta name="abstract" content="Use the SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE system procedure to import data to a table, where the LOB data is stored in a separate file. The dashboard.main import file contains all of the other data and a reference to the location of the LOB data." />
+<meta name="description" content="Use the SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE system procedure to import data to a table, where the LOB data is stored in a separate file. The dashboard.main import file contains all of the other data and a reference to the location of the LOB data." />
 <meta scheme="URI" name="DC.Relation" content="rrefexportproc.html" />
 <meta scheme="URI" name="DC.Relation" content="rrefexportproctablelobs.html" />
 <meta scheme="URI" name="DC.Relation" content="rrefexportselectionproc.html" />
@@ -61,7 +61,7 @@
 
 <div><p>Use the <samp class="codeph">SYSCS_UTIL.SYSCS_IMPORT_TABLE_LOBS_FROM_EXTFILE</samp> system
 procedure to import data to a table, where the LOB data is stored in a separate
-file. The main import file contains all of the other data and a reference
+file. The dashboard.main import file contains all of the other data and a reference
 to the location of the LOB data.</p>
 
 <div class="section">
@@ -87,7 +87,7 @@ export procedure.</p>
    IN CODESET VARCHAR(128), 
    IN REPLACE SMALLINT)
    )</pre>
-<p>The import utility looks in the main import file for a
+<p>The import utility looks in the dashboard.main import file for a
 reference to the location of the LOB data.</p>
 <dl>
 <dt class="dlterm">SCHEMANAME</dt>
@@ -172,9 +172,9 @@ privileges on the table.</p>
 </div>
 
 <div class="section"><h2 class="sectiontitle">Usage</h2><p>This procedure will read the LOB data using
-the reference that is stored in the main import file. If you are importing
+the reference that is stored in the dashboard.main import file. If you are importing
 from a non-Derby source, the format of the reference to the LOB stored in
-the main import file must be <samp class="codeph">lobsFileName.Offset.length/</samp>. </p>
+the dashboard.main import file must be <samp class="codeph">lobsFileName.Offset.length/</samp>. </p>
 <ul>
 <li><samp class="codeph">Offset</samp> is position in the external file in bytes</li>
 
@@ -184,7 +184,7 @@ the main import file must be <samp class="codeph">lobsFileName.Offset.length/</s
 
 </div>
 
-<div class="section"><h2 class="sectiontitle">Example importing data from a main import file that contains
+<div class="section"><h2 class="sectiontitle">Example importing data from a dashboard.main import file that contains
 references which point to a separate file that contains LOB data</h2><p>The
 following example shows how to import data into the <em>STAFF</em> table in
 a sample database from a delimited data file <samp class="codeph">staff.del</samp>. This
@@ -202,12 +202,12 @@ to the existing data in the table.</p>
 </div>
 <div class="relref"><strong>Related reference</strong><br />
 <div><a href="rrefexportproc.html" title="The SYSCS_UTIL.SYSCS_EXPORT_TABLE system procedure exports all of the data from a table to an operating system file.">SYSCS_UTIL.SYSCS_EXPORT_TABLE system procedure</a></div>
-<div><a href="rrefexportproctablelobs.html" title="Use the SYSCS_UTIL.SYSCS_EXPORT_TABLE_LOBS_TO_EXTFILE system procedure to export all the data from a table, and place the LOB data into a separate export file. A reference to the location of the LOB data is placed in the LOB column in the main export file.">SYSCS_UTIL.SYSCS_EXPORT_TABLE_LOBS_TO_EXTFILE system procedure</a></div>
+<div><a href="rrefexportproctablelobs.html" title="Use the SYSCS_UTIL.SYSCS_EXPORT_TABLE_LOBS_TO_EXTFILE system procedure to export all the data from a table, and place the LOB data into a separate export file. A reference to the location of the LOB data is placed in the LOB column in the dashboard.main export file.">SYSCS_UTIL.SYSCS_EXPORT_TABLE_LOBS_TO_EXTFILE system procedure</a></div>
 <div><a href="rrefexportselectionproc.html" title="The SYSCS_UTIL.SYSCS_EXPORT_QUERY system procedure exports the results of a SELECT statement to an operating system file.">SYSCS_UTIL.SYSCS_EXPORT_QUERY system procedure</a></div>
-<div><a href="rrefexportselectionproclobs.html" title="Use the SYSCS_UTIL.SYSCS_EXPORT_QUERY_LOBS_TO_EXTFILE system procedure to export the result of a SELECT statement to a main export file, and place the LOB data into a separate export file. A reference to the location of the LOB data is placed in the LOB column in the main export file.">SYSCS_UTIL.SYSCS_EXPORT_QUERY_LOBS_TO_EXTFILE system procedure</a></div>
+<div><a href="rrefexportselectionproclobs.html" title="Use the SYSCS_UTIL.SYSCS_EXPORT_QUERY_LOBS_TO_EXTFILE system procedure to export the result of a SELECT statement to a dashboard.main export file, and place the LOB data into a separate export file. A reference to the location of the LOB data is placed in the LOB column in the dashboard.main export file.">SYSCS_UTIL.SYSCS_EXPORT_QUERY_LOBS_TO_EXTFILE system procedure</a></div>
 <div><a href="rrefimportdataproc.html" title="The SYSCS_UTIL.SYSCS_IMPORT_DATA system procedure imports data to a subset of columns in a table. You choose the subset of columns by specifying insert columns. This procedure is also used to import a subset of column data from a file by specifying column indexes.">SYSCS_UTIL.SYSCS_IMPORT_DATA system procedure</a></div>
 <div><a href="rrefimportdatabulk.html" title="The SYSCS_UTIL.SYSCS_IMPORT_DATA_BULK system procedure supports all functionalities of SYSCS_UTIL.SYSCS_IMPORT_DATA with the additional feature to skip column headers in the input file and recognize columns in the input file by name that are parsed to the COLUMNINDEXES argument.">SYSCS_UTIL.SYSCS_IMPORT_DATA_BULK system procedure</a></div>
-<div><a href="rrefimportdataproclobs.html" title="Use the SYSCS_UTIL.SYSCS_IMPORT_DATA_LOBS_FROM_EXTFILE system procedure to import data to a subset of columns in a table, where the LOB data is stored in a separate file. The main import file contains all of the other data and a reference to the location of the LOB data.">SYSCS_UTIL.SYSCS_IMPORT_DATA_LOBS_FROM_EXTFILE system procedure</a></div>
+<div><a href="rrefimportdataproclobs.html" title="Use the SYSCS_UTIL.SYSCS_IMPORT_DATA_LOBS_FROM_EXTFILE system procedure to import data to a subset of columns in a table, where the LOB data is stored in a separate file. The dashboard.main import file contains all of the other data and a reference to the location of the LOB data.">SYSCS_UTIL.SYSCS_IMPORT_DATA_LOBS_FROM_EXTFILE system procedure</a></div>
 <div><a href="rrefimportproc.html" title="The SYSCS_UTIL.SYSCS_IMPORT_TABLE system procedure imports data from an input file into all of the columns of a table. If the table receiving the imported data already contains data, you can either replace or append to the existing data.">SYSCS_UTIL.SYSCS_IMPORT_TABLE system procedure</a></div>
 <div><a href="rrefimporttablebulk.html" title="The SYSCS_UTIL.SYSCS_IMPORT_TABLE_BULK system procedure supports all functionalities of SYSCS_UTIL.SYSCS_IMPORT_TABLE with the additional feature to skip column headers in the input file.">SYSCS_UTIL.SYSCS_IMPORT_TABLE_BULK system procedure</a></div>
 </div>

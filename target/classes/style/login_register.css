@@ -21,3 +21,13 @@
   -fx-background-color: #FF5151;
   -fx-text-fill:white;
 }
+
+.button-sidebar-design{
+  -fx-font-family: "Quicksand";
+   -fx-font-size: 18;
+   -fx-font-weight:700;
+  -fx-background-color: #FF5151;
+  -fx-text-fill:white;
+  -fx-border-radius: 50px;
+  -fx-background-radius: 43px;
+}

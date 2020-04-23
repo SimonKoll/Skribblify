@@ -73,7 +73,7 @@ result.</p>
 
 <td valign="top" width="70%" headers="N10083">Transactions are allowed to continue processing while the
 master tries to reconnect with the slave. Log records generated while the
-connection is down are buffered in main memory. If the log buffer reaches its
+connection is down are buffered in dashboard.main memory. If the log buffer reaches its
 size limit before the connection can be reestablished, the master replication
 functionality is stopped. You can use the property
 <samp class="codeph">derby.replication.logBufferSize</samp> to configure the size limit of
@@ -132,10 +132,10 @@ restarts.</td>
 <tr>
 <td valign="top" width="30%" headers="N1007C">The master
 <span>Derby</span> instance is not able to
-send log data to the slave at the same pace as the log is generated. The main
+send log data to the slave at the same pace as the log is generated. The dashboard.main
 memory log buffer gradually fills up and eventually becomes full.</td>
 
-<td valign="top" width="70%" headers="N10083">The master notices that the main memory log buffer is
+<td valign="top" width="70%" headers="N10083">The master notices that the dashboard.main memory log buffer is
 filling up. It first tries to increase the speed of the log shipment to keep
 the amount of log in the buffer below the maximum. If that is not enough to
 keep the buffer from getting full, the response time of transactions may

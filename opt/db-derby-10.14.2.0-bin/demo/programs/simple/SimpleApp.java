@@ -110,7 +110,7 @@ public class SimpleApp
      *
      * @param args - Optional argument specifying which framework or JDBC driver
      *        to use to connect to Derby. Default is the embedded framework,
-     *        see the <code>main()</code> method for details.
+     *        see the <code>dashboard.main()</code> method for details.
      * @see #main(String[])
      */
     void go(String[] args)
