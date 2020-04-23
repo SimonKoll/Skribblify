@@ -33,12 +33,11 @@ public class PaintController {
     private CheckBox bucket;
 
     public void initialize(){
+        System.out.println("initialazing");
         colorPicker.setValue(Color.BLACK);
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         canvas.setOnMouseMoved(e -> {
-
-
         });
 
         canvas.setOnMouseClicked(e -> {
@@ -46,6 +45,7 @@ public class PaintController {
         });
 
         canvas.setOnMouseDragged(e -> {
+            System.out.println("mouse is dragged...");
             drawPoint(e.getX(), e.getY(), g);
         });
     }
@@ -62,6 +62,7 @@ public class PaintController {
 
 
     public void drawPoint(double x1, double y1, GraphicsContext g){
+        System.out.println("drawing point...");
         double size = brushSize.getValue();
         double x = x1 - size / 2;
         double y = y1 - size / 2;
