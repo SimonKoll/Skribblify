@@ -53,7 +53,17 @@ public class RegisterC implements Initializable {
     }
 
     @FXML
-    private void goToLogin(ActionEvent event) {
+    private void goToLogin(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+
+
+            stage = (Stage) goToLoginBtn.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("/login_registration/login/LoginV.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void register() throws SQLException {
@@ -62,7 +72,10 @@ public class RegisterC implements Initializable {
         String newpassword_2 = password_2.getText();
 
 
-        if(newpassword_1 == newpassword_2){
+
+
+        if(newpassword_1.equals(newpassword_2)){
+
             User.newToDB(newusername,newpassword_1, this.statement);
 
         }
