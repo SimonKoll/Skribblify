@@ -39,10 +39,12 @@ public class User {
             throw new IllegalArgumentException("Password muss angegeben werden.");
         }
 
+
+
     }
 
 
-    public User checkExisting(String username, Statement statement) throws SQLException {
+    public static User checkExisting(String username, Statement statement) throws SQLException {
         String sql
                 = " select user_id "
                 + "       ,username "
@@ -68,6 +70,38 @@ public class User {
 
         return user;
     }
+
+    public static void newToDB(String username, String password, Statement statement) throws SQLException {
+
+        User user = checkExisting(username,statement);
+
+        if(user == null) {
+            String sql
+                    = " insert into users ("
+                    + "       username "
+                    + "       ,status "
+                    + "       ,last_login "
+                    + "       ,password) values ("
+                    +   username +", "
+                    +    Status.Y +", "
+                    +   java.time.LocalDate.now() +", "
+                    +   password +") ";
+
+
+            statement.executeQuery(sql);
+
+                user = new User();
+
+                user.setUsername(username);
+                user.setPassword(password);
+
+                user.setUser_status(Status.Y);
+
+        }
+
+    }
+
+
 
     public String getUsername() {
         return username.get();

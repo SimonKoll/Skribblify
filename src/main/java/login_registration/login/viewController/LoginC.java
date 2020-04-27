@@ -56,7 +56,7 @@ public class LoginC {
 
 
 
-            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration.login/LoginV.fxml"));
+            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration/login/LoginV.fxml"));
             Parent root = (Parent) loader.load();
 
             Scene scene = new Scene(root);
