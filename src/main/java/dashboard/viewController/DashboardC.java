@@ -10,8 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import login.model.Login;
-import login.viewController.LoginC;
+
 
 import java.io.IOException;
 import java.sql.Statement;
@@ -63,7 +62,7 @@ public class DashboardC {
         try {
 
 
-            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("dashboard/DashboardV.fxml"));
+            FXMLLoader loader = new FXMLLoader(DashboardC.class.getClassLoader().getResource("dashboard/DashboardV.fxml"));
             Parent root = (Parent) loader.load();
 
             Scene scene = new Scene(root);
@@ -86,7 +85,7 @@ public class DashboardC {
             stage.show();
 
         } catch (IOException ex) {
-            Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DashboardC.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Something wrong with DashboardV.fxml!");
             ex.printStackTrace(System.err);
             System.exit(1);
