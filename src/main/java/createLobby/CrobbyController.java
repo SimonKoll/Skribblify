@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -19,9 +21,21 @@ import javafx.scene.control.Button;
  */
 public class CrobbyController implements Initializable {
     @FXML
+    private Slider playersSlider;
+    @FXML
+    private Slider roundTimeSlider;
+    @FXML
+    private Slider roundsSlider;
+    @FXML
+    private Text playerCount;
+    @FXML
+    private Text roundTimeCount;
+    @FXML
+    private Text roundCount;
+    @FXML
     private Button inviteBtn;
     @FXML
-    private Button startGameBtn;
+    private Button startBtn;
 
     /**
      * Initializes the controller class.
@@ -33,6 +47,7 @@ public class CrobbyController implements Initializable {
 
     @FXML
     private void inviteFriends(ActionEvent event) {
+
     }
 
     @FXML
