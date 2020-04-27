@@ -1,4 +1,7 @@
 package game_ui.server.decoder;
 
-public class DrawDecoder {
+import javax.websocket.*;
+
+public class DrawDecoder implements Decoder.Text<DrawRequest> {
+
 }
