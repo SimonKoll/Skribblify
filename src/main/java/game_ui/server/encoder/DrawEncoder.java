@@ -1,6 +1,8 @@
 package game_ui.server.encoder;
 
 import javax.websocket.*;
+
+import game_ui.server.entities.draw.Requests.DrawRequest;
 import org.json.JSONObject;
 
 public class DrawEncoder implements Encoder.Text<DrawRequest>{
