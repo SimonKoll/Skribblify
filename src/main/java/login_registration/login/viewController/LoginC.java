@@ -100,7 +100,18 @@ public class LoginC {
     }
 
     @FXML
-    private void go_to_register(ActionEvent event) {
+    private void go_to_register(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+
+
+            stage = (Stage) go_to_register_button.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("/login_registration/registration/register.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 
     public Statement getStatement() {

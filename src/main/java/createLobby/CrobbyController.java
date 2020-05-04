@@ -21,7 +21,7 @@ public class CrobbyController implements Initializable {
     @FXML
     private Button inviteBtn;
     @FXML
-    private Button startGameBtn;
+    private Button startBtn;
 
     /**
      * Initializes the controller class.

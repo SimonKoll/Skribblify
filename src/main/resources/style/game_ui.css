@@ -59,3 +59,8 @@
 .already-guessed{
   -fx-opacity: .4;
 }
+
+.slider-crobby{
+    -fx-show-tick-labels: true;
+
+}
