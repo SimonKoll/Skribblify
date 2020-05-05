@@ -79,9 +79,9 @@
       </Pane>
       <Pane fx:id="chooseWord" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: rgb(255,255,255, 0.6);">
          <children>
-            <Button fx:id="option1" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Ampel" translateX="-300.0" />
-            <Button fx:id="option2" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Wasserflasche" />
-            <Button fx:id="option3" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Sonnenuntergang" translateX="300.0" />
+            <Button fx:id="option1" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" onAction="#option1Ready" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Ampel" translateX="-300.0" />
+            <Button fx:id="option2" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" onAction="#option2Ready" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Wasserflasche" />
+            <Button fx:id="option3" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" onAction="#option3Ready" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Sonnenuntergang" translateX="300.0" />
          </children>
       </Pane>
    </children>

@@ -2,6 +2,7 @@ package game_ui;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -53,7 +55,7 @@ public class GameUiController {
     @FXML
     private javafx.scene.control.Button option3;
 
-    private double step = 0.0001;
+    private double step = 0.01;
     private boolean roundEnd = false;
 
     public void countDown() {
@@ -62,6 +64,7 @@ public class GameUiController {
             timeLeft.setText(String.valueOf(Math.round(progressBar.getProgress() *  100 )));
         }else{
             roundEnd = true;
+            chooseWord.setVisible(true);
         }
     }
 
@@ -118,6 +121,33 @@ public class GameUiController {
                 g.fillOval(x, y, size, size);
             }
         }
+    }
+
+
+
+    @FXML
+    private void option1Ready(ActionEvent event) {
+        System.out.println(option1.getText());
+        nextRound(option1.getText());
+    }
+
+    @FXML
+    private void option2Ready(ActionEvent event) {
+        System.out.println(option2.getText());
+        nextRound(option2.getText());
+    }
+
+    @FXML
+    private void option3Ready(ActionEvent event) {
+        System.out.println(option3.getText());
+        nextRound(option3.getText());
+    }
+
+    public void nextRound(String newWord) {
+        wordToGuess.setText(newWord);
+        progressBar.setProgress(1);
+        chooseWord.setVisible(false);
+        roundEnd = false;
     }
 
 }
