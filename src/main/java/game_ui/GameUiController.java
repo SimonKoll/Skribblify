@@ -53,13 +53,19 @@ public class GameUiController {
     @FXML
     private javafx.scene.control.Button option3;
 
+    private double step = 0.0001;
+    private boolean roundEnd = false;
+
     public void countDown() {
-        progressBar.setProgress(progressBar.getProgress() - 0.0001);
-        System.out.println("Progress...." + progressBar.getProgress());
+        if((progressBar.getProgress() - step) >= 0){
+            progressBar.setProgress(progressBar.getProgress() - step);
+            timeLeft.setText(String.valueOf(Math.round(progressBar.getProgress() *  100 )));
+        }else{
+            roundEnd = true;
+        }
     }
 
     public void initialize() {
-        System.out.println("initialazing");
         progressBar.setProgress(1);
         chooseWord.setVisible(false);
 
@@ -70,13 +76,17 @@ public class GameUiController {
         });
 
         canvas.setOnMouseClicked(e -> {
-            drawPoint(e.getX(), e.getY(), g);
-            countDown();
+            if(!roundEnd){
+                drawPoint(e.getX(), e.getY(), g);
+                countDown();
+            }
         });
 
         canvas.setOnMouseDragged(e -> {
-            drawPoint(e.getX(),e .getY(), g);
-            countDown();
+            if(!roundEnd){
+                drawPoint(e.getX(), e.getY(), g);
+                countDown();
+            }
         });
 
     }
@@ -93,7 +103,6 @@ public class GameUiController {
 
 
     public void drawPoint(double x1, double y1, GraphicsContext g){
-        System.out.println("drawing point...");
         double size = brushSize.getValue();
         double x = x1 - size / 2;
         double y = y1 - size / 2;
