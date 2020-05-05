@@ -32,6 +32,7 @@ public class PaintController {
     @FXML
     private CheckBox bucket;
 
+
     public void initialize(){
         System.out.println("initialazing");
         colorPicker.setValue(Color.BLACK);
@@ -45,8 +46,7 @@ public class PaintController {
         });
 
         canvas.setOnMouseDragged(e -> {
-            System.out.println("mouse is dragged...");
-            drawPoint(e.getX(), e.getY(), g);
+            drawPoint(e.getX(),e .getY(), g);
         });
     }
 
