@@ -55,7 +55,7 @@ public class GameUiController {
     @FXML
     private javafx.scene.control.Button option3;
 
-    private double step = 0.01;
+    private double step = 0.0001;
     private boolean roundEnd = false;
 
     public void countDown() {
