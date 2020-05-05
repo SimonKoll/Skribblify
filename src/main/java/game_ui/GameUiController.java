@@ -15,8 +15,10 @@ import javafx.scene.paint.Color;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
-public class PaintController {
+public class GameUiController {
     @FXML
     private Canvas canvas;
 
@@ -31,6 +33,14 @@ public class PaintController {
 
     @FXML
     private CheckBox bucket;
+    @FXML
+    private TextField guessInputField;
+    @FXML
+    private Pane guesses;
+    @FXML
+    private TextField wordToGuess;
+    @FXML
+    private Text timeLeft;
 
     public void initialize(){
         System.out.println("initialazing");
