@@ -9,7 +9,7 @@ public class GameUi extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Scene myScene = new Scene(FXMLLoader.load(GameUi.class.getClassLoader().getResource("game_ui/game_uiV.fxml")));
+        Scene myScene = new Scene(FXMLLoader.load(GameUi.class.getClassLoader().getResource("game_ui/GameV.fxml")));
         myScene.getStylesheets().add(GameUi.class.getClassLoader().getResource("style/game_ui.css").toExternalForm());
 
         stage.setScene(myScene);

@@ -11,7 +11,6 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -19,16 +18,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_ui.PaintController">
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game_ui.GameUiController">
    <children>
-      <Pane prefHeight="540.0" prefWidth="960.0">
-         <children>
-            <Button fx:id="option1" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Ampel" translateX="-300.0" />
-            <Button fx:id="option2" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Wasserflasche" />
-            <Button fx:id="option3" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Sonnenuntergang" translateX="300.0" />
-         </children>
-      </Pane>
-      <AnchorPane prefHeight="540.0" prefWidth="960.0" stylesheets="@../style/game_ui.css">
+      <Pane>
          <children>
             <SVGPath content="M814,0c-22.72,43.46-61.23,99.09-126,130c-36.81,17.57-52.14,12.85-109,25c-128.4,27.45-221.07,88.04-254,110c-74.02,49.35-67.5,65.86-140,113c-71.35,46.39-138.77,70.14-185,83V0H814" fill="#ff5151" />
             <Pane layoutX="56.0" layoutY="454.0" prefHeight="72.0" prefWidth="849.0" style="-fx-border-color: lightgrey;">
@@ -53,7 +45,7 @@
                <Canvas fx:id="canvas" height="365.0" width="565.0" />
                </children>
             </Pane>
-            <Pane layoutX="633.0" layoutY="82.0" prefHeight="365.0" prefWidth="272.0">
+            <Pane layoutX="633.0" layoutY="82.0" prefHeight="365.0" prefWidth="273.0">
                <children>
                   <Pane prefHeight="45.0" prefWidth="272.0" style="-fx-border-color: black;" translateY="319.0">
                      <children>
@@ -70,7 +62,7 @@
             </Pane>
             <Pane layoutX="56.0" layoutY="14.0" prefHeight="53.0" prefWidth="849.0">
                <children>
-                  <TextField fx:id="wordToGuess" editable="false" layoutX="169.0" layoutY="-7.0" prefHeight="68.0" prefWidth="538.0" style="-fx-background-color: #FF5151;" text="B A N A N A S H A K E ">
+                  <TextField fx:id="wordToGuess" editable="false" layoutX="169.0" layoutY="-7.0" prefHeight="68.0" prefWidth="538.0" style="-fx-background-color: #FF5151;" text="W A S S E R F L A S C H E">
                      <font>
                         <Font name="Comic Sans MS Bold" size="32.0" />
                      </font>
@@ -79,8 +71,8 @@
             </Pane>
             <Pane prefHeight="94.0" prefWidth="92.0">
                <children>
-
-                   <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0" />
+      
+                         <ProgressIndicator layoutX="1.0" layoutY="2.0" maxHeight="108.0" maxWidth="116.0" prefHeight="108.0" prefWidth="116.0" progress="0.0" />
                   <Text fx:id="timeLeft" layoutX="40.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="80" wrappingWidth="37.13671875">
                      <font>
                         <Font size="34.0" />
@@ -89,6 +81,13 @@
                </children>
             </Pane>
          </children>
-      </AnchorPane>
+      </Pane>
+      <Pane fx:id="chooseWord" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: rgb(255,255,255, 0.6);">
+         <children>
+            <Button fx:id="option1" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Ampel" translateX="-300.0" />
+            <Button fx:id="option2" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Wasserflasche" />
+            <Button fx:id="option3" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Sonnenuntergang" translateX="300.0" />
+         </children>
+      </Pane>
    </children>
 </StackPane>
