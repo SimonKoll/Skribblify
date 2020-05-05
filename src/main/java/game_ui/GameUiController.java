@@ -42,6 +42,7 @@ public class GameUiController {
     @FXML
     private Text timeLeft;
 
+
     public void initialize(){
         System.out.println("initialazing");
         colorPicker.setValue(Color.BLACK);
@@ -55,8 +56,7 @@ public class GameUiController {
         });
 
         canvas.setOnMouseDragged(e -> {
-            System.out.println("mouse is dragged...");
-            drawPoint(e.getX(), e.getY(), g);
+            drawPoint(e.getX(),e .getY(), g);
         });
     }
 
