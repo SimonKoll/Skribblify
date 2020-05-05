@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -41,10 +42,27 @@ public class GameUiController {
     private TextField wordToGuess;
     @FXML
     private Text timeLeft;
+    @FXML
+    private ProgressBar progressBar;
+    @FXML
+    private Pane chooseWord;
+    @FXML
+    private javafx.scene.control.Button option1;
+    @FXML
+    private javafx.scene.control.Button option2;
+    @FXML
+    private javafx.scene.control.Button option3;
 
+    public void countDown() {
+        progressBar.setProgress(progressBar.getProgress() - 0.0001);
+        System.out.println("Progress...." + progressBar.getProgress());
+    }
 
-    public void initialize(){
+    public void initialize() {
         System.out.println("initialazing");
+        progressBar.setProgress(1);
+        chooseWord.setVisible(false);
+
         colorPicker.setValue(Color.BLACK);
         GraphicsContext g = canvas.getGraphicsContext2D();
 
@@ -53,11 +71,14 @@ public class GameUiController {
 
         canvas.setOnMouseClicked(e -> {
             drawPoint(e.getX(), e.getY(), g);
+            countDown();
         });
 
         canvas.setOnMouseDragged(e -> {
             drawPoint(e.getX(),e .getY(), g);
+            countDown();
         });
+
     }
 
     @FXML
