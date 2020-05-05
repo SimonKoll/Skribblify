@@ -8,7 +8,7 @@ ITP/SEW-Projekt 2020
 ## Ausgangslage
 Wir müssen ein JavaFX Projekt im zweiten Semester des dritten Jahrgangs für den Zweig IT-Medientechnik der HTBLA Leonding bewerkstelligen.
 ## Projektziele	
-Fertiges JavaFX Spiel mit Lobbysystem, Shop, Freundschaftssystem und Multiplayerfunktion.
+Fertiges JavaFX Spiel mit Lobbysystem, Freundschaftssystem und Multiplayerfunktion.
 Statistiksystem
 
 ## Projektabgrenzung	
