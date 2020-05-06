@@ -56,6 +56,18 @@
 }
 
 
+
+
+.progress-bar .track{
+    -fx-background-insets: 20;
+    -fx-background-radius: 6, 6, 6, 6;
+}
+
+.progress-bar .bar { 
+    -fx-background-color: #FF5151;
+
+}
+
 .already-guessed{
   -fx-opacity: .4;
 }
