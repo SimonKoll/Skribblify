@@ -16,9 +16,9 @@
          </image>
       </ImageView>
       <Button fx:id="registerBtn" layoutX="406.0" layoutY="411.0" mnemonicParsing="false" onAction="#register_pressed" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" text="Register" />
-      <TextField fx:id="password_2" layoutX="407.0" layoutY="347.0" promptText="Check Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
-      <TextField fx:id="password_1" layoutX="407.0" layoutY="305.0" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
-      <TextField fx:id="username" layoutX="407.0" layoutY="261.0" promptText="Username" styleClass="inputfield" />
+      <TextField fx:id="password_2" layoutX="407.0" layoutY="347.0" prefHeight="33.0" prefWidth="200.0" promptText="Check Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
+      <TextField fx:id="password_1" layoutX="407.0" layoutY="305.0" prefHeight="33.0" prefWidth="200.0" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
+      <TextField fx:id="username" layoutX="406.0" layoutY="262.0" prefHeight="33.0" prefWidth="200.0" promptText="Username" styleClass="inputfield" />
       <Button fx:id="goToLoginBtn" layoutX="406.0" layoutY="458.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" text="Already registerd?" />
          
    </children>

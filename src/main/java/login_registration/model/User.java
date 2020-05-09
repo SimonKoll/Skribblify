@@ -5,9 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +22,7 @@ public class User {
     private final ObjectProperty<LocalDate> last_login = new SimpleObjectProperty<LocalDate>();
 
 
-    public User(){
+    public User() {
         username.setValue(null);
         password.setValue(null);
         user_img.setValue(null);
@@ -32,17 +30,16 @@ public class User {
         last_login.setValue(null);
     }
 
-    private void killAndFill(){
+    private void killAndFill() {
 
         // Username Überprüfungen
-        if(username.get() == null){
+        if (username.get() == null) {
             throw new IllegalArgumentException("Username muss angegeben werden!");
         }
 
-        if(password.get() == null){
+        if (password.get() == null) {
             throw new IllegalArgumentException("Password muss angegeben werden.");
         }
-
 
 
     }
@@ -63,7 +60,7 @@ public class User {
         ResultSet rSet = statement.executeQuery(sql);
         User user = null;
 
-        if(rSet.next()){
+        if (rSet.next()) {
             user = new User();
 
             user.setUsername(rSet.getString("username"));
@@ -79,39 +76,46 @@ public class User {
     public static void newToDB(String username, String password, Statement statement) throws SQLException, ParseException {
 
 
-
-        User user = checkExisting(username,statement);
-
+        User user = checkExisting(username, statement);
 
 
-        if(user == null) {
-            DateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
-            Date myDate = formatter.parse(String.valueOf(LocalDate.now()));
-            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-
+        if (user == null) {
+            //     DateFormat formatter = new SimpleDateFormat("YYY-DD-MM");
+            //   java.sql.Date now = new java.sql.Date();
+            // Date myDate = formatter.parse(String.valueOf(LocalDate.now()));
+            //Date sqlDate = new java.sql.Date(myDate.getTime());
+            //System.out.println(myDate);
+            //System.out.println(sqlDate);
+            Date now = new Date();
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+            String sqlDate = formatter.format(now);
+            String date = sqlDate.toString();
+            System.out.println(date);
             String sql
                     = " insert into users (user_id, "
                     + "username "
                     + ",status "
                     + ",last_login "
                     + ",password) values ('"
-                    +   createCode(statement) +"', '"
-                    +   username +"', '"
-                    +    Status.Y +"', "
-                    +   sqlDate +", '"
-                    +   password +"') ";
+                    + createCode(statement) + "', '"
+                    + username + "', '"
+                    + Status.Y + "', '"
+                    + date + "', '"
+                    + password + "') ";
 
             System.out.println(sql);
-
             statement.executeUpdate(sql);
+    user = new User();
 
-                user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
 
-                user.setUsername(username);
-                user.setPassword(password);
+            user.setUser_status(Status.Y);
+            System.out.println("Registration sucessfull!!!");
 
-                user.setUser_status(Status.Y);
-
+        }
+        else{
         }
 
     }
@@ -120,7 +124,7 @@ public class User {
         String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789";
         String userID = "#";
         for (int i = 0; i < 8; i++) {
-            userID += CHAR_LOWER.toUpperCase().charAt((int)Math.floor(Math.random() * CHAR_LOWER.length()));
+            userID += CHAR_LOWER.toUpperCase().charAt((int) Math.floor(Math.random() * CHAR_LOWER.length()));
         }
 
         String sql
@@ -137,8 +141,8 @@ public class User {
         ResultSet rSet = statement.executeQuery(sql);
 
 
-        if(rSet.next()){
-         userID = createCode(statement);
+        if (rSet.next()) {
+            userID = createCode(statement);
 
         }
         return userID;

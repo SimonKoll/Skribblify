@@ -56,7 +56,6 @@ public class LoginC {
         try{
 
 
-
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration/login/LoginV.fxml"));
             Parent root = (Parent) loader.load();
 
