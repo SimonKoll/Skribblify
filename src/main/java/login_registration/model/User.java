@@ -8,7 +8,11 @@ import javafx.beans.property.StringProperty;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class User {
 
@@ -66,29 +70,40 @@ public class User {
             user.setPassword(rSet.getString("password"));
             user.setUser_img(rSet.getString("user_img"));
             user.setUser_status(Status.Y);
-        }
 
+        }
         return user;
+
     }
 
-    public static void newToDB(String username, String password, Statement statement) throws SQLException {
+    public static void newToDB(String username, String password, Statement statement) throws SQLException, ParseException {
+
+
 
         User user = checkExisting(username,statement);
 
+
+
         if(user == null) {
+            DateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
+            Date myDate = formatter.parse(String.valueOf(LocalDate.now()));
+            java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+
             String sql
-                    = " insert into users ("
-                    + "       username "
-                    + "       ,status "
-                    + "       ,last_login "
-                    + "       ,password) values ("
-                    +   username +", "
-                    +    Status.Y +", "
-                    +   java.time.LocalDate.now() +", "
-                    +   password +") ";
+                    = " insert into users (user_id, "
+                    + "username "
+                    + ",status "
+                    + ",last_login "
+                    + ",password) values ('"
+                    +   createCode(statement) +"', '"
+                    +   username +"', '"
+                    +    Status.Y +"', "
+                    +   sqlDate +", '"
+                    +   password +"') ";
 
+            System.out.println(sql);
 
-            statement.executeQuery(sql);
+            statement.executeUpdate(sql);
 
                 user = new User();
 
@@ -101,7 +116,34 @@ public class User {
 
     }
 
+    public static String createCode(Statement statement) throws SQLException {
+        String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789";
+        String userID = "#";
+        for (int i = 0; i < 8; i++) {
+            userID += CHAR_LOWER.toUpperCase().charAt((int)Math.floor(Math.random() * CHAR_LOWER.length()));
+        }
 
+        String sql
+                = " select user_id "
+                + "       ,username "
+                + "       ,status "
+                + "       ,user_img "
+                + "       ,last_login "
+                + "       ,password "
+                + " from users "
+                + " where user_id = '" + userID + "' ";
+
+
+        ResultSet rSet = statement.executeQuery(sql);
+
+
+        if(rSet.next()){
+         userID = createCode(statement);
+
+        }
+        return userID;
+
+    }
 
     public String getUsername() {
         return username.get();

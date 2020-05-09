@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import login_registration.model.User;
+import login_registration.registration.viewController.RegisterC;
 
 public class LoginC {
     private Statement statement;
@@ -110,7 +111,7 @@ public class LoginC {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        RegisterC.show(stage, this.statement);
 
     }
 

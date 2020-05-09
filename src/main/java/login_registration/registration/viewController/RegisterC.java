@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,13 +49,13 @@ public class RegisterC implements Initializable {
     }
 
     @FXML
-    private void register_pressed(ActionEvent event) throws SQLException {
+    private void register_pressed(ActionEvent event) throws SQLException, ParseException {
         register();
     }
 
     @FXML
     private void goToLogin(ActionEvent event) throws IOException {
-        Stage stage;
+       Stage stage;
         Parent root;
 
 
@@ -63,10 +64,10 @@ public class RegisterC implements Initializable {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+       LoginC.show(stage, this.statement);
     }
 
-    private void register() throws SQLException {
+    private void register() throws SQLException, ParseException {
         String newusername = username.getText();
         String newpassword_1 = password_1.getText();
         String newpassword_2 = password_2.getText();
@@ -90,7 +91,7 @@ public class RegisterC implements Initializable {
 
 
 
-            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration.registration/register.fxml"));
+            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration/registration/register.fxml"));
             Parent root = (Parent) loader.load();
 
             Scene scene = new Scene(root);
