@@ -43,9 +43,9 @@ public class DashboardC {
     @FXML
     private Button pendingPlayersBtn;
     @FXML
-    private Text username;
+    private  Text username;
     @FXML
-    private Text userid;
+    private  Text userid;
     @FXML
     private Button playBtn;
     @FXML
@@ -56,8 +56,11 @@ public class DashboardC {
     @FXML
     private HBox charts;
 
+    private User user;
 
-    public static void show(Stage stage, Statement statement) {
+    public static void show(Stage stage, Statement statement, User user) {
+
+
 
         // Animation test
         try {
@@ -79,7 +82,7 @@ public class DashboardC {
 
 
             DashboardC dashboardC = (DashboardC) loader.getController();
-            dashboardC.init();
+            dashboardC.init(user);
             dashboardC.statement = statement;
 
             dashboardC.model = new Dashboard();
@@ -95,7 +98,14 @@ public class DashboardC {
     }
 
 
-    private void init(){
+    private void init(User user){
+        this.user = user;
+        if(user != null) {
+            System.out.println(this.user.toString());
+            userid.setText(this.user.getUser_id());
+            username.setText(this.user.getUsername());
+        }
+
         drawChart();
     }
 
@@ -145,7 +155,18 @@ public class DashboardC {
     }
 
     @FXML
-    private void logout(ActionEvent event) {
+    private void logout(ActionEvent event) throws IOException {
+        this.user = null;
+        Stage stage;
+        Parent root;
+
+
+        stage = (Stage) logoutBtn.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/login_registration/login/LoginV.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        LoginC.show(stage, this.statement);
     }
 
 }

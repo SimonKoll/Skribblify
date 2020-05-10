@@ -89,21 +89,24 @@ public class LoginC {
     @FXML
     private void login_pressed(ActionEvent event) throws SQLException, IOException {
         String inputPwd = pwd.getText();
-        String dbPwd = "";
-        System.out.println("login_registration.login pressed");
+        User user = new User();
+
         String sql
                 = "select * " +
                 "from USERS " +
                 "where PASSWORD = " + "'" + inputPwd + "'";
-        ResultSet rs = statement.executeQuery(sql);
-        while(rs.next()) {
-             dbPwd = rs.getString("PASSWORD");
-        }
 
-        System.out.println(dbPwd + ", " + inputPwd);
-        if (dbPwd.equals(inputPwd)) {
-            System.out.println("login succesfull");
-            go_to_dashboard(event);
+        ResultSet rs = statement.executeQuery(sql);
+
+        while(rs.next()) {
+             user.setUser_id(rs.getString("USER_ID"));
+             user.setUsername(rs.getString("USERNAME"));
+             user.setUser_status(rs.getString("STATUS"));
+             user.setUser_img(rs.getString("USER_IMG"));
+             user.setPassword(rs.getString("PASSWORD"));
+        }
+        if (user.getPassword().equals(inputPwd)) {
+            go_to_dashboard(event, user);
         }
 
     }
@@ -125,7 +128,7 @@ public class LoginC {
     }
 
     @FXML
-    private void go_to_dashboard(ActionEvent event) throws IOException {
+    private void go_to_dashboard(ActionEvent event, User user) throws IOException {
         Stage stage;
         Parent root;
 
@@ -135,7 +138,7 @@ public class LoginC {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        DashboardC.show(stage, this.statement);
+        DashboardC.show(stage, this.statement, user);
 
     }
 
