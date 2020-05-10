@@ -1,5 +1,6 @@
 package dashboard.viewController;
 
+import createLobby.CrobbyController;
 import dashboard.model.Dashboard;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -167,6 +168,20 @@ public class DashboardC {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         LoginC.show(stage, this.statement);
+    }
+
+    @FXML
+    private void playGame(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+
+
+        stage = (Stage) playBtn.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/createLobby/Crobby.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        CrobbyController.show(stage, this.statement);
     }
 
 }
