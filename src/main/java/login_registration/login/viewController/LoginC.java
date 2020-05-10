@@ -92,23 +92,22 @@ public class LoginC {
         String dbPwd = "";
         System.out.println("login_registration.login pressed");
         String sql
-                = "select PASSWORD " +
+                = "select * " +
                 "from USERS " +
-                "where USERNAME = " + "'" + inputPwd + "'";
-        System.out.println(sql);
+                "where PASSWORD = " + "'" + inputPwd + "'";
         ResultSet rs = statement.executeQuery(sql);
-        System.out.println(rs);
         while(rs.next()) {
              dbPwd = rs.getString("PASSWORD");
-            System.out.println(dbPwd);
         }
+
+        System.out.println(dbPwd + ", " + inputPwd);
         if (dbPwd.equals(inputPwd)) {
+            System.out.println("login succesfull");
             go_to_dashboard(event);
         }
 
-        System.out.println("Login sucessfull!!!");
-
     }
+
 
     @FXML
     private void go_to_register(ActionEvent event) throws IOException {
