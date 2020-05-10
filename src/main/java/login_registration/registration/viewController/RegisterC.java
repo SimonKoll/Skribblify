@@ -49,8 +49,9 @@ public class RegisterC implements Initializable {
     }
 
     @FXML
-    private void register_pressed(ActionEvent event) throws SQLException, ParseException {
+    private void register_pressed(ActionEvent event) throws SQLException, ParseException, IOException {
         register();
+        goToLogin(event);
     }
 
     @FXML
@@ -78,7 +79,6 @@ public class RegisterC implements Initializable {
         if(newpassword_1.equals(newpassword_2)){
 
             User.newToDB(newusername,newpassword_1, this.statement);
-
         }
 
     }

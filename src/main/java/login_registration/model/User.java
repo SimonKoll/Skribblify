@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -30,15 +29,21 @@ public class User {
         last_login.setValue(null);
     }
 
-    private void killAndFill() {
+    private static void killAndFill( StringProperty username, StringProperty password) {
 
-        // Username Überprüfungen
+        // Überprüfungen
         if (username.get() == null) {
             throw new IllegalArgumentException("Username muss angegeben werden!");
+        }
+        if (username.get().length() < 5) {
+            throw new IllegalArgumentException("Username muss mindestens 5 Zeichen lang sein!");
         }
 
         if (password.get() == null) {
             throw new IllegalArgumentException("Password muss angegeben werden.");
+        }
+        if (password.get().length() < 6) {
+            throw new IllegalArgumentException("Password muss mindestens 6 Zeichen lang sein!");
         }
 
 
@@ -75,10 +80,9 @@ public class User {
 
     public static void newToDB(String username, String password, Statement statement) throws SQLException, ParseException {
 
-
         User user = checkExisting(username, statement);
 
-
+//killAndFill();
         if (user == null) {
             //     DateFormat formatter = new SimpleDateFormat("YYY-DD-MM");
             //   java.sql.Date now = new java.sql.Date();

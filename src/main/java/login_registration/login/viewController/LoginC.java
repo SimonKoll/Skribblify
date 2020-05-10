@@ -1,10 +1,16 @@
 package login_registration.login.viewController;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dashboard.viewController.DashboardC;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +21,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
+import login_registration.model.Status;
 import login_registration.model.User;
 import login_registration.registration.viewController.RegisterC;
 
 public class LoginC {
     private Statement statement;
     private User model;
-
 
     @FXML
     private AnchorPane rootPane;
@@ -31,7 +37,7 @@ public class LoginC {
     @FXML
     private Button login_button;
     @FXML
-    private TextField password;
+    private TextField pwd;
     @FXML
     private Button guest_button;
     @FXML
@@ -42,18 +48,15 @@ public class LoginC {
     private Button register_button1;
 
 
-
-
-
-    public LoginC(){
+    public LoginC() {
 
     }
 
-    public static void show(Stage stage, Statement statement){
+    public static void show(Stage stage, Statement statement) {
 
         // Animation test
 
-        try{
+        try {
 
 
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration/login/LoginV.fxml"));
@@ -62,7 +65,7 @@ public class LoginC {
             Scene scene = new Scene(root);
 
 
-            if(stage == null){
+            if (stage == null) {
                 stage = new Stage();
             }
 
@@ -75,7 +78,7 @@ public class LoginC {
             loginC.model = new User();
             stage.show();
 
-        }catch (IOException ex){
+        } catch (IOException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Something wrong with PersonV.fxml!");
             ex.printStackTrace(System.err);
@@ -84,18 +87,26 @@ public class LoginC {
     }
 
     @FXML
-    private void login_pressed(ActionEvent event) {
+    private void login_pressed(ActionEvent event) throws SQLException, IOException {
+        String inputPwd = pwd.getText();
+        String dbPwd = "";
         System.out.println("login_registration.login pressed");
-        /*try{
-            new Login(model).save(statement);
-            model.clear();
-            getUname().setText("Ok, gesichert!");
-            getUname().setText("-fx-text-inner-color:green;");
-        }catch(Exception ex){
-            getUname().setText(ex.getMessage());
-            getUname().setText("-fx-text-inner-color:red;");
+        String sql
+                = "select PASSWORD " +
+                "from USERS " +
+                "where USERNAME = " + "'" + inputPwd + "'";
+        System.out.println(sql);
+        ResultSet rs = statement.executeQuery(sql);
+        System.out.println(rs);
+        while(rs.next()) {
+             dbPwd = rs.getString("PASSWORD");
+            System.out.println(dbPwd);
         }
-*/
+        if (dbPwd.equals(inputPwd)) {
+            go_to_dashboard(event);
+        }
+
+        System.out.println("Login sucessfull!!!");
 
     }
 
@@ -105,12 +116,27 @@ public class LoginC {
         Parent root;
 
 
-            stage = (Stage) go_to_register_button.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/login_registration/registration/register.fxml"));
+        stage = (Stage) go_to_register_button.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/login_registration/registration/register.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
         RegisterC.show(stage, this.statement);
+
+    }
+
+    @FXML
+    private void go_to_dashboard(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+
+
+        stage = (Stage) login_button.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/dashboard/DashboardV.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        DashboardC.show(stage, this.statement);
 
     }
 
@@ -135,7 +161,7 @@ public class LoginC {
     }
 
     public TextField getPassword() {
-        return password;
+        return pwd;
     }
 
     public Button getGuest_button() {
