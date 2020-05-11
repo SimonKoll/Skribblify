@@ -35,7 +35,7 @@
                         <Font name="Cardenio Modern" size="48.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="251.0" layoutY="249.0" prefHeight="40.0" prefWidth="432.0" promptText="Search friend ..." styleClass="inputfield" stylesheets="@../style/login_register.css" />
+                  <TextField fx:id="friendSearchbar" layoutX="251.0" layoutY="249.0" onKeyPressed="#searchFriends" prefHeight="40.0" prefWidth="432.0" promptText="Search friend ..." styleClass="inputfield" stylesheets="@../style/login_register.css" />
                   <ListView layoutX="124.0" layoutY="351.0" prefHeight="232.0" prefWidth="560.0" style="-fx-background-color: ff5151;" />
                   <Button fx:id="allPlayersBtn" layoutX="123.0" layoutY="304.0" mnemonicParsing="false" onAction="#showAllPlayers" prefHeight="39.0" prefWidth="130.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="All" />
                   <Button fx:id="addBtn" layoutX="122.0" layoutY="249.0" mnemonicParsing="false" onAction="#addUsertoFriendlist" prefHeight="39.0" prefWidth="114.0" style="-fx-background-color: #ff5151;" styleClass="button-design" stylesheets="@../style/login_register.css" text="ADD" />
@@ -82,7 +82,7 @@
                         <Font size="11.0" />
                      </font>
                   </Text>
-                  <Button fx:id="playBtn" layoutX="-42.0" layoutY="182.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="198.0" styleClass="button-sidebar-design" stylesheets="@../style/login_register.css" text="Play!" />
+                  <Button fx:id="playBtn" layoutX="-42.0" layoutY="182.0" mnemonicParsing="false" onAction="#playGame" prefHeight="39.0" prefWidth="198.0" styleClass="button-sidebar-design" stylesheets="@../style/login_register.css" text="Play!" />
                   <Button fx:id="logoutBtn" layoutX="-50.0" layoutY="299.0" mnemonicParsing="false" onAction="#logout" prefHeight="39.0" prefWidth="206.0" styleClass="button-sidebar-design" stylesheets="@../style/login_register.css" text="Logout" />
                   <Button fx:id="playBtn1" layoutX="-42.0" layoutY="240.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="198.0" styleClass="button-sidebar-design" stylesheets="@../style/login_register.css" text="Stats" />
                   <ImageView fitHeight="57.0" fitWidth="134.0" layoutX="34.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
