@@ -1,5 +1,9 @@
 package login_registration.registration.viewController;
 
+import createLobby.CrobbyController;
+import dialog.Dialog;
+import dialog.Navigation;
+import game_ui.client.GameC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +26,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RegisterC implements Initializable {
+public class RegisterC implements Initializable, Dialog {
     @FXML
     private Button toLogin;
 
@@ -56,16 +61,7 @@ public class RegisterC implements Initializable {
 
     @FXML
     private void goToLogin(ActionEvent event) throws IOException {
-       Stage stage;
-        Parent root;
-
-
-            stage = (Stage) goToLoginBtn.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/login_registration/login/LoginV.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-       LoginC.show(stage, this.statement);
+        Navigation.navigate(goToLoginBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
     }
 
     private void register() throws SQLException, ParseException {
@@ -74,21 +70,18 @@ public class RegisterC implements Initializable {
         String newpassword_2 = password_2.getText();
 
 
+        if (newpassword_1.equals(newpassword_2)) {
 
-
-        if(newpassword_1.equals(newpassword_2)){
-
-            User.newToDB(newusername,newpassword_1, this.statement);
+            User.newToDB(newusername, newpassword_1, this.statement);
         }
 
     }
 
-    public static void show(Stage stage, Statement statement){
+    public  void show(Stage stage, Statement statement, User user) {
 
         // Animation test
 
-        try{
-
+        try {
 
 
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("login_registration/registration/register.fxml"));
@@ -97,7 +90,7 @@ public class RegisterC implements Initializable {
             Scene scene = new Scene(root);
 
 
-            if(stage == null){
+            if (stage == null) {
                 stage = new Stage();
             }
 
@@ -110,7 +103,7 @@ public class RegisterC implements Initializable {
             registerC.model = new User();
             stage.show();
 
-        }catch (IOException ex){
+        } catch (IOException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Something wrong with PersonV.fxml!");
             ex.printStackTrace(System.err);

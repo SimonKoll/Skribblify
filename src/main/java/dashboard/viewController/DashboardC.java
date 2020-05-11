@@ -2,6 +2,9 @@ package dashboard.viewController;
 
 import createLobby.CrobbyController;
 import dashboard.model.Dashboard;
+import dialog.Dialog;
+import dialog.Navigation;
+import game_ui.client.GameC;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class DashboardC {
+public class DashboardC implements Dialog {
 
 
     private Statement statement;
@@ -59,7 +62,7 @@ public class DashboardC {
 
     private User user;
 
-    public static void show(Stage stage, Statement statement, User user) {
+    public  void show(Stage stage, Statement statement, User user) {
 
 
 
@@ -158,30 +161,12 @@ public class DashboardC {
     @FXML
     private void logout(ActionEvent event) throws IOException {
         this.user = null;
-        Stage stage;
-        Parent root;
-
-
-        stage = (Stage) logoutBtn.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/login_registration/login/LoginV.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        LoginC.show(stage, this.statement);
+        Navigation.navigate(logoutBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
     }
 
     @FXML
     private void playGame(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-
-
-        stage = (Stage) playBtn.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/createLobby/Crobby.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        CrobbyController.show(stage, this.statement);
+        Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
 
 }

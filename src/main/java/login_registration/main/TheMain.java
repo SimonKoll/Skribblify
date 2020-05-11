@@ -24,8 +24,8 @@ public class TheMain extends Application {
 
             Connection connection = DriverManager.getConnection(url, user, pwd);
             Statement statement = connection.createStatement();
-
-            LoginC.show(stage, statement);
+            LoginC loginC = new LoginC();
+            loginC.show(stage, statement, null);
         }
         catch(SQLException ex){
             Logger.getLogger(TheMain.class.getName()).log(Level.SEVERE,null,ex);

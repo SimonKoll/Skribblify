@@ -8,7 +8,11 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import createLobby.CrobbyController;
 import dashboard.viewController.DashboardC;
+import dialog.Dialog;
+import dialog.Navigation;
+import game_ui.client.GameC;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -25,7 +29,7 @@ import login_registration.model.Status;
 import login_registration.model.User;
 import login_registration.registration.viewController.RegisterC;
 
-public class LoginC {
+public class LoginC implements Dialog {
     private Statement statement;
     private User model;
 
@@ -52,7 +56,7 @@ public class LoginC {
 
     }
 
-    public static void show(Stage stage, Statement statement) {
+    public void show(Stage stage, Statement statement, User user) {
 
         // Animation test
 
@@ -114,32 +118,12 @@ public class LoginC {
 
     @FXML
     private void go_to_register(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-
-
-        stage = (Stage) go_to_register_button.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/login_registration/registration/register.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        RegisterC.show(stage, this.statement);
-
+        Navigation.navigate(go_to_register_button, "/login_registration/registration/register.fxml", this.statement, null, new RegisterC());
     }
 
     @FXML
     private void go_to_dashboard(ActionEvent event, User user) throws IOException {
-        Stage stage;
-        Parent root;
-
-
-        stage = (Stage) login_button.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/dashboard/DashboardV.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        DashboardC.show(stage, this.statement, user);
-
+        Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
     }
 
     public Statement getStatement() {
