@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class User {
 
-
+    private StringProperty user_id = new SimpleStringProperty();
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
     private final StringProperty user_img = new SimpleStringProperty();
@@ -212,5 +212,34 @@ public class User {
 
     public void setLast_login(LocalDate last_login) {
         this.last_login.set(last_login);
+    }
+
+    public String getUser_id() {
+        return user_id.get();
+    }
+
+    public StringProperty user_idProperty() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id.set(user_id);
+    }
+
+    public void setUser_status(String user_status) {
+        this.user_status.set(user_status);
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", username=" + username +
+                ", password=" + password +
+                ", user_img=" + user_img +
+                ", user_status=" + user_status +
+                ", last_login=" + last_login +
+                '}';
     }
 }

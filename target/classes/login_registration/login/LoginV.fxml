@@ -17,7 +17,7 @@
          </image>
       </ImageView>
     <Button fx:id="login_button" layoutX="404.0" layoutY="365.0" mnemonicParsing="false" onAction="#login_pressed" prefHeight="40.0" prefWidth="96.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="Login" textAlignment="CENTER" />
-      <TextField fx:id="password" layoutX="404.0" layoutY="315.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
+      <TextField fx:id="pwd" layoutX="404.0" layoutY="315.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
       <Button fx:id="guest_button" layoutX="504.0" layoutY="365.0" mnemonicParsing="false" onAction="#guest_pressed" prefHeight="40.0" prefWidth="96.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="Guest" textAlignment="CENTER" />
       <Button fx:id="go_to_register_button" layoutX="404.0" layoutY="419.0" mnemonicParsing="false" onAction="#go_to_register" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="New here?" textAlignment="CENTER" />
    </children>

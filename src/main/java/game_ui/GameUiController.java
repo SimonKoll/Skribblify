@@ -25,6 +25,9 @@ public class GameUiController {
     @FXML
     private Canvas canvas;
 
+    private GraphicsContext g;
+
+
     @FXML
     private ColorPicker colorPicker;
 
@@ -73,8 +76,8 @@ public class GameUiController {
         chooseWord.setVisible(false);
 
         colorPicker.setValue(Color.BLACK);
-        GraphicsContext g = canvas.getGraphicsContext2D();
 
+        g = canvas.getGraphicsContext2D();
         canvas.setOnMouseMoved(e -> {
         });
 
@@ -144,6 +147,7 @@ public class GameUiController {
     }
 
     public void nextRound(String newWord) {
+        g.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
         wordToGuess.setText(newWord);
         progressBar.setProgress(1);
         chooseWord.setVisible(false);
