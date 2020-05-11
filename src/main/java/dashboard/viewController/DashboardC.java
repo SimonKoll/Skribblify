@@ -2,6 +2,11 @@ package dashboard.viewController;
 
 import createLobby.CrobbyController;
 import dashboard.model.Dashboard;
+import dialog.Dialog;
+import dialog.Navigation;
+import game_ui.client.GameC;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,23 +20,22 @@ import login_registration.model.User;
 import login_registration.login.viewController.LoginC;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class DashboardC {
+public class DashboardC implements Dialog {
 
 
     private Statement statement;
@@ -50,9 +54,9 @@ public class DashboardC {
     @FXML
     private Button pendingPlayersBtn;
     @FXML
-    private Text username;
+    private  Text username;
     @FXML
-    private Text userid;
+    private  Text userid;
     @FXML
     private Button playBtn;
     @FXML
@@ -64,14 +68,14 @@ public class DashboardC {
     private HBox charts;
 
     private User user;
-    private String inputUser;
 
-    public static void show(Stage stage, Statement statement, User user) {
+    @FXML
+    private ScrollBar scrollBar;
+    @FXML
+    private Pane scrollPane;
 
-
-        // Animation test
+    public  void show(Stage stage, Statement statement, User user) {
         try {
-
 
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("dashboard/DashboardV.fxml"));
             Parent root = (Parent) loader.load();
@@ -104,22 +108,25 @@ public class DashboardC {
         }
     }
 
-    @FXML
-    private TextField friendSearchbar;
 
-
-    private void init(User user) {
+    private void init(User user){
         this.user = user;
-        if (user != null) {
+        if(user != null) {
             System.out.println(this.user.toString());
             userid.setText(this.user.getUser_id());
             username.setText(this.user.getUsername());
         }
-
+        scrollBar.setMax(540);
+        scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                scrollPane.setLayoutY(-new_val.doubleValue());
+            }
+        });
         drawChart();
     }
 
-    private void drawChart() {
+    private void drawChart(){
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Jahr");
@@ -144,24 +151,8 @@ public class DashboardC {
         lineChart.getData().add(series);
         charts.getChildren().add(lineChart);
     }
-
     @FXML
-    private void showAllPlayers(ActionEvent event) throws SQLException {
-        LinkedList<String> friends = new LinkedList<String>();
-        String user_one_id = this.userid.getText();
-        //   String sql = "select user_id from users u, friendship f where (f.user_two = u.user_id)and not(USER_TWO = '" + user_one_id + "' )"
-        String sql = "select * from friendship where (user_one = '"+user_one_id+"')";
-        System.out.println(sql);
-        ResultSet rs = statement.executeQuery(sql);
-
-        while (rs.next()) {
-
-            System.out.println(rs.getString("user_two"));
-
-        }
-        System.exit(1);
-
-
+    private void showAllPlayers(ActionEvent event) {
     }
 
     @FXML
@@ -183,36 +174,16 @@ public class DashboardC {
     @FXML
     private void logout(ActionEvent event) throws IOException {
         this.user = null;
-        Stage stage;
-        Parent root;
-
-
-        stage = (Stage) logoutBtn.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/login_registration/login/LoginV.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        LoginC.show(stage, this.statement);
+        Navigation.navigate(logoutBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
     }
 
     @FXML
     private void playGame(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-
-
-        stage = (Stage) playBtn.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/createLobby/Crobby.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        //   CrobbyController.show(stage, this.statement);
+        Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
 
-    @FXML
-    private void searchFriends(KeyEvent event) {
-        inputUser = friendSearchbar.getText();
-        String sql = "select User_id from users where username =" + inputUser;
-    }
+
+
+
 
 }

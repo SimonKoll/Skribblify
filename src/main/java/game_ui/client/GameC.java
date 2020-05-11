@@ -1,9 +1,12 @@
-package game_ui;
+package game_ui.client;
 
-import javafx.application.Platform;
+
+import dialog.Dialog;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
@@ -16,12 +19,20 @@ import javafx.scene.paint.Color;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import login_registration.login.viewController.LoginC;
+import login_registration.model.User;
 
-public class GameUiController {
+public class GameC implements Dialog {
     @FXML
     private Canvas canvas;
 
@@ -60,6 +71,40 @@ public class GameUiController {
 
     private double step = 0.0001;
     private boolean roundEnd = false;
+    private Statement statement;
+
+
+
+    public  void show(Stage stage, Statement statement, User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("game_ui/GameV.fxml"));
+            Parent root = (Parent) loader.load();
+
+            Scene scene = new Scene(root);
+
+            if(stage == null) {
+                stage = new Stage();
+            }
+
+            stage.setScene(scene);
+            stage.setTitle("Skribblify - Game");
+
+
+            GameC gameC = (GameC) loader.getController();
+            gameC.initialize();
+            gameC.statement = statement;
+
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Something wrong with GameV.fxml!");
+            ex.printStackTrace(System.err);
+            System.exit(1);
+
+        }
+    }
+
 
     public void countDown() {
         if((progressBar.getProgress() - step) >= 0){
@@ -70,6 +115,9 @@ public class GameUiController {
             chooseWord.setVisible(true);
         }
     }
+
+
+
 
     public void initialize() {
         progressBar.setProgress(1);
@@ -153,5 +201,7 @@ public class GameUiController {
         chooseWord.setVisible(false);
         roundEnd = false;
     }
+
+
 
 }
