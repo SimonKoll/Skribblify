@@ -48,8 +48,6 @@ public class LoginC implements Dialog {
     private Button go_to_register_button;
     @FXML
     private static SVGPath svg_background;
-    @FXML
-    private Button register_button1;
 
 
     public LoginC() {
@@ -110,7 +108,7 @@ public class LoginC implements Dialog {
              user.setPassword(rs.getString("PASSWORD"));
         }
         if (user.getPassword().equals(inputPwd)) {
-            go_to_dashboard(event, user);
+            Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
         }
 
     }
@@ -121,10 +119,7 @@ public class LoginC implements Dialog {
         Navigation.navigate(go_to_register_button, "/login_registration/registration/register.fxml", this.statement, null, new RegisterC());
     }
 
-    @FXML
-    private void go_to_dashboard(ActionEvent event, User user) throws IOException {
-        Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
-    }
+
 
     public Statement getStatement() {
         return statement;
@@ -158,6 +153,7 @@ public class LoginC implements Dialog {
         return go_to_register_button;
     }
 
+    @FXML
     public void guest_pressed(ActionEvent actionEvent) {
     }
 }
