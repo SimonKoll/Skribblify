@@ -76,7 +76,6 @@
     <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http:2.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-rcm:2.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20180130" level="project" />
-    <orderEntry type="library" name="jfoenix-9.0.8" level="project" />
     <orderEntry type="library" name="derbyclient" level="project" />
   </component>
 </module>

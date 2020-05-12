@@ -5,6 +5,8 @@ import dashboard.model.Dashboard;
 import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +26,11 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -62,13 +69,13 @@ public class DashboardC implements Dialog {
 
     private User user;
 
+    @FXML
+    private ScrollBar scrollBar;
+    @FXML
+    private Pane scrollPane;
+
     public  void show(Stage stage, Statement statement, User user) {
-
-
-
-        // Animation test
         try {
-
 
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("dashboard/DashboardV.fxml"));
             Parent root = (Parent) loader.load();
@@ -109,7 +116,13 @@ public class DashboardC implements Dialog {
             userid.setText(this.user.getUser_id());
             username.setText(this.user.getUsername());
         }
-
+        scrollBar.setMax(540);
+        scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                scrollPane.setLayoutY(-new_val.doubleValue());
+            }
+        });
         drawChart();
     }
 
@@ -168,5 +181,9 @@ public class DashboardC implements Dialog {
     private void playGame(ActionEvent event) throws IOException {
         Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
+
+
+
+
 
 }
