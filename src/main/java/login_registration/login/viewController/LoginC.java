@@ -2,20 +2,15 @@ package login_registration.login.viewController;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import converter.Converter;
-import createLobby.CrobbyController;
 import dashboard.viewController.DashboardC;
 import dialog.Dialog;
 import dialog.Navigation;
-import game_ui.client.GameC;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
-import login_registration.model.Status;
 import login_registration.model.User;
 import login_registration.registration.viewController.RegisterC;
 
@@ -131,26 +125,51 @@ public class LoginC implements Dialog {
     @FXML
     private void login_pressed(ActionEvent event) throws SQLException, IOException {
         String inputPwd = pwd.getText();
+        String inputUname = uname.getText();
         User user = new User();
 
         String sql
                 = "select * " +
                 "from USERS " +
-                "where PASSWORD = " + "'" + inputPwd + "'";
+                "where USERNAME = " + "'" + inputUname + "'";
 
         ResultSet rs = statement.executeQuery(sql);
 
-        while(rs.next()) {
-             user.setUser_id(rs.getString("USER_ID"));
-             user.setUsername(rs.getString("USERNAME"));
-             user.setUser_status(rs.getString("STATUS"));
-             user.setUser_img(rs.getString("USER_IMG"));
-             user.setPassword(rs.getString("PASSWORD"));
-        }
-        if (user.getPassword().equals(inputPwd)) {
-            Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
+        if(rs.next()){
+
+
+            sql
+                    = "select * " +
+                    "from USERS " +
+                    "where USERNAME = " + "'" + inputUname + "'"+
+                    "and PASSWORD = '"+ inputPwd +"'";
+
+          rs = statement.executeQuery(sql);
+
+            if(rs.next()) {
+                user.setUser_id(rs.getString("USER_ID"));
+                user.setUsername(rs.getString("USERNAME"));
+                user.setUser_status(rs.getString("STATUS"));
+                user.setUser_img(rs.getString("USER_IMG"));
+                user.setPassword(rs.getString("PASSWORD"));
+
+                Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
+            }
+            else {
+              loginRegisterError("Wrong Password.");
+            }
+
+        }else{
+            loginRegisterError("This User doesn't exist.");
         }
 
+
+
+    }
+
+    @FXML
+    private void loginRegisterError(String errorString){
+        System.out.println(errorString);
     }
 
 

@@ -1,6 +1,7 @@
 package login_registration.registration.viewController;
 
 import createLobby.CrobbyController;
+import dashboard.viewController.DashboardC;
 import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
@@ -19,6 +20,7 @@ import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
@@ -55,8 +57,8 @@ public class RegisterC implements Initializable, Dialog {
 
     @FXML
     private void register_pressed(ActionEvent event) throws SQLException, ParseException, IOException {
-        register();
-        goToLogin(event);
+        register(event);
+
     }
 
     @FXML
@@ -64,17 +66,46 @@ public class RegisterC implements Initializable, Dialog {
         Navigation.navigate(goToLoginBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
     }
 
-    private void register() throws SQLException, ParseException {
+    private void register(ActionEvent event) throws SQLException, ParseException, IOException {
         String newusername = username.getText();
         String newpassword_1 = password_1.getText();
         String newpassword_2 = password_2.getText();
 
 
-        if (newpassword_1.equals(newpassword_2)) {
 
-            User.newToDB(newusername, newpassword_1, this.statement);
+        String sql
+                = "select * " +
+                "from USERS " +
+                "where USERNAME = " + "'" + newusername + "'";
+
+        ResultSet rs = statement.executeQuery(sql);
+
+        if(rs.next()){
+
+
+                loginRegisterError("This User already exist.");
+            }else{
+            if (newpassword_1.equals(newpassword_2)) {
+
+                User.newToDB(newusername, newpassword_1, this.statement);
+                goToLogin(event);
+            }else{
+                loginRegisterError("The Passwords don't match.");
+            }
+
+
         }
 
+
+
+
+
+
+    }
+
+    @FXML
+    private void loginRegisterError(String errorString){
+        System.out.println(errorString);
     }
 
     public  void show(Stage stage, Statement statement, User user) {
