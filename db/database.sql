@@ -57,3 +57,18 @@ create table paintings(
                           user_id varchar(9) references users(user_id) on delete cascade,
                           img_path varchar(30) not null
 )
+
+
+
+
+select * from users;
+insert into friendship (friendship_id, user_one, user_two, friendship_status) values ('#A2383491', '#9BWWTWUA', '#0JJ2LZS0', 'E');
+insert into friendship (friendship_id, user_one, user_two, friendship_status) values ('#23231491', '#9BWWTWUA', '#26DDY437', 'P');
+insert into friendship (friendship_id, user_one, user_two, friendship_status) values ('#HKD932DA', '#9BWWTWUA', '#QXQMHMHL', 'P');
+
+select * from friendship;
+
+
+
+
+

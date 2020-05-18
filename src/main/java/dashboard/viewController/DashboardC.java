@@ -3,6 +3,8 @@ package dashboard.viewController;
 import createLobby.CrobbyController;
 import dialog.Dialog;
 import dialog.Navigation;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import login_registration.model.User;
@@ -110,13 +113,6 @@ public class DashboardC implements Dialog {
             userid.setText(this.user.getUser_id());
             username.setText(this.user.getUsername());
         }
-        scrollBar.setMax(540);
-        scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-                scrollPane.setLayoutY(-new_val.doubleValue());
-            }
-        });
         drawChart();
     }
 
@@ -188,13 +184,12 @@ public class DashboardC implements Dialog {
 
     @FXML
     private void showOnlinePlayers(ActionEvent event) throws SQLException {
-        insertIntoListView("A");
+        //insertIntoListView("A");
     }
 
     @FXML
     private void showOfflinePlayers(ActionEvent event) throws SQLException {
-
-        insertIntoListView("O");
+        //insertIntoListView("O");
     }
 
     @FXML
@@ -214,15 +209,20 @@ public class DashboardC implements Dialog {
         Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
 
-    public void smoothScrolling(int scrollPoint) throws InterruptedException {
-        int start = (int) scrollPane.getLayoutY();
-        int diff = (int) Math.round(scrollPane.getLayoutY() - scrollPoint);
+    IntegerProperty scrollValue = new SimpleIntegerProperty(0);
 
-
-        for (int i = 0; i < Math.abs(diff); i++) {
-            scrollPane.setLayoutY(i + start);
-            Thread.sleep(500);
+    @FXML
+    private void scrollEffect(ScrollEvent event) {
+        if(event.getDeltaY() < 0){
+            if(scrollValue.getValue() > -520) {
+                scrollValue.setValue(scrollValue.getValue() - 8);
+            }
+        }else {
+            if(scrollValue.getValue() <= 0){
+                scrollValue.setValue(scrollValue.getValue() + 8);
+            }
         }
+        scrollPane.setLayoutY(scrollValue.getValue());
     }
 
 
