@@ -173,19 +173,19 @@ public class DashboardC implements Dialog {
         Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
     private IntegerProperty scrollValue = new SimpleIntegerProperty(0);
+    boolean start = true;
     @FXML
     private void scrollEffect(ScrollEvent event) {
-        System.out.println(scrollValue);
         if(event.getDeltaY() < 0){
-            if(scrollValue.getValue() + 8 <= 540){
-                scrollValue.setValue(scrollValue.getValue() + 8);
-            }
-        }else{
-            if(scrollValue.getValue() - 8 >= 0){
+            if(scrollValue.getValue() > -520) {
                 scrollValue.setValue(scrollValue.getValue() - 8);
             }
+        }else {
+            if(scrollValue.getValue() <= 0){
+                scrollValue.setValue(scrollValue.getValue() + 8);
+            }
         }
-
+        System.out.println(scrollValue.getValue());;
         scrollPane.setLayoutY(scrollValue.getValue());
     }
 
