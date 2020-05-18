@@ -1,11 +1,8 @@
 package dashboard.viewController;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import createLobby.CrobbyController;
-import dashboard.model.Dashboard;
 import dialog.Dialog;
 import dialog.Navigation;
-import game_ui.client.GameC;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -18,14 +15,12 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import login_registration.model.Status;
 import login_registration.model.User;
 import login_registration.login.viewController.LoginC;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +28,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -43,7 +37,6 @@ public class DashboardC implements Dialog {
 
 
     private Statement statement;
-    private Dashboard model;
 
     @FXML
     private Pane gameHighlights01;
@@ -98,8 +91,6 @@ public class DashboardC implements Dialog {
             DashboardC dashboardC = (DashboardC) loader.getController();
             dashboardC.init(user);
             dashboardC.statement = statement;
-
-            dashboardC.model = new Dashboard();
             stage.show();
 
         } catch (IOException ex) {
