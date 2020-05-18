@@ -2,15 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.ArcTo?>
-<?import javafx.scene.shape.ClosePath?>
-<?import javafx.scene.shape.LineTo?>
-<?import javafx.scene.shape.MoveTo?>
-<?import javafx.scene.shape.Path?>
-<?import javafx.scene.shape.QuadCurveTo?>
 <?import javafx.scene.shape.SVGPath?>
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login_registration.login.viewController.LoginC">
@@ -22,18 +17,12 @@
             <Image url="@logo_skribblify.png" />
          </image>
       </ImageView>
-    <Button fx:id="login_button" layoutX="404.0" layoutY="365.0" mnemonicParsing="false" onAction="#login_pressed" prefHeight="40.0" prefWidth="96.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="Login" textAlignment="CENTER" />
+    <Button fx:id="login_button" layoutX="404.0" layoutY="365.0" mnemonicParsing="false" onAction="#login_pressed" onMouseMoved="#checkEntries" prefHeight="40.0" prefWidth="96.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="Login" textAlignment="CENTER">
+         <tooltip>
+            <Tooltip fx:id="loginTT" />
+         </tooltip></Button>
       <TextField fx:id="pwd" layoutX="404.0" layoutY="315.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
       <Button fx:id="guest_button" layoutX="504.0" layoutY="365.0" mnemonicParsing="false" onAction="#guest_pressed" prefHeight="40.0" prefWidth="96.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="Guest" textAlignment="CENTER" />
       <Button fx:id="go_to_register_button" layoutX="404.0" layoutY="419.0" mnemonicParsing="false" onAction="#go_to_register" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="New here?" textAlignment="CENTER" />
-      <Path fill="DODGERBLUE" layoutX="70.0" layoutY="46.0" stroke="BLACK" strokeType="INSIDE">
-          <elements>
-              <MoveTo x="100.0" />
-              <LineTo x="150.0" y="50.0" />
-              <ArcTo radiusX="30.0" radiusY="25" x="200.0" y="100.0" />
-              <QuadCurveTo controlX="300.0" controlY="300.0" y="150.0" />
-              <ClosePath />
-          </elements>
-      </Path>
    </children>
 </AnchorPane>

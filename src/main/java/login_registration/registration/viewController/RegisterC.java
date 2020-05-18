@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
@@ -42,6 +43,8 @@ public class RegisterC implements Initializable, Dialog {
     private TextField username;
     @FXML
     private Button goToLoginBtn;
+    @FXML
+    private Tooltip registerTT;
 
     private Statement statement;
     private User model;
@@ -69,9 +72,46 @@ public class RegisterC implements Initializable, Dialog {
     private void register(ActionEvent event) throws SQLException, ParseException, IOException {
         String newusername = username.getText();
         String newpassword_1 = password_1.getText();
+
+
+
+            if(registerTT.getText().length() == 0) {
+
+
+                User.newToDB(newusername, newpassword_1, this.statement);
+
+
+
+
+            }
+
+
+
+
+    }
+
+    @FXML
+    private void checkEntries() throws SQLException {
+        String newusername = username.getText();
+        String newpassword_1 = password_1.getText();
         String newpassword_2 = password_2.getText();
+        String errorString = "";
 
+        if(newusername.length() > 25){
+            errorString += "Username is too long! (max 25) \n";
+        }
 
+        if(newusername.length() < 3){
+            errorString += "Username is too short! (min 3) \n";
+        }
+
+        if(newpassword_1.length() > 30){
+            errorString += "Password is too long! (max 30) \n";
+        }
+
+        if(newpassword_1.length() < 4){
+            errorString += "Password is too short! (min 4) \n";
+        }
 
         String sql
                 = "select * " +
@@ -80,33 +120,29 @@ public class RegisterC implements Initializable, Dialog {
 
         ResultSet rs = statement.executeQuery(sql);
 
-        if(rs.next()){
+        if (rs.next()) {
+           errorString+="This User already exist! \n";
+        }
 
-
-                loginRegisterError("This User already exist.");
-            }else{
-            if (newpassword_1.equals(newpassword_2)) {
-
-                User.newToDB(newusername, newpassword_1, this.statement);
-                goToLogin(event);
-            }else{
-                loginRegisterError("The Passwords don't match.");
-            }
-
+        if (!newpassword_1.equals(newpassword_2)) {
+            errorString+="The Passwords don't match! \n";
 
         }
 
-
-
-
-
-
+        loginRegisterError(errorString);
     }
 
     @FXML
     private void loginRegisterError(String errorString){
-        System.out.println(errorString);
+        if(errorString.length() == 0){
+            registerTT.setOpacity(0);
+        }else{
+            registerTT.setOpacity(1);
+        }
+        registerTT.setText(errorString);
     }
+
+
 
     public  void show(Stage stage, Statement statement, User user) {
 
