@@ -1,10 +1,12 @@
 package dashboard.viewController;
 
 import createLobby.CrobbyController;
-import dashboard.model.Dashboard;
 import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +41,6 @@ public class DashboardC implements Dialog {
 
 
     private Statement statement;
-    private Dashboard model;
 
     @FXML
     private Pane gameHighlights01;
@@ -68,8 +69,6 @@ public class DashboardC implements Dialog {
     private User user;
 
     @FXML
-    private ScrollBar scrollBar;
-    @FXML
     private Pane scrollPane;
 
     public  void show(Stage stage, Statement statement, User user) {
@@ -94,7 +93,6 @@ public class DashboardC implements Dialog {
             dashboardC.init(user);
             dashboardC.statement = statement;
 
-            dashboardC.model = new Dashboard();
             stage.show();
 
         } catch (IOException ex) {
@@ -109,18 +107,13 @@ public class DashboardC implements Dialog {
 
     private void init(User user){
         this.user = user;
+
         if(user != null) {
             System.out.println(this.user.toString());
             userid.setText(this.user.getUser_id());
             username.setText(this.user.getUsername());
         }
-        scrollBar.setMax(540);
-        scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-                scrollPane.setLayoutY(-new_val.doubleValue());
-            }
-        });
+
         drawChart();
     }
 
@@ -179,17 +172,26 @@ public class DashboardC implements Dialog {
     private void playGame(ActionEvent event) throws IOException {
         Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
-
-    public void smoothScrolling(int scrollPoint) throws InterruptedException {
-        int start = (int)scrollPane.getLayoutY();
-        int diff = (int) Math.round(scrollPane.getLayoutY() - scrollPoint);
-
-
-        for (int i = 0; i < Math.abs(diff); i++) {
-            scrollPane.setLayoutY(i + start);
-            Thread.sleep(500);
+    private IntegerProperty scrollValue = new SimpleIntegerProperty(0);
+    @FXML
+    private void scrollEffect(ScrollEvent event) {
+        System.out.println(scrollValue);
+        if(event.getDeltaY() < 0){
+            if(scrollValue.getValue() + 8 <= 540){
+                scrollValue.setValue(scrollValue.getValue() + 8);
+            }
+        }else{
+            if(scrollValue.getValue() - 8 >= 0){
+                scrollValue.setValue(scrollValue.getValue() - 8);
+            }
         }
+
+        scrollPane.setLayoutY(scrollValue.getValue());
     }
+
+
+
+  
 
 
 

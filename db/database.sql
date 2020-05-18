@@ -1,9 +1,13 @@
+
+
+
 create table users(
                       user_id varchar(9) primary key,
                       username varchar(25) not null,
                       status varchar(1) not null,
                       user_img varchar(30) DEFAULT 'default.png',
-                      last_login date
+                      last_login date,
+                      password varchar(30)
 );
 
 create table friendship(

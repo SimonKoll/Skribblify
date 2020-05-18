@@ -5,13 +5,19 @@
  */
 package createLobby;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import createCode.CreateCode;
 import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
@@ -22,7 +28,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
@@ -42,12 +50,14 @@ public class CrobbyController implements Initializable, Dialog {
     private Button inviteBtn;
     @FXML
     private Button startBtn;
+    @FXML
+    private ListView<String> lvFriends;
 
     public void show(Stage stage, Statement statement, User user) {
         CrobbyController.user = user;
 
         try {
-            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("/createLobby/CrobbyV.fxml"));
+            FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("createLobby/CrobbyV.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -63,14 +73,16 @@ public class CrobbyController implements Initializable, Dialog {
 
 
             CrobbyController crobbyController = loader.getController();
-            crobbyController.init(user);
+            crobbyController.init();
+
             crobbyController.statement = statement;
             CrobbyController.stage = stage;
+
             stage.show();
 
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Something wrong with DashboardV.fxml!");
+            System.err.println("Something wrong with CreateLobby.fxml!");
             ex.printStackTrace(System.err);
             System.exit(1);
 
@@ -83,7 +95,22 @@ public class CrobbyController implements Initializable, Dialog {
     @FXML
     private Slider roundSlider;
 
-    private void init(User user) {
+    private void init() throws SQLException {
+        System.out.println("tesing....");
+        String gameCode = CreateCode.createIdCode("lobby",this.statement);
+        inviteBtn.setText(gameCode);
+
+
+        lvFriends.getItems().add(this.user.getUsername());
+
+        playerSlider.valueProperty().addListener((obs, oldval, newVal) ->
+                playerSlider.setValue((int) Math.round(newVal.doubleValue())));
+
+        durationSlider.valueProperty().addListener((obs, oldval, newVal) ->
+                durationSlider.setValue((int) Math.round(newVal.doubleValue())));
+
+        roundSlider.valueProperty().addListener((obs, oldval, newVal) ->
+                roundSlider.setValue((int) Math.round(newVal.doubleValue())));
     }
 
     /**
@@ -101,5 +128,11 @@ public class CrobbyController implements Initializable, Dialog {
     @FXML
     private void startGame(ActionEvent event) throws IOException {
         Navigation.navigate(startBtn, "/game_ui/GameV.fxml", this.statement, CrobbyController.user, new GameC());
+    }
+
+    @FXML
+    private void copyClip(MouseEvent event) {
+        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clpbrd.setContents(new StringSelection(inviteBtn.getText()), null);
     }
 }
