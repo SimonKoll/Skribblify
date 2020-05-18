@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
@@ -42,6 +43,8 @@ public class LoginC implements Dialog {
     private Button guest_button;
     @FXML
     private Button go_to_register_button;
+    @FXML
+    private Tooltip loginTT;
 
 
 
@@ -90,26 +93,70 @@ public class LoginC implements Dialog {
         String inputUsername = uname.getText();
         User user = new User();
 
+
+
+        if(loginTT.getText().length() == 0){
+
+           String sql = "select * " +
+                    "from USERS " +
+                    "where USERNAME= " + "'" + inputUsername + "' AND PASSWORD = " + "'" + inputPwd + "'";
+
+          ResultSet  rs = statement.executeQuery(sql);
+
+          rs.next();
+
+            user.setUser_id(rs.getString("USER_ID"));
+            user.setUsername(rs.getString("USERNAME"));
+            user.setUser_status(rs.getString("STATUS"));
+            user.setUser_img(rs.getString("USER_IMG"));
+            user.setPassword(rs.getString("PASSWORD"));
+
+            Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
+        }
+
+
+
+    }
+
+    @FXML
+    private void checkEntries() throws SQLException {
+        String inputPwd = pwd.getText();
+        String inputUsername = uname.getText();
+
+
         String sql
                 = "select * " +
                 "from USERS " +
-                "where USERNAME= " + "'" + inputUsername + "' AND PASSWORD = " + "'" + inputPwd + "'";
+                "where USERNAME= " + "'" + inputUsername + "'";
 
         ResultSet rs = statement.executeQuery(sql);
 
-        while(rs.next()) {
-             user.setUser_id(rs.getString("USER_ID"));
-             user.setUsername(rs.getString("USERNAME"));
-             user.setUser_status(rs.getString("STATUS"));
-             user.setUser_img(rs.getString("USER_IMG"));
-             user.setPassword(rs.getString("PASSWORD"));
-        }
-        if (user.getPassword().equals(inputPwd)) {
-            Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
+        if(rs.next()){
+            sql = "select * " +
+                    "from USERS " +
+                    "where USERNAME= " + "'" + inputUsername + "' AND PASSWORD = " + "'" + inputPwd + "'";
+            rs = statement.executeQuery(sql);
+
+            if(rs.next()) {
+                loginRegisterError("");
+            }else{
+                loginRegisterError("The Password is incorrect!");
+            }
+        }else{
+            loginRegisterError("This User doesn't exist!");
         }
 
     }
 
+    @FXML
+    private void loginRegisterError(String errorString){
+        if(errorString.length() == 0){
+            loginTT.setOpacity(0);
+        }else{
+            loginTT.setOpacity(1);
+        }
+        loginTT.setText(errorString);
+    }
 
     @FXML
     private void go_to_register(ActionEvent event) throws IOException {
