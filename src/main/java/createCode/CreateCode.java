@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class createCode {
+public class CreateCode {
     public static String createIdCode(String type, Statement statement) throws SQLException {
         String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789";
         String id = "#";
