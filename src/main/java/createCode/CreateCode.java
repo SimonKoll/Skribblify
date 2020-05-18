@@ -37,8 +37,13 @@ public class CreateCode {
                     else{
                         id = checkId;
                     }
-                    break;
                 }
+                break;
+
+
+            case "lobby":
+
+                break;
 
         }
         return id;
