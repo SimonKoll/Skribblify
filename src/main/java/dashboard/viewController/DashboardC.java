@@ -61,8 +61,6 @@ public class DashboardC implements Dialog {
     private Button playBtn;
     @FXML
     private Button logoutBtn;
-    @FXML
-    private Button playBtn1;
 
     @FXML
     private HBox charts;
@@ -182,7 +180,16 @@ public class DashboardC implements Dialog {
         Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
 
+    public void smoothScrolling(int scrollPoint) throws InterruptedException {
+        int start = (int)scrollPane.getLayoutY();
+        int diff = (int) Math.round(scrollPane.getLayoutY() - scrollPoint);
 
+
+        for (int i = 0; i < Math.abs(diff); i++) {
+            scrollPane.setLayoutY(i + start);
+            Thread.sleep(500);
+        }
+    }
 
 
 
