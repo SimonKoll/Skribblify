@@ -66,7 +66,7 @@ public class DashboardC implements Dialog {
     @FXML
     private HBox charts;
 
-    private User user;
+    public static User user;
 
     @FXML
     private ScrollBar scrollBar;

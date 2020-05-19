@@ -18,7 +18,7 @@
             <Slider fx:id="playerSlider" translateX="68.0" translateY="145.0" blockIncrement="1.0"
                     cache="true"
                     majorTickUnit="1.0"
-                    max="4.0"
+                    max="9.0"
                     min="1.0"
                     minorTickCount="0"
                     showTickLabels="true"
