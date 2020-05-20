@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import login_registration.main.TheMain;
 import login_registration.model.User;
 import login_registration.login.viewController.LoginC;
 
@@ -66,7 +67,7 @@ public class DashboardC implements Dialog {
     @FXML
     private HBox charts;
 
-    private User user;
+    public static User user;
 
     @FXML
     private ScrollBar scrollBar;
@@ -199,8 +200,9 @@ public class DashboardC implements Dialog {
     }
 
     @FXML
-    private void logout(ActionEvent event) throws IOException {
-        this.user = null;
+    private void logout(ActionEvent event) throws IOException, SQLException {
+        TheMain main = new TheMain();
+        main.stop();
         Navigation.navigate(logoutBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
     }
 
