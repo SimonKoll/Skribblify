@@ -2,6 +2,7 @@ package login_registration.main;
 
 
 import dashboard.viewController.DashboardC;
+import dialog.Navigation;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
@@ -35,28 +36,18 @@ public class TheMain extends Application {
 
 
     @Override
-    public  void stop() throws SQLException {
+    public void stop() throws SQLException {
+
         if(DashboardC.user != null) {
-            String sql = "SELECT * FROM users";
+            System.out.println("checkinng....");
+
+            String sql = "UPDATE USERS set STATUS='O' where USER_ID LIKE '" + DashboardC.user.getUser_id() + "'";
             Connection connection = DriverManager.getConnection(url, user, pwd);
-            PreparedStatement stmt = connection.prepareStatement(sql,
-                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = stmt.executeQuery();
-
-            while(rs.next()) {
-                if(rs.getString("USER_ID").equals(DashboardC.user.getUser_id())) {
-                    rs.updateString("STATUS", "O");
-                    rs.updateRow();
-                }
 
 
-
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            System.out.println("username was changed...");
             }
         }
-        else{
-            System.out.println("test");
-        }
-
-
-    }
 }

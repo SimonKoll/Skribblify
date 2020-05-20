@@ -107,20 +107,8 @@ public class LoginC implements Dialog {
             user.setPassword(rs.getString("PASSWORD"));
 
             if (user != null) {
-                String sqlUpdate = "SELECT * FROM users";
-                Connection connection = statement.getConnection();
-                PreparedStatement stmtUpdate = connection.prepareStatement(sqlUpdate,
-                        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                ResultSet rsUpdate = stmtUpdate.executeQuery();
-
-                while (rsUpdate.next()) {
-                    if (rsUpdate.getString("USER_ID").equals(user.getUser_id())) {
-                        rsUpdate.updateString("STATUS", "A");
-                        rsUpdate.updateRow();
-                    }
-
-
-                }
+                String sqlUpdate = "UPDATE USERS set STATUS='A' where USER_ID LIKE '" + user.getUser_id() + "'";
+                this.statement.executeUpdate(sqlUpdate);
                 System.out.println("Status of User '" + user.getUser_id() + "' updated to " + user.getUser_status());
             }
 

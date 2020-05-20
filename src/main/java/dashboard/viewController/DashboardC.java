@@ -154,18 +154,7 @@ public class DashboardC implements Dialog {
                 System.out.println(sqlUser);
                 ResultSet rsUser = statement.executeQuery(sqlUser);
                 System.out.println("statement returned values");
-                if (!rsUser.next()) {
-                    friendsListView.getItems().add("No friends found :(");
-
-
-                } else {
-                    String first_friend = rsUser.getString("USERNAME");
-                    friendsListView.getItems().add(first_friend);
-                    while (rsUser.next()) {
-                        String friend_name = rsUser.getString("USERNAME");
-                        friendsListView.getItems().add(friend_name);
-                    }
-                }
+                insertFriends(rsUser);
                 break;
             case "friendship":
                 friendsListView.getItems().clear();
@@ -173,20 +162,24 @@ public class DashboardC implements Dialog {
                 System.out.println(sqlFriendship);
                 ResultSet rsFriendship = statement.executeQuery(sqlFriendship);
                 System.out.println("statement returned values");
-                if (!rsFriendship.next()) {
-                    friendsListView.getItems().add("No friends found :(");
-                } else {
-                    String first_friend = rsFriendship.getString("USERNAME");
-                    friendsListView.getItems().add(first_friend);
-                    while (rsFriendship.next()) {
-                        String friend_name = rsFriendship.getString("USERNAME");
-                        friendsListView.getItems().add(friend_name);
-                    }
-                }
+                insertFriends(rsFriendship);
                 break;
         }
 
 
+    }
+
+    private void insertFriends(ResultSet rsFriendship) throws SQLException {
+        if (!rsFriendship.next()) {
+            friendsListView.getItems().add("No friends found :(");
+        } else {
+            String first_friend = rsFriendship.getString("USERNAME");
+            friendsListView.getItems().add(first_friend);
+            while (rsFriendship.next()) {
+                String friend_name = rsFriendship.getString("USERNAME");
+                friendsListView.getItems().add(friend_name);
+            }
+        }
     }
 
     @FXML
@@ -223,9 +216,10 @@ public class DashboardC implements Dialog {
 
     @FXML
     private void logout(ActionEvent event) throws IOException, SQLException {
+        Navigation.navigate(logoutBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
+
         TheMain main = new TheMain();
         main.stop();
-        Navigation.navigate(logoutBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
     }
 
     @FXML
