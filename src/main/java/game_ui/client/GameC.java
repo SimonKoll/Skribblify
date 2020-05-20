@@ -14,6 +14,9 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.paint.Color;
 
 import javax.imageio.ImageIO;
@@ -26,6 +29,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -76,12 +80,15 @@ public class GameC implements Dialog {
 
 
     public  void show(Stage stage, Statement statement, User user) {
+        KeyCombination cz = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+
+
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("game_ui/GameV.fxml"));
             Parent root = (Parent) loader.load();
 
             Scene scene = new Scene(root);
-
+            scene.getAccelerators().put(cz, rn);
             if(stage == null) {
                 stage = new Stage();
             }
@@ -201,6 +208,11 @@ public class GameC implements Dialog {
         chooseWord.setVisible(false);
         roundEnd = false;
     }
+
+    Runnable rn = ()-> {
+        System.out.println("working,...");
+    };
+
 
 
 

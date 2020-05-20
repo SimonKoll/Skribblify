@@ -10,7 +10,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
@@ -42,7 +41,6 @@ import login_registration.model.User;
  */
 public class CrobbyController implements Initializable, Dialog {
 
-    private static Stage stage;
     private Statement statement;
     private static User user;
 
@@ -76,7 +74,6 @@ public class CrobbyController implements Initializable, Dialog {
             crobbyController.init();
 
             crobbyController.statement = statement;
-            CrobbyController.stage = stage;
 
             stage.show();
 
@@ -96,7 +93,6 @@ public class CrobbyController implements Initializable, Dialog {
     private Slider roundSlider;
 
     private void init() throws SQLException {
-        System.out.println("tesing....");
         String gameCode = CreateCode.createIdCode("lobby",this.statement);
         inviteBtn.setText(gameCode);
 
