@@ -11,18 +11,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TheMain extends Application {
-
-    public Statement statement;
+    String url = "jdbc:derby://localhost:1527/skribblify_database";
+    String user = "app";
+    String pwd = "app";
     @Override
     public void start(Stage stage) throws Exception {
 
         try{
-            String url = "jdbc:derby://localhost:1527/skribblify_database";
-            String user = "app";
-            String pwd = "app";
-
             Connection connection = DriverManager.getConnection(url, user, pwd);
-            statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             LoginC loginC = new LoginC();
             loginC.show(stage, statement, null);
         }
@@ -38,14 +35,21 @@ public class TheMain extends Application {
 
 
     @Override
-    public void stop() throws SQLException {
+    public  void stop() throws SQLException {
         if(DashboardC.user != null) {
             String sql = "SELECT * FROM users";
-            ResultSet rs = statement.executeQuery(sql);
+            Connection connection = DriverManager.getConnection(url, user, pwd);
+            PreparedStatement stmt = connection.prepareStatement(sql,
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = stmt.executeQuery();
+
             while(rs.next()) {
-                if(rs.getString("USER_ID") == DashboardC.user.getUser_id()) {
+                if(rs.getString("USER_ID").equals(DashboardC.user.getUser_id())) {
                     rs.updateString("STATUS", "O");
+                    rs.updateRow();
                 }
+
+
             }
         }
 
