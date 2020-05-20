@@ -5,8 +5,6 @@ import dialog.Dialog;
 import dialog.Navigation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -63,7 +61,7 @@ public class DashboardC implements Dialog {
     @FXML
     private Button logoutBtn;
     @FXML
-    private ListView friendsListView;
+    private ListView<String> friendsListView;
     @FXML
     private HBox charts;
 
@@ -146,30 +144,54 @@ public class DashboardC implements Dialog {
     @FXML
     private void checkInput(KeyEvent event) {
     }
-    private void insertIntoListView(String status) throws SQLException {
-        friendsListView.getItems().clear();
-        String sql = "select * from users u where user_id in (select user_one from friendship where USER_TWO='" + user.getUser_id() + "' AND friendship_status='" + status + "' UNION select user_two from friendship where USER_ONE='" + user.getUser_id() + "' AND friendship_status='" + status + "')";
-        System.out.println(sql);
-        ResultSet rs = statement.executeQuery(sql);
-        System.out.println("statement returned values");
-        if (!rs.next()) {
-            friendsListView.getItems().add("No friends found :(");
+
+    private void insertIntoListView(String searchCase, String status) throws SQLException {
+
+        switch (searchCase) {
+            case "user":
+                friendsListView.getItems().clear();
+                String sqlUser = "select * from users u where user_id in (select user_one from friendship where USER_TWO='" + user.getUser_id() + "' AND friendship_status='" + status + "' UNION select user_two from friendship where USER_ONE='" + user.getUser_id() + "' AND friendship_status='" + status + "')";
+                System.out.println(sqlUser);
+                ResultSet rsUser = statement.executeQuery(sqlUser);
+                System.out.println("statement returned values");
+                if (!rsUser.next()) {
+                    friendsListView.getItems().add("No friends found :(");
 
 
-        } else {
-            String first_friend = rs.getString("USERNAME");
-            friendsListView.getItems().add(first_friend);
-            while (rs.next()) {
-                String friend_name = rs.getString("USERNAME");
-                friendsListView.getItems().add(friend_name);
-            }
+                } else {
+                    String first_friend = rsUser.getString("USERNAME");
+                    friendsListView.getItems().add(first_friend);
+                    while (rsUser.next()) {
+                        String friend_name = rsUser.getString("USERNAME");
+                        friendsListView.getItems().add(friend_name);
+                    }
+                }
+                break;
+            case "friendship":
+                friendsListView.getItems().clear();
+                String sqlFriendship = "select * from users u where STATUS = '" + status + "' and user_id in (select user_one from friendship where USER_TWO='" + user.getUser_id() + "' AND friendship_status='E' UNION select user_two from friendship where USER_ONE='" + user.getUser_id() + "' AND friendship_status='E')";
+                System.out.println(sqlFriendship);
+                ResultSet rsFriendship = statement.executeQuery(sqlFriendship);
+                System.out.println("statement returned values");
+                if (!rsFriendship.next()) {
+                    friendsListView.getItems().add("No friends found :(");
+                } else {
+                    String first_friend = rsFriendship.getString("USERNAME");
+                    friendsListView.getItems().add(first_friend);
+                    while (rsFriendship.next()) {
+                        String friend_name = rsFriendship.getString("USERNAME");
+                        friendsListView.getItems().add(friend_name);
+                    }
+                }
+                break;
         }
+
 
     }
 
     @FXML
     private void showAllPlayers(ActionEvent event) throws SQLException {
-        insertIntoListView("E");
+        insertIntoListView("user", "E");
     }
 
 
@@ -185,17 +207,17 @@ public class DashboardC implements Dialog {
 
     @FXML
     private void showOnlinePlayers(ActionEvent event) throws SQLException {
-        //insertIntoListView("A");
+        insertIntoListView("friendship", "A");
     }
 
     @FXML
     private void showOfflinePlayers(ActionEvent event) throws SQLException {
-        //insertIntoListView("O");
+        insertIntoListView("friendship", "O");
     }
 
     @FXML
     private void showPendingPlayers(ActionEvent event) throws SQLException {
-        insertIntoListView("P");
+        insertIntoListView("user", "P");
 
     }
 
@@ -215,18 +237,17 @@ public class DashboardC implements Dialog {
 
     @FXML
     private void scrollEffect(ScrollEvent event) {
-        if(event.getDeltaY() < 0){
-            if(scrollValue.getValue() > -520) {
+        if (event.getDeltaY() < 0) {
+            if (scrollValue.getValue() > -520) {
                 scrollValue.setValue(scrollValue.getValue() - 8);
             }
-        }else {
-            if(scrollValue.getValue() <= 0){
+        } else {
+            if (scrollValue.getValue() <= 0) {
                 scrollValue.setValue(scrollValue.getValue() + 8);
             }
         }
         scrollPane.setLayoutY(scrollValue.getValue());
     }
-
 
 
 }

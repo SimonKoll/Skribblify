@@ -1,10 +1,7 @@
 package login_registration.login.viewController;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,7 +42,6 @@ public class LoginC implements Dialog {
     private Button go_to_register_button;
     @FXML
     private Tooltip loginTT;
-
 
 
     public LoginC() {
@@ -94,16 +90,15 @@ public class LoginC implements Dialog {
         User user = new User();
 
 
+        if (loginTT.getText().length() == 0) {
 
-        if(loginTT.getText().length() == 0){
-
-           String sql = "select * " +
+            String sql = "select * " +
                     "from USERS " +
                     "where USERNAME= " + "'" + inputUsername + "' AND PASSWORD = " + "'" + inputPwd + "'";
 
-          ResultSet  rs = statement.executeQuery(sql);
+            ResultSet rs = statement.executeQuery(sql);
 
-          rs.next();
+            rs.next();
 
             user.setUser_id(rs.getString("USER_ID"));
             user.setUsername(rs.getString("USERNAME"));
@@ -111,9 +106,26 @@ public class LoginC implements Dialog {
             user.setUser_img(rs.getString("USER_IMG"));
             user.setPassword(rs.getString("PASSWORD"));
 
+            if (user != null) {
+                String sqlUpdate = "SELECT * FROM users";
+                Connection connection = statement.getConnection();
+                PreparedStatement stmtUpdate = connection.prepareStatement(sqlUpdate,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                ResultSet rsUpdate = stmtUpdate.executeQuery();
+
+                while (rsUpdate.next()) {
+                    if (rsUpdate.getString("USER_ID").equals(user.getUser_id())) {
+                        rsUpdate.updateString("STATUS", "A");
+                        rsUpdate.updateRow();
+                    }
+
+
+                }
+                System.out.println("Status of User '" + user.getUser_id() + "' updated to " + user.getUser_status());
+            }
+
             Navigation.navigate(login_button, "/dashboard/DashboardV.fxml", this.statement, user, new DashboardC());
         }
-
 
 
     }
@@ -131,28 +143,28 @@ public class LoginC implements Dialog {
 
         ResultSet rs = statement.executeQuery(sql);
 
-        if(rs.next()){
+        if (rs.next()) {
             sql = "select * " +
                     "from USERS " +
                     "where USERNAME= " + "'" + inputUsername + "' AND PASSWORD = " + "'" + inputPwd + "'";
             rs = statement.executeQuery(sql);
 
-            if(rs.next()) {
+            if (rs.next()) {
                 loginRegisterError("");
-            }else{
+            } else {
                 loginRegisterError("The Password is incorrect!");
             }
-        }else{
+        } else {
             loginRegisterError("This User doesn't exist!");
         }
 
     }
 
     @FXML
-    private void loginRegisterError(String errorString){
-        if(errorString.length() == 0){
+    private void loginRegisterError(String errorString) {
+        if (errorString.length() == 0) {
             loginTT.setOpacity(0);
-        }else{
+        } else {
             loginTT.setOpacity(1);
         }
         loginTT.setText(errorString);
@@ -162,7 +174,6 @@ public class LoginC implements Dialog {
     private void go_to_register(ActionEvent event) throws IOException {
         Navigation.navigate(go_to_register_button, "/login_registration/registration/register.fxml", this.statement, null, new RegisterC());
     }
-
 
 
     public Statement getStatement() {

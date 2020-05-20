@@ -50,7 +50,11 @@ public class TheMain extends Application {
                 }
 
 
+
             }
+        }
+        else{
+            System.out.println("test");
         }
 
 
