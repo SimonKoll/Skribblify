@@ -14,7 +14,7 @@ public class CreateCode {
 
         switch (type) {
             case "friendship":
-                String sqlFriendship = "select FRIENDSHIP_ID from FRIENDSHIP";
+                String sqlFriendship = "select * from FRIENDSHIP";
                 ResultSet rSetFriendship = statement.executeQuery(sqlFriendship);
                 while (rSetFriendship.next()) {
                     String checkId = rSetFriendship.getString("FRIENDSHIP_ID");
@@ -27,7 +27,7 @@ public class CreateCode {
                 }
                 break;
             case "user":
-                String sqlUser = "select USER_ID from USERS";
+                String sqlUser = "select * from USERS";
                 ResultSet rSetUser = statement.executeQuery(sqlUser);
                 while (rSetUser.next()) {
                     String checkId = rSetUser.getString("USER_ID");
@@ -42,7 +42,17 @@ public class CreateCode {
 
 
             case "lobby":
-
+                String sqlLobby = "select * from LOBBY";
+                ResultSet rSetLobby = statement.executeQuery(sqlLobby);
+                while (rSetLobby.next()) {
+                    String checkId = rSetLobby.getString("LOBBY_ID");
+                    if (id.equals(checkId)) {
+                        createIdCode("lobby", statement);
+                    }
+                    else{
+                        id = checkId;
+                    }
+                }
                 break;
 
         }
