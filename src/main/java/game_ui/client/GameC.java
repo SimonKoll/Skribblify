@@ -74,13 +74,10 @@ public class GameC implements Dialog {
     private double step = 0.0001;
     private boolean roundEnd = false;
     private LinkedList<Point> layer = new LinkedList<>();
-    private final KeyCombination cz = new KeyCodeCombination(KeyCode.Z,
-            KeyCombination.CONTROL_DOWN);;
+
 
 
     public  void show(Stage stage, Statement statement, User user) {
-
-
 
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("game_ui/GameV.fxml"));
@@ -98,11 +95,6 @@ public class GameC implements Dialog {
             gameC.initialize();
             stage.show();
 
-            scene.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-                if (cz.match(event)) {
-                    System.out.println("pressed" + layer);
-                }
-            });
 
         } catch (IOException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,7 +105,6 @@ public class GameC implements Dialog {
         }
     }
 
-
     public void countDown() {
         if((progressBar.getProgress() - step) >= 0){
             progressBar.setProgress(progressBar.getProgress() - step);
@@ -123,9 +114,6 @@ public class GameC implements Dialog {
             chooseWord.setVisible(true);
         }
     }
-
-
-
 
     public void initialize() {
         progressBar.setProgress(1);
@@ -150,14 +138,12 @@ public class GameC implements Dialog {
         });
 
     }
-
     private void addDrawHistory(MouseEvent e, LinkedList<Point> dummyLayer) {
         Point p = new Point(eraser.isSelected(), bucket.isSelected(), e.getX(), e.getY(), brushSize.getValue(), colorPicker.getValue());
         dummyLayer.add(p);
         drawPoint();
         countDown();
     }
-
     @FXML
     public void onSave(){
         try{
@@ -167,8 +153,6 @@ public class GameC implements Dialog {
             System.out.println("Failed to save image: " + e);
         }
     }
-
-
     public void drawPoint(){
             for(Object element : layer) {
                 Point p = (Point) element;
@@ -192,8 +176,6 @@ public class GameC implements Dialog {
 
     }
 
-
-
     @FXML
     private void option1Ready(ActionEvent event) {
         nextRound(option1.getText());
@@ -216,14 +198,4 @@ public class GameC implements Dialog {
         chooseWord.setVisible(false);
         roundEnd = false;
     }
-
-
-    private void undoStep() {
-    }
-
-
-
-
-
-
 }
