@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
@@ -36,9 +37,9 @@ public class RegisterC implements Initializable, Dialog {
     @FXML
     private Button registerBtn;
     @FXML
-    private TextField password_2;
+    private PasswordField password_2;
     @FXML
-    private TextField password_1;
+    private PasswordField password_1;
     @FXML
     private TextField username;
     @FXML

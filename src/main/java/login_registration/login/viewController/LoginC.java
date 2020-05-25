@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -35,7 +36,7 @@ public class LoginC implements Dialog {
     @FXML
     private Button login_button;
     @FXML
-    private TextField pwd;
+    private PasswordField pwd;
     @FXML
     private Button guest_button;
     @FXML
