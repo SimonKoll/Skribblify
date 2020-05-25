@@ -3,17 +3,13 @@ package game_ui.client;
 
 import dialog.Dialog;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
@@ -27,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -70,10 +65,14 @@ public class GameC implements Dialog {
     private javafx.scene.control.Button option2;
     @FXML
     private javafx.scene.control.Button option3;
+    @FXML
+    private Button knopf;
 
     private double step = 0.0001;
     private boolean roundEnd = false;
-    private LinkedList<Point> layer = new LinkedList<>();
+    private LinkedList<Point> layerLA = new LinkedList<>();
+    private LinkedList<Point> layerHistory = new LinkedList<>();
+    private LinkedList<Point> layerChain = new LinkedList<>();
 
 
 
@@ -127,21 +126,58 @@ public class GameC implements Dialog {
 
         canvas.setOnMouseClicked(e -> {
             if(!roundEnd){
-                addDrawHistory(e, layer);
+                addDrawHistory(e);
             }
         });
 
         canvas.setOnMouseDragged(e -> {
             if(!roundEnd){
-                addDrawHistory(e, layer);
-            }
-        });
+                addDrawHistory(e);
+           }
+       });
+
+
+
 
     }
-    private void addDrawHistory(MouseEvent e, LinkedList<Point> dummyLayer) {
+
+    @FXML
+    private void undo(){
+
+
+        if(!layerHistory.isEmpty()) {
+            layerHistory.removeLast();
+        }
+        drawPoint(false);
+
+
+
+            layerLA.clear();
+
+
+
+    }
+
+
+
+
+    private void addDrawHistory(MouseEvent e) {
         Point p = new Point(eraser.isSelected(), bucket.isSelected(), e.getX(), e.getY(), brushSize.getValue(), colorPicker.getValue());
-        dummyLayer.add(p);
-        drawPoint();
+
+
+
+        layerLA.clear();
+        layerLA.add(p);
+        if(e.isDragDetect()){
+            layerChain.add(p);
+        }else{
+            layerHistory.addAll(layerLA);
+        }
+
+
+        drawPoint(true);
+
+
         countDown();
     }
     @FXML
@@ -153,7 +189,19 @@ public class GameC implements Dialog {
             System.out.println("Failed to save image: " + e);
         }
     }
-    public void drawPoint(){
+    public void drawPoint(boolean lastAction){
+        LinkedList<Point> layer = new LinkedList<>();
+            if(lastAction){
+                layer = layerLA;
+
+            }else{
+                 layer = layerHistory;
+                 g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            }
+
+        System.out.println("LA: "+layerLA);
+        System.out.println("HIS: "+layerHistory);
+
             for(Object element : layer) {
                 Point p = (Point) element;
 
