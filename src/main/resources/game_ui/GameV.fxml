@@ -36,6 +36,7 @@
                         <ColorPicker fx:id="colorPicker" />
                         <CheckBox fx:id="eraser" text="Eraser" />
                         <CheckBox fx:id="bucket" text="Fill" />
+                        <Button fx:id="knopf" mnemonicParsing="false" onAction="#undo" text="Undo" />
                      </HBox>
                   </ToolBar>
                </children>
