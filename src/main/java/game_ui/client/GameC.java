@@ -9,27 +9,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
+import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -72,23 +65,24 @@ public class GameC implements Dialog {
     private javafx.scene.control.Button option2;
     @FXML
     private javafx.scene.control.Button option3;
+    @FXML
+    private Button knopf;
 
     private double step = 0.0001;
     private boolean roundEnd = false;
-    private Statement statement;
+    private LinkedList<Point> layerLA = new LinkedList<>();
+    private LinkedList<Point> layerHistory = new LinkedList<>();
+    private LinkedList<Point> layerChain = new LinkedList<>();
 
 
 
     public  void show(Stage stage, Statement statement, User user) {
-        KeyCombination cz = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
-
 
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("game_ui/GameV.fxml"));
-            Parent root = (Parent) loader.load();
+            Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            scene.getAccelerators().put(cz, rn);
             if(stage == null) {
                 stage = new Stage();
             }
@@ -96,12 +90,10 @@ public class GameC implements Dialog {
             stage.setScene(scene);
             stage.setTitle("Skribblify - Game");
 
-
-            GameC gameC = (GameC) loader.getController();
+            GameC gameC = loader.getController();
             gameC.initialize();
-            gameC.statement = statement;
-
             stage.show();
+
 
         } catch (IOException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,7 +103,6 @@ public class GameC implements Dialog {
 
         }
     }
-
 
     public void countDown() {
         if((progressBar.getProgress() - step) >= 0){
@@ -135,20 +126,60 @@ public class GameC implements Dialog {
 
         canvas.setOnMouseClicked(e -> {
             if(!roundEnd){
-                drawPoint(e.getX(), e.getY(), g);
-                countDown();
+                addDrawHistory(e);
             }
         });
 
         canvas.setOnMouseDragged(e -> {
             if(!roundEnd){
-                drawPoint(e.getX(), e.getY(), g);
-                countDown();
-            }
-        });
+                addDrawHistory(e);
+           }
+       });
+
+
+
 
     }
 
+    @FXML
+    private void undo(){
+
+
+        if(!layerHistory.isEmpty()) {
+            layerHistory.removeLast();
+        }
+        drawPoint(false);
+
+
+
+            layerLA.clear();
+
+
+
+    }
+
+
+
+
+    private void addDrawHistory(MouseEvent e) {
+        Point p = new Point(eraser.isSelected(), bucket.isSelected(), e.getX(), e.getY(), brushSize.getValue(), colorPicker.getValue());
+
+
+
+        layerLA.clear();
+        layerLA.add(p);
+        if(e.isDragDetect()){
+            layerChain.add(p);
+        }else{
+            layerHistory.addAll(layerLA);
+        }
+
+
+        drawPoint(true);
+
+
+        countDown();
+    }
     @FXML
     public void onSave(){
         try{
@@ -158,43 +189,53 @@ public class GameC implements Dialog {
             System.out.println("Failed to save image: " + e);
         }
     }
+    public void drawPoint(boolean lastAction){
+        LinkedList<Point> layer = new LinkedList<>();
+            if(lastAction){
+                layer = layerLA;
 
-
-    public void drawPoint(double x1, double y1, GraphicsContext g){
-        double size = brushSize.getValue();
-        double x = x1 - size / 2;
-        double y = y1 - size / 2;
-
-        if(eraser.isSelected()){
-            g.clearRect(x, y, size, size);
-        }else{
-            g.setFill(colorPicker.getValue());
-
-            if(bucket.isSelected()){
-                g.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
             }else{
-                g.fillOval(x, y, size, size);
+                 layer = layerHistory;
+                 g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
-        }
+
+        System.out.println("LA: "+layerLA);
+        System.out.println("HIS: "+layerHistory);
+
+            for(Object element : layer) {
+                Point p = (Point) element;
+
+                double size = p.getSize();
+                double x = p.getX() - size / 2;
+                double y = p.getY() - size / 2;
+
+                if (p.isEraser()) {
+                    g.clearRect(x, y, size, size);
+                } else {
+                    g.setFill(p.getColor());
+
+                    if (bucket.isSelected()) {
+                        g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    } else {
+                        g.fillOval(x, y, size, size);
+                    }
+                }
+            }
+
     }
-
-
 
     @FXML
     private void option1Ready(ActionEvent event) {
-        System.out.println(option1.getText());
         nextRound(option1.getText());
     }
 
     @FXML
     private void option2Ready(ActionEvent event) {
-        System.out.println(option2.getText());
         nextRound(option2.getText());
     }
 
     @FXML
     private void option3Ready(ActionEvent event) {
-        System.out.println(option3.getText());
         nextRound(option3.getText());
     }
 
@@ -205,12 +246,4 @@ public class GameC implements Dialog {
         chooseWord.setVisible(false);
         roundEnd = false;
     }
-
-    Runnable rn = ()-> {
-        System.out.println("working,...");
-    };
-
-
-
-
 }

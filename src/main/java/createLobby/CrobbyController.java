@@ -34,11 +34,6 @@ import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
 
-/**
- * FXML Controller class
- *
- * @author simon
- */
 public class CrobbyController implements Initializable, Dialog {
 
     private Statement statement;
@@ -71,9 +66,11 @@ public class CrobbyController implements Initializable, Dialog {
 
 
             CrobbyController crobbyController = loader.getController();
-            crobbyController.init();
 
             crobbyController.statement = statement;
+
+            crobbyController.init();
+
 
             stage.show();
 
@@ -93,9 +90,9 @@ public class CrobbyController implements Initializable, Dialog {
     private Slider roundSlider;
 
     private void init() throws SQLException {
-        String gameCode = CreateCode.createIdCode("lobby",this.statement);
-        inviteBtn.setText(gameCode);
 
+        String gameCode = CreateCode.createIdCode("lobby", this.statement);
+        inviteBtn.setText(gameCode);
 
         lvFriends.getItems().add(this.user.getUsername());
 
