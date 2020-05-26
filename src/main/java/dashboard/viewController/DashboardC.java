@@ -1,5 +1,7 @@
 package dashboard.viewController;
 
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
+import createCode.CreateCode;
 import createLobby.CrobbyController;
 import dialog.Dialog;
 import dialog.Navigation;
@@ -22,6 +24,7 @@ import login_registration.login.viewController.LoginC;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -68,9 +71,9 @@ public class DashboardC implements Dialog {
     public static User user;
 
     @FXML
-    private ScrollBar scrollBar;
-    @FXML
     private Pane scrollPane;
+    @FXML
+    private TextField searchField;
 
     public void show(Stage stage, Statement statement, User user) {
         try {
@@ -142,7 +145,22 @@ public class DashboardC implements Dialog {
     }
 
     @FXML
-    private void checkInput(KeyEvent event) {
+    private void checkInput(KeyEvent event) throws SQLException {
+        friendsListView.getItems().clear();
+        String searchID = searchField.getText();
+        System.out.println(searchID);
+        String sql = "select * from USERS " +
+                "where user_id like '" + searchID + "%'" +
+                "and not exists (" +
+                "    select * from FRIENDSHIP" +
+                "    where ((user_one='" + searchID + "' and user_two='" + user.getUser_id() + "')" +
+                "       OR (user_one='" + user.getUser_id() + "' and user_two='" + searchID + "'))" +
+                "      AND friendship_status='E'" +
+                "    )" +
+                "";
+        System.out.println(sql);
+        ResultSet rs = statement.executeQuery(sql);
+        insertFriends(rs);
     }
 
     private void insertIntoListView(String searchCase, String status) throws SQLException {
@@ -169,14 +187,14 @@ public class DashboardC implements Dialog {
 
     }
 
-    private void insertFriends(ResultSet rsFriendship) throws SQLException {
-        if (!rsFriendship.next()) {
+    private void insertFriends(ResultSet rs) throws SQLException {
+        if (!rs.next()) {
             friendsListView.getItems().add("No friends found :(");
         } else {
-            String first_friend = rsFriendship.getString("USERNAME");
+            String first_friend = rs.getString("USERNAME");
             friendsListView.getItems().add(first_friend);
-            while (rsFriendship.next()) {
-                String friend_name = rsFriendship.getString("USERNAME");
+            while (rs.next()) {
+                String friend_name = rs.getString("USERNAME");
                 friendsListView.getItems().add(friend_name);
             }
         }
@@ -189,12 +207,34 @@ public class DashboardC implements Dialog {
 
 
     @FXML
-    private void addUsertoFriendlist(ActionEvent event) {
-        if (friendsListView.getItems().contains("No friends found :(")) {
+    private void addUsertoFriendlist(ActionEvent event) throws SQLException {
+
+        if (friendsListView.getItems().contains("No friends found :(") || friendsListView.getItems().contains("null")) {
         } else {
-            friendsListView.getSelectionModel().getSelectedItem();
+            String uname = friendsListView.getSelectionModel().getSelectedItem();
             System.out.println(
-                    friendsListView.getSelectionModel().getSelectedItem());
+                    uname
+            );
+            String getUserId = "Select * from users where username = '" + uname + "'";
+            System.out.println(getUserId);
+            ResultSet getUserIdRs = statement.executeQuery(getUserId);
+            System.out.println("values have been found");
+            if (getUserIdRs.next()) {
+                String uid = getUserIdRs.getString("USER_ID");
+                System.out.println(uid);
+                String searchInFriendship = "select * from friendship where user_one = '" + user.getUser_id() + "' and user_two = '" + uid + "' and FRIENDSHIP_STATUS = 'P'";
+                ResultSet searchInFriendshipRs = statement.executeQuery(searchInFriendship);
+                if (searchInFriendshipRs.next()) {
+                    System.out.println("friendship request has already been made");
+                } else {
+                    String friendshipId = CreateCode.createIdCode("friendship", this.statement);
+                    String insertIntoFriendship = "insert into friendship (friendship_id, user_one, user_two, friendship_status) values ('" + friendshipId + "', '" + user.getUser_id() + "', '" + uid + "', 'P')";
+                    System.out.println(insertIntoFriendship);
+                    ResultSet insertIntoFriendshipRs = statement.executeQuery(insertIntoFriendship);
+
+                }
+            }
+
         }
     }
 

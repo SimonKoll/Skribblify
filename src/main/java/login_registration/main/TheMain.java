@@ -39,7 +39,7 @@ public class TheMain extends Application {
     public void stop() throws SQLException {
 
         if(DashboardC.user != null) {
-            System.out.println("checkinng....");
+            System.out.println("checking....");
 
             String sql = "UPDATE USERS set STATUS='O' where USER_ID LIKE '" + DashboardC.user.getUser_id() + "'";
             Connection connection = DriverManager.getConnection(url, user, pwd);
@@ -47,7 +47,7 @@ public class TheMain extends Application {
 
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(sql);
-            System.out.println("username was changed...");
+            System.out.println("status was changed...");
             }
         }
 }

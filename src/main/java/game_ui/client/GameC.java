@@ -123,9 +123,6 @@ public class GameC implements Dialog {
         }
     }
 
-
-
-
     public void initialize() {
         progressBar.setProgress(1);
         chooseWord.setVisible(false);

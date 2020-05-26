@@ -49,9 +49,6 @@ public class LoginC implements Dialog {
     }
 
     public void show(Stage stage, Statement statement, User user) {
-
-        // Animation test
-
         try {
 
 

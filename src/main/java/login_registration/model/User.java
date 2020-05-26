@@ -1,5 +1,6 @@
 package login_registration.model;
 
+import createCode.CreateCode;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class User {
+public class User extends CreateCode {
 
     private StringProperty user_id = new SimpleStringProperty();
     private final StringProperty username = new SimpleStringProperty();
@@ -29,20 +30,20 @@ public class User {
         last_login.setValue(null);
     }
 
-    private static void killAndFill( StringProperty username, StringProperty password) {
+    private static void killAndFill( String username, String password) {
 
         // Überprüfungen
-        if (username.get() == null) {
+        if (username == null) {
             throw new IllegalArgumentException("Username muss angegeben werden!");
         }
-        if (username.get().length() < 5) {
+        if (username.length() < 3) {
             throw new IllegalArgumentException("Username muss mindestens 5 Zeichen lang sein!");
         }
 
-        if (password.get() == null) {
+        if (password == null) {
             throw new IllegalArgumentException("Password muss angegeben werden.");
         }
-        if (password.get().length() < 6) {
+        if (password.length() < 4) {
             throw new IllegalArgumentException("Password muss mindestens 6 Zeichen lang sein!");
         }
 
@@ -65,6 +66,10 @@ public class User {
         ResultSet rSet = statement.executeQuery(sql);
         User user = null;
 
+        String inputUsername = rSet.getString("username");
+        String inputPassword = rSet.getString("password");
+
+        killAndFill(inputUsername, inputPassword);
         if (rSet.next()) {
             user = new User();
 
@@ -82,14 +87,7 @@ public class User {
 
         User user = checkExisting(username, statement);
 
-//killAndFill();
         if (user == null) {
-            //     DateFormat formatter = new SimpleDateFormat("YYY-DD-MM");
-            //   java.sql.Date now = new java.sql.Date();
-            // Date myDate = formatter.parse(String.valueOf(LocalDate.now()));
-            //Date sqlDate = new java.sql.Date(myDate.getTime());
-            //System.out.println(myDate);
-            //System.out.println(sqlDate);
             Date now = new Date();
             String pattern = "yyyy-MM-dd";
             SimpleDateFormat formatter = new SimpleDateFormat(pattern);

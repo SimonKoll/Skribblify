@@ -1,2 +1,7 @@
 # Default ignored files
 /workspace.xml
+*.dat
+*.lck
+*.log
+../opt/db-derby-10.14.2.0-bin/bin/skribblify_database
+../target
