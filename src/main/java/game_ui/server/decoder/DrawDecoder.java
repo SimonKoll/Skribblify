@@ -14,14 +14,12 @@ public class DrawDecoder implements Decoder.Text<DrawRequest> {
 
         switch (jso.getString("type")){
             case "login":
-                // Example: {"type": "login", "username": "Basti"}
                 request = new DrawLoginRequest(jso.getString("type"), jso.getString("username"));
                 break;
             case "getGames":
                 request = new DrawGameViewRequest(jso.getString("type"));
                 break;
             case "createGame":
-                // Example: {"type": "createGame", "lobbyID": "BastiGame", "maxPlayers": "2" --> 0 for unlimited Players
                 request = new DrawLobbyRequest(jso.getString("type"), jso.getString("lobbyID"));
                 break;
             case "joinLobby":
@@ -31,7 +29,6 @@ public class DrawDecoder implements Decoder.Text<DrawRequest> {
                 request = new DrawLobbyRequest(jso.getString("type"), jso.getString("lobbyID"));
                 break;
             case "startGame":
-                // Example Request: {"type": "startGame"}
                 request = new DrawGameRequest(jso.getString("type"));
                 break;
             case "chat":

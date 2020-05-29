@@ -68,7 +68,7 @@ public class GameC implements Dialog {
     @FXML
     private Button knopf;
 
-    private double step = 0.0001;
+    private double step = 0.01;
     private boolean roundEnd = false;
     private LinkedList<Point> layerLA = new LinkedList<>();
     private LinkedList<Point> layerHistory = new LinkedList<>();
@@ -89,7 +89,6 @@ public class GameC implements Dialog {
 
             stage.setScene(scene);
             stage.setTitle("Skribblify - Game");
-
             GameC gameC = loader.getController();
             gameC.initialize();
             stage.show();
@@ -100,7 +99,6 @@ public class GameC implements Dialog {
             System.err.println("Something wrong with GameV.fxml!");
             ex.printStackTrace(System.err);
             System.exit(1);
-
         }
     }
 
@@ -117,9 +115,7 @@ public class GameC implements Dialog {
     public void initialize() {
         progressBar.setProgress(1);
         chooseWord.setVisible(false);
-
         colorPicker.setValue(Color.BLACK);
-
         g = canvas.getGraphicsContext2D();
         canvas.setOnMouseMoved(e -> {
         });
@@ -135,27 +131,15 @@ public class GameC implements Dialog {
                 addDrawHistory(e);
            }
        });
-
-
-
-
     }
 
     @FXML
     private void undo(){
-
-
         if(!layerHistory.isEmpty()) {
             layerHistory.removeLast();
         }
         drawPoint(false);
-
-
-
-            layerLA.clear();
-
-
-
+        layerLA.clear();
     }
 
 
