@@ -87,7 +87,7 @@ public class SkribblRepo {
         for (SkribblUser su : this.users) {
             if (su.getSession() == session) {
                 su.setUsername(username);
-                System.out.println(ConsoleColor.SERVER + "Username successfully set! ");
+                System.out.println(ConsoleColor.SERVER + username  + "successfully set! ");
             }
         }
     }

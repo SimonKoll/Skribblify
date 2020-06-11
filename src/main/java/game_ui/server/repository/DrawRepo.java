@@ -30,6 +30,7 @@ public class DrawRepo {
 
     public void handleRequest(DrawRequest request, Session session) {
         // Set the username
+
         if (request instanceof DrawLoginRequest) {
             this.updateUser((DrawLoginRequest) request, session);
         } else if (request instanceof DrawLobbyRequest) {
@@ -131,10 +132,8 @@ public class DrawRepo {
             case "createGame":
                 this.createLobby(drl, session);
                 break;
-            case "modifyLobby":
-                // OPTIONAL
-                break;
             case "joinLobby":
+                boolean joined = false;
                 DrawUser user = this.findUserBySession(session);
                 for (DrawGame g : this.games) {
                     if (g.getGameID().equalsIgnoreCase(drl.getLobbyID())) {
@@ -144,12 +143,21 @@ public class DrawRepo {
                         g.getPlayers().add(new DrawPlayer(user.getSession().getId(), user.getUsername()));
                         this.games.remove(g);
                         this.games.add(g);
+
+                        joined = true;
+
                         break;
                     }
                 }
 
-                this.notifyToGame(user, "JOIN", null);
-                System.out.println(ConsoleColor.GAME + user.getUsername() + " joined the Game " + ConsoleColor.yellow() + drl.getLobbyID() + ConsoleColor.reset());
+                if(joined) {
+                    this.notifyToGame(user, "JOIN", null);
+                    System.out.println(ConsoleColor.GAME + user.getUsername() + " joined the Game " + ConsoleColor.yellow() + drl.getLobbyID() + ConsoleColor.reset());
+                } else {
+                    System.out.println(ConsoleColor.GAME + user.getUsername() + " was not able to find and join the lobby: " + ConsoleColor.yellow() + drl.getLobbyID() + ConsoleColor.reset());
+
+                }
+
                 break;
             case "leaveGame":
                 DrawUser us = this.findUserBySession(session);

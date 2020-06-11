@@ -12,7 +12,6 @@ public class TestApp {
         try {
 
             final WebsocketClientEndpoint clientGameEndpoint = new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/skribbl"));
-            clientGameEndpoint.addMessageHandler(message -> System.out.println(message));
             clientGameEndpoint.sendMessage("{\"type\": \"login\", \"username\": \"Thomas\"}");
 
 

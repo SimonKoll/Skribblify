@@ -53,22 +53,12 @@ public class WebsocketClientEndpoint {
     @OnMessage
     public void onMessage(String message) {
         System.out.println(message);
-        if (this.messageHandler != null) {
-            this.messageHandler.handleMessage(message);
-        }
     }
 
 
-    public void addMessageHandler(MessageHandler msgHandler) {
-        this.messageHandler = msgHandler;
-    }
     public void sendMessage(String message) {
         this.userSession.getAsyncRemote().sendText(message);
 
     }
 
-    public static interface MessageHandler {
-
-        public void handleMessage(String message);
-    }
 }

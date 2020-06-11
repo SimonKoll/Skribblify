@@ -21,6 +21,7 @@ import login_registration.model.User;
 import login_registration.login.viewController.LoginC;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -223,9 +224,10 @@ public class DashboardC implements Dialog {
     }
 
     @FXML
-    private void playGame(ActionEvent event) throws IOException {
+    private void playGame(ActionEvent event) throws IOException, URISyntaxException {
         Navigation.navigate(playBtn, "/createLobby/CrobbyV.fxml", this.statement, this.user, new CrobbyController());
     }
+
 
     IntegerProperty scrollValue = new SimpleIntegerProperty(0);
 

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,6 +22,7 @@ import createCode.CreateCode;
 import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
+import game_ui.client.WebsocketClientEndpoint;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,10 +48,23 @@ public class CrobbyController implements Initializable, Dialog {
     private Button startBtn;
     @FXML
     private ListView<String> lvFriends;
+    @FXML
+    private javafx.scene.control.TextField lobbyCodeInput;
+    @FXML
+    private Button joinGame;
+    private static WebsocketClientEndpoint clientGameEndpoint;
+
+
+
+
 
     public void show(Stage stage, Statement statement, User user) {
         CrobbyController.user = user;
-
+        try{
+            clientGameEndpoint =  new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/draw"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("createLobby/CrobbyV.fxml"));
             Parent root = loader.load();
@@ -70,7 +86,7 @@ public class CrobbyController implements Initializable, Dialog {
             crobbyController.statement = statement;
 
             crobbyController.init();
-
+            crobbyController.connectServer();
 
             stage.show();
 
@@ -127,5 +143,25 @@ public class CrobbyController implements Initializable, Dialog {
     private void copyClip(MouseEvent event) {
         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
         clpbrd.setContents(new StringSelection(inviteBtn.getText()), null);
+    }
+
+    @FXML
+    private void joinLobby(MouseEvent event) {
+        System.out.println(this.lobbyCodeInput.getText());
+        if(this.lobbyCodeInput.getText().trim().length() > 0) {
+            clientGameEndpoint.sendMessage("{\"type\": \"joinLobby\", \"lobbyID\": '" + this.lobbyCodeInput.getText() + "'}");
+        }else{
+            System.out.println("Sie müssen einen gültigen Code angeben.");
+        }
+    }
+
+
+    public void connectServer(){
+        clientGameEndpoint.sendMessage("{\"type\": \"login\", \"username\": '" + CrobbyController.user.getUsername() + "'}");
+        // Lobby standardmässig erstellen, User kann diese verlassen :=>
+
+        System.out.println(inviteBtn.getText());
+        clientGameEndpoint.sendMessage("{\"type\": \"createGame\", \"lobbyID\": '" + inviteBtn.getText().replaceAll(" ", "-") + "', \"maxPlayers\": '" + 10 + "'}");
+
     }
 }

@@ -17,6 +17,8 @@ import javafx.scene.paint.Color;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -73,10 +75,13 @@ public class GameC implements Dialog {
     private LinkedList<Point> layerLA = new LinkedList<>();
     private LinkedList<Point> layerHistory = new LinkedList<>();
     private LinkedList<Point> layerChain = new LinkedList<>();
-
+    private User user;
 
 
     public  void show(Stage stage, Statement statement, User user) {
+
+
+        this.user = user;
 
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("game_ui/GameV.fxml"));
@@ -91,15 +96,21 @@ public class GameC implements Dialog {
             stage.setTitle("Skribblify - Game");
             GameC gameC = loader.getController();
             gameC.initialize();
+            this.initializeSockets();
             stage.show();
 
 
-        } catch (IOException ex) {
+        } catch (IOException | URISyntaxException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Something wrong with GameV.fxml!");
             ex.printStackTrace(System.err);
             System.exit(1);
         }
+    }
+
+    private void initializeSockets() throws URISyntaxException {
+        final WebsocketClientEndpoint clientGameEndpoint = new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/skribbl"));
+        clientGameEndpoint.sendMessage("{\"type\": \"login\", \"username\": " + this.user.getUsername() + "}");
     }
 
     public void countDown() {
@@ -183,8 +194,7 @@ public class GameC implements Dialog {
                  g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
 
-        System.out.println("LA: "+layerLA);
-        System.out.println("HIS: "+layerHistory);
+
 
             for(Object element : layer) {
                 Point p = (Point) element;
