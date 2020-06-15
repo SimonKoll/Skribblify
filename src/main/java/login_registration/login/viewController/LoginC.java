@@ -45,10 +45,6 @@ public class LoginC implements Dialog {
     private Tooltip loginTT;
 
 
-    public LoginC() {
-
-    }
-
     public void show(Stage stage, Statement statement, User user) {
         try {
 
@@ -196,5 +192,9 @@ public class LoginC implements Dialog {
 
     @FXML
     public void guest_pressed(ActionEvent actionEvent) {
+    }
+    @FXML
+    public void onEnter(ActionEvent ae) throws IOException, SQLException {
+        login_pressed(ae);
     }
 }

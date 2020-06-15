@@ -22,7 +22,7 @@
          <tooltip>
             <Tooltip fx:id="loginTT" />
          </tooltip></Button>
-      <PasswordField fx:id="pwd" layoutX="404.0" layoutY="315.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
+      <PasswordField fx:id="pwd" layoutX="404.0" layoutY="315.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" onAction="#onEnter" promptText="Password" styleClass="inputfield" stylesheets="@../../style/login_register.css" />
       <Button fx:id="go_to_register_button" layoutX="404.0" layoutY="419.0" mnemonicParsing="false" onAction="#go_to_register" prefHeight="40.0" prefWidth="200.0" styleClass="button-design" stylesheets="@../../style/login_register.css" text="New here?" textAlignment="CENTER" />
    </children>
 </AnchorPane>
