@@ -1,17 +1,18 @@
 package game_ui.client;
 
+import game_ui.server.util.ConsoleColor;
 import org.glassfish.tyrus.client.ClientManager;
 import org.json.JSONObject;
 
 import javax.websocket.*;
+import java.io.Console;
 import java.net.URI;
 import java.util.HashSet;
 
 
 @ClientEndpoint
 public class WebsocketClientEndpoint {
-    Session userSession = null;
-    private MessageHandler messageHandler;
+    public Session userSession = null;
 
     public WebsocketClientEndpoint(URI endpointURI) {
         try {
@@ -21,6 +22,8 @@ public class WebsocketClientEndpoint {
             throw new RuntimeException(e);
         }
     }
+
+
 
     /**
      * Callback hook for Connection open events.
@@ -52,7 +55,16 @@ public class WebsocketClientEndpoint {
      */
     @OnMessage
     public void onMessage(String message) {
-        System.out.println(message);
+        JSONObject jso = new JSONObject(message);
+
+        System.out.println(jso);
+
+
+        switch(jso.getString("type")){
+            case "join":
+                System.out.println(ConsoleColor.PURPLE + "New Player joined:" + jso.getJSONObject("game").getJSONArray("players"));
+                break;
+        }
     }
 
 
@@ -60,5 +72,7 @@ public class WebsocketClientEndpoint {
         this.userSession.getAsyncRemote().sendText(message);
 
     }
+
+
 
 }

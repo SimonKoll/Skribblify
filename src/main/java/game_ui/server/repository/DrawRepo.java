@@ -53,6 +53,10 @@ public class DrawRepo {
     }
 
     public void removeUser(Session session) {
+
+        // loop through all games and remove the needed user
+
+
         System.out.println(ConsoleColor.GAME + findUserBySession(session).getUsername() + ConsoleColor.red() + " left the Game " + ConsoleColor.yellow() + findUserBySession(session).getGameID() + ConsoleColor.reset());
         this.users.removeIf(u -> u.getSession() == session);
     }
@@ -162,9 +166,11 @@ public class DrawRepo {
             case "leaveGame":
                 DrawUser us = this.findUserBySession(session);
                 for (DrawGame g : this.games) {
+
                     if (g.getGameID().equalsIgnoreCase(drl.getLobbyID())) {
                         us.setGameID(g.getGameID());
                         g.getPlayers().removeIf(p -> p.getSessionID().equalsIgnoreCase(session.getId()));
+                        this.removeUser(session);
                         break;
                     }
                 }
@@ -172,7 +178,9 @@ public class DrawRepo {
                 this.availableGames.clear();
                 this.availableGames.addAll(this.games);
                 refreshGameList(session);
-                System.out.println(ConsoleColor.GAME + findUserBySession(session).getUsername() + ConsoleColor.red() + " left the Game " + ConsoleColor.yellow() + drl.getLobbyID() + ConsoleColor.reset());
+                this.sendStatusMessage(new StatusMessage(27092002, "You left the game."), session);
+
+
                 this.notifyToGame(us, "LEAVE", null);
                 break;
             default:
@@ -254,7 +262,9 @@ public class DrawRepo {
             }
         }
         if (!exists) {
-            DrawGame tmpGame = new DrawGame(session, drl.getLobbyID());
+
+            DrawGame tmpGame = new DrawGame(drl.getLobbyID(), drl.getMaxPlayers(), session);
+
 
             this.sendStatusMessage(new StatusMessage(199, "Game successfully created"), session);
             System.out.println(ConsoleColor.SERVER + ConsoleColor.green() + "DRAW: Game " + drl.getLobbyID().toUpperCase() + " successfully created.");
@@ -302,13 +312,13 @@ public class DrawRepo {
                 }
                 break;
             case "LEAVE":
-               /* for (DrawUser u : this.users) {
+                this.users.removeIf(u -> u.getSession() == user.getSession());
+
+                for (DrawUser u : this.users) {
                     if (u.getGameID().equalsIgnoreCase(user.getGameID())) {
-                        this.users.removeIf(us -> us.getSession() == user.getSession());
-                        u.getSession().getAsyncRemote().sendText(new JSONObject().put("type", "leave").put("game", new JSONObject(findGameByID(u.getGameID()))).toString());
+                        u.getSession().getAsyncRemote().sendText(new JSONObject().put("type", "leave").put("game", new JSONObject(findGameById(u.getGameID()))).toString());
                     }
-                }*/
-                // this.users.removeIf(u -> u.getSession() == user.getSession());
+                }
                 break;
             case "START":
                 DrawPlayer drawPlayer = this.chooseRandomDrawer(user.getGameID());

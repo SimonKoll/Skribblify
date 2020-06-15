@@ -27,6 +27,7 @@
       <Button fx:id="inviteBtn" layoutX="167.0" layoutY="121.0" mnemonicParsing="false" onAction="#inviteFriends" onMouseClicked="#copyClip" styleClass="button-design" stylesheets="@../style/login_register.css" translateY="-10.0" />
       <Button fx:id="startBtn" layoutX="670.0" layoutY="437.0" mnemonicParsing="false" onAction="#startGame" styleClass="button-design" stylesheets="@../style/login_register.css" text="Start Game!" translateY="10.0" />
       <TextField fx:id="lobbyCodeInput" layoutX="167.0" layoutY="166.0" prefHeight="39.0" prefWidth="230.0" promptText="Join Lobby" styleClass="inputfield" stylesheets="@../style/login_register.css" />
+      <Button fx:id="btnLeave" layoutX="512.0" layoutY="437.0" mnemonicParsing="false" onMouseClicked="#leaveLobby" styleClass="button-design" stylesheets="@../style/login_register.css" text="Leave Lobby." translateX="21.0" translateY="10.0" />
       <Button fx:id="joinGame" layoutX="402.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#joinLobby" prefHeight="18.0" prefWidth="77.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="join">
          <font>
             <Font size="11.0" />

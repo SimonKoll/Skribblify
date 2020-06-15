@@ -20,7 +20,7 @@ public class DrawDecoder implements Decoder.Text<DrawRequest> {
                 request = new DrawGameViewRequest(jso.getString("type"));
                 break;
             case "createGame":
-                request = new DrawLobbyRequest(jso.getString("type"), jso.getString("lobbyID"));
+                request = new DrawLobbyRequest(jso.getString("type"), jso.getString("lobbyID"), jso.getInt("maxPlayers"));
                 break;
             case "joinLobby":
                 request = new DrawLobbyRequest(jso.getString("type"), jso.getString("lobbyID"));

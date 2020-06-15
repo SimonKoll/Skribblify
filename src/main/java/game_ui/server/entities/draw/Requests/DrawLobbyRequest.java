@@ -14,9 +14,16 @@ public class DrawLobbyRequest extends DrawRequest {
         super(type);
     }
 
-    public DrawLobbyRequest(String type, String lobbyID) {
+
+    public  DrawLobbyRequest(String type, String lobbyID) {
         super(type);
         this.lobbyID = lobbyID;
+    }
+
+    public DrawLobbyRequest(String type, String lobbyID, int maxPlayers) {
+        super(type);
+        this.lobbyID = lobbyID;
+        this.maxPlayers = maxPlayers;
     }
 
 

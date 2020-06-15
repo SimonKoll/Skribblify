@@ -109,8 +109,8 @@ public class GameC implements Dialog {
     }
 
     private void initializeSockets() throws URISyntaxException {
-        final WebsocketClientEndpoint clientGameEndpoint = new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/skribbl"));
-        clientGameEndpoint.sendMessage("{\"type\": \"login\", \"username\": " + this.user.getUsername() + "}");
+       // final WebsocketClientEndpoint clientGameEndpoint = new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/skribbl"));
+        //clientGameEndpoint.sendMessage("{\"type\": \"login\", \"username\": " + this.user.getUsername() + "}");
     }
 
     public void countDown() {

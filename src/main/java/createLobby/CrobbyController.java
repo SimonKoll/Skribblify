@@ -23,6 +23,7 @@ import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
 import game_ui.client.WebsocketClientEndpoint;
+import game_ui.server.util.ConsoleColor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +38,9 @@ import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
 
-public class CrobbyController implements Initializable, Dialog {
+import javax.websocket.MessageHandler;
+
+public class CrobbyController  implements Initializable, Dialog {
 
     private Statement statement;
     private static User user;
@@ -53,6 +56,9 @@ public class CrobbyController implements Initializable, Dialog {
     @FXML
     private Button joinGame;
     private static WebsocketClientEndpoint clientGameEndpoint;
+    @FXML
+    private Button btnLeave;
+
 
 
 
@@ -61,10 +67,11 @@ public class CrobbyController implements Initializable, Dialog {
     public void show(Stage stage, Statement statement, User user) {
         CrobbyController.user = user;
         try{
-            clientGameEndpoint =  new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/draw"));
+            clientGameEndpoint = new WebsocketClientEndpoint(new URI("ws://localhost:8025/websockets/draw"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("createLobby/CrobbyV.fxml"));
             Parent root = loader.load();
@@ -90,7 +97,7 @@ public class CrobbyController implements Initializable, Dialog {
 
             stage.show();
 
-        } catch (IOException | SQLException ex) {
+        } catch (IOException | SQLException | InterruptedException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Something wrong with CreateLobby.fxml!");
             ex.printStackTrace(System.err);
@@ -156,12 +163,22 @@ public class CrobbyController implements Initializable, Dialog {
     }
 
 
-    public void connectServer(){
+    public void connectServer() throws InterruptedException {
         clientGameEndpoint.sendMessage("{\"type\": \"login\", \"username\": '" + CrobbyController.user.getUsername() + "'}");
         // Lobby standardmässig erstellen, User kann diese verlassen :=>
-
+        Thread.sleep(1000);
         System.out.println(inviteBtn.getText());
-        clientGameEndpoint.sendMessage("{\"type\": \"createGame\", \"lobbyID\": '" + inviteBtn.getText().replaceAll(" ", "-") + "', \"maxPlayers\": '" + 10 + "'}");
-
+        clientGameEndpoint.sendMessage("{\"type\": \"createGame\", \"lobbyID\": '" + inviteBtn.getText().replaceAll(" ", "-") + "', \"maxPlayers\":" +  5 + "}");
     }
+
+    @FXML
+    private void leaveLobby(MouseEvent event) {
+        if(!btnLeave.isDisabled()) {
+            clientGameEndpoint.sendMessage("{\"type\": \"leaveGame\", \"lobbyID\": '" + this.lobbyCodeInput.getText().trim() + "'}");
+        }
+    }
+
+
+
+
 }

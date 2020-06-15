@@ -21,6 +21,7 @@ import login_registration.model.User;
 import login_registration.login.viewController.LoginC;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
