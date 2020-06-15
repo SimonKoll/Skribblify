@@ -77,28 +77,28 @@ create table paintings
 );
 
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#9BWWTWUA', 'Simon', 'A', 'default.png', '2020-05-20', '1234');
+values ('#9BWWTWUA', 'Simon', 'A', 'default.png', '2020-05-20', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#0JJ2LZS0', 'Matthias', 'A', 'default.png', '2020-05-20', '1234');
+values ('#0JJ2LZS0', 'Matthias', 'A', 'default.png', '2020-05-20', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#26DDY437', 'Tristan', 'O', 'default.png', '2020-05-19', '1234');
+values ('#26DDY437', 'Tristan', 'O', 'default.png', '2020-05-19', '123456');
 insert into users (user_id, username, status, user_img, last_login, password)
-values ('#QXQMHMHL', 'Jan', 'O', 'default.png', '2020-05-19', '1234');
+values ('#QXQMHMHL', 'Jan', 'O', 'default.png', '2020-05-19', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#A2383654', 'David', 'A', 'default.png', '2020-05-20', '1234');
+values ('#A2383654', 'David', 'A', 'default.png', '2020-05-20', '123456');
 insert into users (user_id, username, status, user_img, last_login, password)
-values ('#HKD93298', 'Jonas', 'O', 'default.png', '2020-05-19', '1234');
+values ('#HKD93298', 'Jonas', 'O', 'default.png', '2020-05-19', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#23231321', 'Benjamin', 'A', 'default.png', '2020-05-20', '1234');
+values ('#23231321', 'Benjamin', 'A', 'default.png', '2020-05-20', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#98765494', 'Tobias', 'A', 'default.png', '2020-05-20', '1234');
+values ('#98765494', 'Tobias', 'A', 'default.png', '2020-05-20', '123456');
 --Testuser no friends
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#65498765', 'SimonIbrahim', 'A', 'default.png', '2020-05-20', '1234');
+values ('#65498765', 'SimonIbrahim', 'A', 'default.png', '2020-05-20', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#ASDWER75', 'John', 'O', 'default.png', '2020-04-30', '1234');
+values ('#ASDWER75', 'John', 'O', 'default.png', '2020-04-30', '123456');
 insert into users(user_id, username, status, user_img, last_login, password)
-values ('#POIZRSAF', 'Markus', 'o', 'default.png', '2020-04-24', '1234');
+values ('#POIZRSAF', 'Markus', 'o', 'default.png', '2020-04-24', '123456');
 
 
 

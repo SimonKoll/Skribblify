@@ -45,6 +45,14 @@ public class CrobbyController implements Initializable, Dialog {
     private Button startBtn;
     @FXML
     private ListView<String> lvFriends;
+    @FXML
+    private Button joinGame;
+    @FXML
+    private javafx.scene.control.Label playersLabel;
+    @FXML
+    private javafx.scene.control.Label durationLabel;
+    @FXML
+    private javafx.scene.control.Label roundsLabel;
 
     public void show(Stage stage, Statement statement, User user) {
         CrobbyController.user = user;
@@ -59,8 +67,6 @@ public class CrobbyController implements Initializable, Dialog {
             if (stage == null) {
                 stage = new Stage();
             }
-
-
             stage.setScene(scene);
             stage.setTitle("Skribblify - Lobby");
 
@@ -74,6 +80,7 @@ public class CrobbyController implements Initializable, Dialog {
 
             stage.show();
 
+
         } catch (IOException | SQLException ex) {
             Logger.getLogger(LoginC.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Something wrong with CreateLobby.fxml!");
@@ -82,6 +89,7 @@ public class CrobbyController implements Initializable, Dialog {
 
         }
     }
+
     @FXML
     private Slider playerSlider;
     @FXML
@@ -96,14 +104,21 @@ public class CrobbyController implements Initializable, Dialog {
 
         lvFriends.getItems().add(this.user.getUsername());
 
-        playerSlider.valueProperty().addListener((obs, oldval, newVal) ->
-                playerSlider.setValue((int) Math.round(newVal.doubleValue())));
+        playerSlider.valueProperty().addListener((obs, oldval, newVal) -> {
+            playersLabel.setText(String.valueOf(lvFriends.getItems().size()));
+        });
 
-        durationSlider.valueProperty().addListener((obs, oldval, newVal) ->
-                durationSlider.setValue((int) Math.round(newVal.doubleValue())));
+        durationSlider.valueProperty().addListener((obs, oldval, newVal) -> {
+            durationSlider.setValue((int) Math.round(newVal.doubleValue()));
+            newVal = newVal.intValue();
+            durationLabel.setText(String.valueOf(newVal) + " Sekunden");
+        });
 
-        roundSlider.valueProperty().addListener((obs, oldval, newVal) ->
-                roundSlider.setValue((int) Math.round(newVal.doubleValue())));
+        roundSlider.valueProperty().addListener((obs, oldval, newVal) -> {
+            roundSlider.setValue((int) Math.round(newVal.doubleValue()));
+            newVal = newVal.intValue();
+            roundsLabel.setText(String.valueOf(newVal + " Runden"));
+        });
     }
 
     /**

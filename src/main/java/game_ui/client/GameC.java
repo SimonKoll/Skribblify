@@ -2,6 +2,14 @@ package game_ui.client;
 
 
 import dialog.Dialog;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,9 +31,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
 
@@ -73,17 +83,21 @@ public class GameC implements Dialog {
     private LinkedList<Point> layerLA = new LinkedList<>();
     private LinkedList<Point> layerHistory = new LinkedList<>();
     private LinkedList<Point> layerChain = new LinkedList<>();
+    @FXML
+    private ListView<String> messageLV;
+    @FXML
+    private ListView<?> userLv;
 
+    ObservableList<String> chatMessages = FXCollections.observableArrayList();//create observablelist for listview
 
-
-    public  void show(Stage stage, Statement statement, User user) {
+    public void show(Stage stage, Statement statement, User user) {
 
         try {
             FXMLLoader loader = new FXMLLoader(LoginC.class.getClassLoader().getResource("game_ui/GameV.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            if(stage == null) {
+            if (stage == null) {
                 stage = new Stage();
             }
 
@@ -105,16 +119,42 @@ public class GameC implements Dialog {
     }
 
     public void countDown() {
+        /*
         if((progressBar.getProgress() - step) >= 0){
             progressBar.setProgress(progressBar.getProgress() - step);
             timeLeft.setText(String.valueOf(Math.round(progressBar.getProgress() *  100 )));
         }else{
             roundEnd = true;
-            chooseWord.setVisible(true);
+            chooseWord.setVisible(true);;
         }
+);*/
+        IntegerProperty seconds = new SimpleIntegerProperty();
+        progressBar.progressProperty().bind(seconds.divide(60.0));
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(seconds, 60)),
+                new KeyFrame(Duration.minutes(1), e -> {
+                    timeLeft.setText(String.valueOf(seconds));
+                    System.out.println("Minute over");
+                }, new KeyValue(seconds, 0))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     public void initialize() {
+        messageLV.setItems(chatMessages);//attach the observablelist to the listview
+        guessInputField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    if (guessInputField.getText().isEmpty()) {
+                    } else {
+                        chatMessages.add(guessInputField.getText());//get 1st user's text from his/her textfield and add message to observablelist
+                        guessInputField.setText("");//clear 1st user's textfield
+                    }
+                }
+            }
+        });
         progressBar.setProgress(1);
         chooseWord.setVisible(false);
 
@@ -125,52 +165,45 @@ public class GameC implements Dialog {
         });
 
         canvas.setOnMouseClicked(e -> {
-            if(!roundEnd){
+            if (!roundEnd) {
                 addDrawHistory(e);
             }
         });
 
         canvas.setOnMouseDragged(e -> {
-            if(!roundEnd){
+            if (!roundEnd) {
                 addDrawHistory(e);
-           }
-       });
-
-
+            }
+        });
 
 
     }
 
     @FXML
-    private void undo(){
+    private void undo() {
 
 
-        if(!layerHistory.isEmpty()) {
+        if (!layerHistory.isEmpty()) {
             layerHistory.removeLast();
         }
         drawPoint(false);
 
 
-
-            layerLA.clear();
-
+        layerLA.clear();
 
 
     }
-
-
 
 
     private void addDrawHistory(MouseEvent e) {
         Point p = new Point(eraser.isSelected(), bucket.isSelected(), e.getX(), e.getY(), brushSize.getValue(), colorPicker.getValue());
 
 
-
         layerLA.clear();
         layerLA.add(p);
-        if(e.isDragDetect()){
+        if (e.isDragDetect()) {
             layerChain.add(p);
-        }else{
+        } else {
             layerHistory.addAll(layerLA);
         }
 
@@ -180,47 +213,49 @@ public class GameC implements Dialog {
 
         countDown();
     }
+
     @FXML
-    public void onSave(){
-        try{
+    public void onSave() {
+        try {
             Image snapshot = canvas.snapshot(null, null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Failed to save image: " + e);
         }
     }
-    public void drawPoint(boolean lastAction){
+
+    public void drawPoint(boolean lastAction) {
         LinkedList<Point> layer = new LinkedList<>();
-            if(lastAction){
-                layer = layerLA;
+        if (lastAction) {
+            layer = layerLA;
 
-            }else{
-                 layer = layerHistory;
-                 g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            }
+        } else {
+            layer = layerHistory;
+            g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        }
 
-        System.out.println("LA: "+layerLA);
-        System.out.println("HIS: "+layerHistory);
+        System.out.println("LA: " + layerLA);
+        System.out.println("HIS: " + layerHistory);
 
-            for(Object element : layer) {
-                Point p = (Point) element;
+        for (Object element : layer) {
+            Point p = (Point) element;
 
-                double size = p.getSize();
-                double x = p.getX() - size / 2;
-                double y = p.getY() - size / 2;
+            double size = p.getSize();
+            double x = p.getX() - size / 2;
+            double y = p.getY() - size / 2;
 
-                if (p.isEraser()) {
-                    g.clearRect(x, y, size, size);
+            if (p.isEraser()) {
+                g.clearRect(x, y, size, size);
+            } else {
+                g.setFill(p.getColor());
+
+                if (bucket.isSelected()) {
+                    g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 } else {
-                    g.setFill(p.getColor());
-
-                    if (bucket.isSelected()) {
-                        g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                    } else {
-                        g.fillOval(x, y, size, size);
-                    }
+                    g.fillOval(x, y, size, size);
                 }
             }
+        }
 
     }
 
@@ -240,7 +275,7 @@ public class GameC implements Dialog {
     }
 
     public void nextRound(String newWord) {
-        g.clearRect(0,0, canvas.getWidth(), canvas.getHeight());
+        g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         wordToGuess.setText(newWord);
         progressBar.setProgress(1);
         chooseWord.setVisible(false);
