@@ -41,4 +41,14 @@ public class DrawUser {
     public boolean hasGame(){
         return !this.gameID.equalsIgnoreCase("");
     }
+
+
+    @Override
+    public String toString() {
+        return "DrawUser{" +
+                "username='" + username + '\'' +
+                ", session=" + session +
+                ", gameID='" + gameID + '\'' +
+                '}';
+    }
 }

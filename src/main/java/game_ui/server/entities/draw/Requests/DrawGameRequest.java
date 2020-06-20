@@ -3,8 +3,10 @@ package game_ui.server.entities.draw.Requests;
 public class DrawGameRequest extends DrawRequest{
     private String gameID;
     private double x,y;
-    private String mode;
+    private boolean bucket;
+    private boolean eraser;
     private String color;
+    private double size;
 
     public DrawGameRequest(String type) {
         super(type);
@@ -15,13 +17,16 @@ public class DrawGameRequest extends DrawRequest{
         this.gameID = gameID;
     }
 
-    public DrawGameRequest(String type, String gameID, double x, double y, String mode, String color) {
+    public DrawGameRequest(String type, String gameID, double x, double y, boolean bucket, boolean eraser, String color, double size) {
         super(type);
         this.gameID = gameID;
         this.x = x;
         this.y = y;
-        this.mode = mode;
+        this.bucket = bucket;
+        this.eraser = eraser;
+
         this.color = color;
+        this.size = size;
     }
 
     public String getGameID() {
@@ -48,13 +53,7 @@ public class DrawGameRequest extends DrawRequest{
         this.y = y;
     }
 
-    public String getMode() {
-        return mode;
-    }
 
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
 
     public String getColor() {
         return color;
@@ -62,5 +61,42 @@ public class DrawGameRequest extends DrawRequest{
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "DrawGameRequest{" +
+                "gameID='" + gameID + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", bucket=" + bucket +
+                ", eraser=" + eraser +
+                ", color='" + color + '\'' +
+                ", size=" + size +
+                '}';
+    }
+
+    public boolean isEraser() {
+        return eraser;
+    }
+
+    public void setEraser(boolean eraser) {
+        this.eraser = eraser;
+    }
+
+    public boolean isBucket() {
+        return bucket;
+    }
+
+    public void setBucket(boolean bucket) {
+        this.bucket = bucket;
     }
 }

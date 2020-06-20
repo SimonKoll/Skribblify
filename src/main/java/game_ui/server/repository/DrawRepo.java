@@ -6,9 +6,11 @@ import game_ui.server.entities.draw.DrawPlayer;
 import game_ui.server.entities.draw.DrawUser;
 import game_ui.server.entities.draw.Requests.*;
 import game_ui.server.util.ConsoleColor;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.websocket.Session;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,11 +55,7 @@ public class DrawRepo {
     }
 
     public void removeUser(Session session) {
-
-        // loop through all games and remove the needed user
-
-
-        System.out.println(ConsoleColor.GAME + findUserBySession(session).getUsername() + ConsoleColor.red() + " left the Game " + ConsoleColor.yellow() + findUserBySession(session).getGameID() + ConsoleColor.reset());
+        System.out.println(ConsoleColor.GAME + findUserBySession(session).getUsername() + ConsoleColor.BLUE + " left the Game " + ConsoleColor.yellow() + findUserBySession(session).getGameID() + ConsoleColor.reset());
         this.users.removeIf(u -> u.getSession() == session);
     }
 
@@ -125,6 +123,24 @@ public class DrawRepo {
     private String chooseRandomTopic(String gameID) {
         DrawGame game = findGameById(gameID);
         // Später select aus DB
+        
+        String query = "SELECT * from words LIMIT 1";
+        String url = "jdbc:derby://localhost:1527/skribblify_database";
+        String user = "app";
+        String pwd = "app";
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, user, pwd);
+            Statement statement = connection.createStatement();
+            ResultSet rSet = statement.executeQuery(query);
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         String topic = this.topics[this.randomIndex(0, this.topics.length - 1)];
         game.setTopic(topic);
         this.games.removeIf(g -> g.getGameID().equalsIgnoreCase(gameID));
@@ -156,6 +172,10 @@ public class DrawRepo {
 
                 if(joined) {
                     this.notifyToGame(user, "JOIN", null);
+                    this.sendStatusMessage(new StatusMessage(24022003, "You joined the game."), session);
+                    session.getAsyncRemote().sendText(new JSONObject().put("type", "joinedGame").put("game", new JSONObject(findGameById(drl.getLobbyID()))).toString());
+
+
                     System.out.println(ConsoleColor.GAME + user.getUsername() + " joined the Game " + ConsoleColor.yellow() + drl.getLobbyID() + ConsoleColor.reset());
                 } else {
                     System.out.println(ConsoleColor.GAME + user.getUsername() + " was not able to find and join the lobby: " + ConsoleColor.yellow() + drl.getLobbyID() + ConsoleColor.reset());
@@ -171,6 +191,7 @@ public class DrawRepo {
                         us.setGameID(g.getGameID());
                         g.getPlayers().removeIf(p -> p.getSessionID().equalsIgnoreCase(session.getId()));
                         this.removeUser(session);
+                        System.out.println(ConsoleColor.SERVER + this.users.toString());
                         break;
                     }
                 }
@@ -193,7 +214,6 @@ public class DrawRepo {
     private DrawGame gameToRemove = new DrawGame("");
 
     private void handleGameRequests(DrawGameRequest dgr, Session session) {
-
         if (dgr.getType().equalsIgnoreCase("startGame")) {
             for (DrawGame dg : this.games) {
                 for (DrawPlayer dp : dg.getPlayers()) {
@@ -201,12 +221,20 @@ public class DrawRepo {
                         gameToRemove = dg;
                         break;
                     }
+
+
+
                 }
             }
+
+
             this.availableGames.removeIf(g -> g.getGameID().equalsIgnoreCase(gameToRemove.getGameID()));
             notifyToGame(findUserBySession(session), "START", null);
             this.refreshGameList(session);
         } else if (dgr.getType().equalsIgnoreCase("updateGame")) {
+
+            System.out.println(ConsoleColor.SERVER + dgr.toString());
+
             for (DrawGame g : this.games) {
                 if (g.getGameID().equalsIgnoreCase(dgr.getGameID())) {
                     for (DrawPlayer p : g.getPlayers()) {
@@ -230,12 +258,13 @@ public class DrawRepo {
                 DrawGame g = findGameById(tmpU.getGameID());
                 if (!hcr.getSender().equalsIgnoreCase(g.getDrawer()) &&
                         hcr.getMessage().equalsIgnoreCase(g.getTopic())) { // this.findGameByID(tmpU.getGameID()).getTopic()
-                    this.sendStatusMessage(new StatusMessage(155, hcr.getSender() + "| has guessed the Word!"), u.getSession()); // 155 Word guessed
+                    this.sendStatusMessage(new StatusMessage(155, findUserBySession(session).getUsername() + " has guessed the Word!"), u.getSession()); // 155 Word guessed
                     if (!g.getGuessedRight().contains(hcr.getSender()) || g.getGuessedRight().size() < 1) {
                         g.getGuessedRight().add(hcr.getSender());
                     }
                 } else {
-                    u.getSession().getAsyncRemote().sendObject(hcr);
+
+                    u.getSession().getAsyncRemote().sendObject(new JSONObject().put("type", "chat").put("username", findUserBySession(session).getUsername()).put("message", hcr.getMessage()));
                 }
             }
         }
@@ -263,7 +292,7 @@ public class DrawRepo {
         }
         if (!exists) {
 
-            DrawGame tmpGame = new DrawGame(drl.getLobbyID(), drl.getMaxPlayers(), session);
+            DrawGame tmpGame = new DrawGame(drl.getLobbyID(), drl.getMaxPlayers(), drl.isPublic(), drl.getRoundSize(), drl.getRoundDuration(), session);
 
 
             this.sendStatusMessage(new StatusMessage(199, "Game successfully created"), session);
@@ -290,7 +319,7 @@ public class DrawRepo {
         obj.put("type", "games");
 
 
-        obj.put("games", this.availableGames.stream().filter(e -> e.getPlayers().size() != 0).toArray());
+        obj.put("games", this.availableGames.stream().filter(e -> e.getPlayers().size() != 0 && e.isPublic()).toArray());
         // session.getAsyncRemote().sendText(obj.toString());
 
         // Broadcast to all Users without a Game
@@ -323,13 +352,15 @@ public class DrawRepo {
             case "START":
                 DrawPlayer drawPlayer = this.chooseRandomDrawer(user.getGameID());
                 System.out.println(ConsoleColor.GAME + ConsoleColor.purple() + user.getGameID() + ConsoleColor.reset() + " " + "The new Drawer is: " + ConsoleColor.green() + drawPlayer.getUsername() + ConsoleColor.reset());
+                String topic = this.chooseRandomTopic(user.getGameID());
+
                 for (DrawUser u : this.users) {
                     if (u.getGameID().equalsIgnoreCase(user.getGameID())) {
-                        u.getSession().getAsyncRemote().sendText(new JSONObject().put("type", "start").put("drawer", drawPlayer.getSessionID()).toString());
+                        u.getSession().getAsyncRemote().sendText(new JSONObject().put("type", "start").put("drawer", new JSONObject(drawPlayer)).put("word", topic ).toString());
                     }
                 }
                 // SEND THE TOPIC TO THE DRAWER
-                findUserBySessionID(drawPlayer.getSessionID()).getSession().getAsyncRemote().sendText(new JSONObject().put("type", "topic").put("topic", this.chooseRandomTopic(user.getGameID())).toString());
+                findUserBySessionID(drawPlayer.getSessionID()).getSession().getAsyncRemote().sendText(new JSONObject().put("type", "topic").put("topic", topic).toString());
                 break;
             default:
                 break;

@@ -16,10 +16,22 @@ public class DrawGame {
     private transient Set<String> guessedRight = new HashSet<>();
     private String topic;
 
-    public DrawGame(String gameID, int maxPlayers, Session host){
+    private boolean isPublic;
+
+
+    private int roundSize;
+    private int roundDuration;
+
+
+
+    public DrawGame(String gameID, int maxPlayers,  boolean visibility, int roundSize, int roundDuration ,Session host){
         this.gameID = gameID;
         this.maxPlayers = maxPlayers;
         this.hostID = host.getId();
+        this.isPublic = visibility;
+
+        this.roundDuration = roundDuration;
+        this.roundSize = roundSize;
     }
 
     public DrawGame(Session host, String gameID){
@@ -93,5 +105,29 @@ public class DrawGame {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public int getRoundDuration() {
+        return roundDuration;
+    }
+
+    public void setRoundDuration(int roundDuration) {
+        this.roundDuration = roundDuration;
+    }
+
+    public int getRoundSize() {
+        return roundSize;
+    }
+
+    public void setRoundSize(int roundSize) {
+        this.roundSize = roundSize;
     }
 }
