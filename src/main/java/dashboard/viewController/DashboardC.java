@@ -1,8 +1,10 @@
 package dashboard.viewController;
 
+import createCode.CreateCode;
 import createLobby.CrobbyController;
 import dialog.Dialog;
 import dialog.Navigation;
+import game_ui.server.util.ConsoleColor;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import login_registration.main.TheMain;
 import login_registration.model.User;
 import login_registration.login.viewController.LoginC;
@@ -23,9 +26,12 @@ import login_registration.login.viewController.LoginC;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,14 +42,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import org.json.JSONObject;
+
+import javax.xml.transform.Result;
 
 public class DashboardC implements Dialog {
 
+    @FXML
+    private TextField searchField;
 
     private Statement statement;
 
-    @FXML
-    private Pane gameHighlights01;
     @FXML
     private Button allPlayersBtn;
     @FXML
@@ -70,8 +79,6 @@ public class DashboardC implements Dialog {
     public static User user;
 
     @FXML
-    private ScrollBar scrollBar;
-    @FXML
     private Pane scrollPane;
 
     public void show(Stage stage, Statement statement, User user) {
@@ -93,7 +100,11 @@ public class DashboardC implements Dialog {
 
 
             DashboardC dashboardC = (DashboardC) loader.getController();
-            dashboardC.init(user);
+            try {
+                dashboardC.init(user);
+            } catch (SQLException | ParseException e) {
+                e.printStackTrace();
+            }
             dashboardC.statement = statement;
             stage.show();
 
@@ -106,8 +117,13 @@ public class DashboardC implements Dialog {
         }
     }
 
+    @Override
+    public void showPlacement(Stage stage, Statement statement, User user, JSONObject jso) {
 
-    private void init(User user) {
+    }
+
+
+    private void init(User user) throws SQLException, ParseException {
         this.user = user;
         if (user != null) {
             System.out.println(this.user.toString());
@@ -117,21 +133,74 @@ public class DashboardC implements Dialog {
         drawChart();
     }
 
-    private void drawChart() {
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Jahr");
+    private void drawChart() throws SQLException, ParseException {
+        String url = "jdbc:derby://localhost:1527/skribblify_database";
+        String user = "app";
+        String pwd = "app";
+        String query = "SELECT * from USERSTATS us join LOBBY L on us.LOBBY_ID = L.LOBBY_ID WHERE us.user_id like '" + userid.getText() + "'";
+        ResultSet rSet;
+        Connection connection;
 
-        final LineChart<String, Number> lineChart = new LineChart<String, Number>(
+        connection = DriverManager.getConnection(url, user, pwd);
+        Statement statement = connection.createStatement();
+        rSet = statement.executeQuery(query);
+
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis(10, 0, 5.0);
+//        System.out.println(yAxis.getTickUnit());
+        xAxis.setLabel("Jahr");
+        final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(
                 xAxis, yAxis);
 
-        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        series.getData().add(new XYChart.Data<String, Number>("2011", 15));
-        series.getData().add(new XYChart.Data<String, Number>("2012", 21));
-        series.getData().add(new XYChart.Data<String, Number>("2013", 23));
-        series.getData().add(new XYChart.Data<String, Number>("2014", 17));
-        series.getData().add(new XYChart.Data<String, Number>("2015", 27));
-        series.getData().add(new XYChart.Data<String, Number>("2016", 33));
+        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+
+
+        xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis) {
+            @Override
+            public String toString(final Number object) {
+                return ".";
+            }
+        });
+
+        boolean first = false;
+        int dummyMillis = 0;
+        int firstValue = 0;
+
+        while (rSet.next()) {
+            int placement = rSet.getInt("PLACEMENT");
+            int maxPlayers = rSet.getInt("MAXPLAYERS");
+            int rounds = rSet.getInt("ROUND_SIZE");
+            String date = rSet.getString("CREATED");
+
+
+            LocalDateTime localDateTime = LocalDateTime.parse(date,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            LocalDateTime now = LocalDateTime.now();
+            localDateTime = localDateTime.minusMonths(1);
+            //localDateTime = localDateTime.minusYears(50);
+
+            long millis = now.atZone(ZoneId.systemDefault()).toInstant().getEpochSecond() - localDateTime
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant().getEpochSecond();
+
+
+            System.out.println("placement:" + placement + "," + "max players:" + maxPlayers + ", " + "Rounds:" + rounds + ", " + "played on:" + date);
+            System.out.println(millis + "\n ==================");
+
+
+            if (!first) {
+                firstValue = (int) millis;
+            }
+
+
+            dummyMillis = (int) (millis - firstValue);
+
+
+            series.getData().add(new XYChart.Data<Number, Number>(dummyMillis, placement));
+            first = true;
+        }
+
         Color color = Color.RED;
         String rgb = String.format("%d, %d, %d",
                 (int) (color.getRed() * 255),
@@ -141,10 +210,27 @@ public class DashboardC implements Dialog {
 
         lineChart.getData().add(series);
         charts.getChildren().add(lineChart);
+
+
     }
 
     @FXML
-    private void checkInput(KeyEvent event) {
+    private void checkInput(KeyEvent event) throws SQLException {
+        friendsListView.getItems().clear();
+        String searchID = searchField.getText();
+        System.out.println(searchID);
+        String sql = "select * from USERS " +
+                "where user_id like '" + searchID + "%'" +
+                "and not exists (" +
+                "    select * from FRIENDSHIP" +
+                "    where ((user_one='" + searchID + "' and user_two='" + user.getUser_id() + "')" +
+                "       OR (user_one='" + user.getUser_id() + "' and user_two='" + searchID + "'))" +
+                "      AND friendship_status='E'" +
+                "    )" +
+                "";
+        System.out.println(sql);
+        ResultSet rs = statement.executeQuery(sql);
+        insertFriends(rs);
     }
 
     private void insertIntoListView(String searchCase, String status) throws SQLException {
@@ -173,7 +259,7 @@ public class DashboardC implements Dialog {
 
     private void insertFriends(ResultSet rsFriendship) throws SQLException {
         if (!rsFriendship.next()) {
-            friendsListView.getItems().add("No friends found :(");
+            friendsListView.getItems().add("Keine Spieler gefunden!");
         } else {
             String first_friend = rsFriendship.getString("USERNAME");
             friendsListView.getItems().add(first_friend);
@@ -191,12 +277,58 @@ public class DashboardC implements Dialog {
 
 
     @FXML
-    private void addUsertoFriendlist(ActionEvent event) {
-        if (friendsListView.getItems().contains("No friends found :(")) {
+    private void addUsertoFriendlist(ActionEvent event) throws SQLException {
+
+        if (friendsListView.getItems().contains("Keine Spieler gefunden!") || friendsListView.getItems().contains("null")) {
+
         } else {
-            friendsListView.getSelectionModel().getSelectedItem();
-            System.out.println(
-                    friendsListView.getSelectionModel().getSelectedItem());
+            String uname = friendsListView.getSelectionModel().getSelectedItem();
+            if (friendsListView.getItems().contains("Du und " + uname + " seit bereits die engsten Freunde!") || friendsListView.getItems().contains(uname + " ist noch nicht ganz mit dir Befreundet!") || friendsListView.getItems().contains(uname + " wurde als Freund hinzugefügt") || friendsListView.getItems().contains("Freundschaftsanfrage wurde bereits verschickt!") || friendsListView.getItems().contains(uname + " ist noch ausstehend")) {
+            } else {
+
+                String getUserId = "Select * from users where username = '" + uname + "'";
+                System.out.println(getUserId);
+                ResultSet getUserIdRs = statement.executeQuery(getUserId);
+                if (getUserIdRs.next()) {
+                    String uid = getUserIdRs.getString("USER_ID");
+                    String searchInFriendship = "select * from friendship where user_two = '" + user.getUser_id() + "' and user_one = '" + uid + "' and FRIENDSHIP_STATUS = 'P'";
+                    ResultSet searchInFriendshipRs = statement.executeQuery(searchInFriendship);
+                    if (searchInFriendshipRs.next()) {
+                        String updateToActive = "Update friendship set friendship_status ='E' where user_two = '" + user.getUser_id() + "' and user_one = '" + uid + "'";
+                        statement.executeUpdate(updateToActive);
+                        friendsListView.getItems().clear();
+                        friendsListView.getItems().add(uname + " wurde als Freund hinzugefügt!");
+                    } else {
+                        String searchInFriendship2 = "select * from friendship where user_one = '" + user.getUser_id() + "' and user_two = '" + uid + "' UNION ALL select * from friendship where user_one = '" + user.getUser_id() + "' and user_two = '" + uid + "'";
+                        ResultSet rs2 = statement.executeQuery(searchInFriendship2);
+                        if (rs2.next()) {
+
+                            System.out.println(rs2.getString("FRIENDSHIP_STATUS").toCharArray()[0] == 'E');
+
+                            if(rs2.getString("FRIENDSHIP_STATUS").toCharArray()[0] == 'E') {
+                                friendsListView.getItems().clear();
+                                friendsListView.getItems().add("Du und " + uname + " seit bereits die engsten Freunde!");
+                            } else if(rs2.getString("FRIENDSHIP_STATUS").toCharArray()[0] == 'P'){
+                                friendsListView.getItems().clear();
+
+                                if(rs2.getString("user_one").equals(userid.getText())){
+                                    friendsListView.getItems().add(uname + " muss deine Anfrage akzeptieren.");
+                                }else if(rs2.getString("user_two").equals(userid.getText())) {
+                                    friendsListView.getItems().add(uname + " wartet noch auf deine Akzeptierung.");
+                                }
+                            }
+
+                        } else {
+                            String friendshipId = CreateCode.createIdCode("friendship", this.statement);
+                            String insertIntoFriendship = "insert into friendship (friendship_id, user_one, user_two, friendship_status) values ('" + friendshipId + "', '" + user.getUser_id() + "', '" + uid + "', 'P')";
+                            System.out.println(insertIntoFriendship);
+                            statement.executeUpdate(insertIntoFriendship);
+                            friendsListView.getItems().clear();
+                            friendsListView.getItems().add("Freundschaftsanfrage wurde versendet!");
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -213,7 +345,6 @@ public class DashboardC implements Dialog {
     @FXML
     private void showPendingPlayers(ActionEvent event) throws SQLException {
         insertIntoListView("user", "P");
-
     }
 
     @FXML

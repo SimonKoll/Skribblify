@@ -18,6 +18,7 @@ import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
+import org.json.JSONObject;
 import sun.rmi.runtime.Log;
 
 import java.io.IOException;
@@ -177,6 +178,11 @@ public class RegisterC implements Initializable, Dialog {
             ex.printStackTrace(System.err);
             System.exit(1);
         }
+    }
+
+    @Override
+    public void showPlacement(Stage stage, Statement statement, User user, JSONObject jso) {
+
     }
 
 

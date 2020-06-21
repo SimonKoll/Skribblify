@@ -1,14 +1,14 @@
-Thu Jun 11 16:38:28 CEST 2020 : Apache Derby Network Server 10.14.2.0 - (1828579) wurde gestartet und ist bereit, Verbindungen auf Port 1527 zu akzeptieren.
+Sun Jun 21 10:16:42 CEST 2020 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Thu Jun 11 16:48:34 CEST 2020:
-Booten von Derby-Version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): Instanz a816c00e-0172-a3d1-6566-ffffe68dfdb3
-für Datenbankverzeichnis C:\Users\Matthias\Desktop\skribblify\opt\db-derby-10.14.2.0-bin\bin\skribblify_database mit Class Loader sun.misc.Launcher$AppClassLoader@60e53b93
-Geladen aus file:/C:/Users/Matthias/Desktop/skribblify/opt/db-derby-10.14.2.0-bin/lib/derby.jar
+Sun Jun 21 10:17:23 CEST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-d5f3-78b1-ffff9390d07b 
+on database directory /Users/matthiasriener/github/Skribblify/opt/db-derby-10.14.2.0-bin/bin/skribblify_database with class loader sun.misc.Launcher$AppClassLoader@60e53b93 
+Loaded from file:/Users/matthiasriener/github/Skribblify/opt/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_111-b14
-user.dir=C:\Users\Matthias\Desktop\skribblify\opt\db-derby-10.14.2.0-bin\bin
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=C:\Users\Matthias\Desktop\skribblify\opt\db-derby-10.14.2.0-bin\bin
-Datenbank-Class Loader wurde gestartet - derby.database.classpath=''
+java.runtime.version=1.8.0_221-b11
+user.dir=/Users/matthiasriener/github/Skribblify/opt/db-derby-10.14.2.0-bin/bin
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.15.4
+derby.system.home=/Users/matthiasriener/github/Skribblify/opt/db-derby-10.14.2.0-bin/bin
+Database Class Loader started - derby.database.classpath=''

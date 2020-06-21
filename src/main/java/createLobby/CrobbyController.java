@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import createCode.CreateCode;
+import dashboard.viewController.DashboardC;
 import dialog.Dialog;
 import dialog.Navigation;
 import game_ui.client.GameC;
@@ -57,12 +57,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import jdk.nashorn.internal.scripts.JS;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
+import login_registration.registration.viewController.RegisterC;
+import org.apache.commons.lang3.StringUtils;
 import org.glassfish.tyrus.client.ClientManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.mortbay.util.ajax.JSON;
+import placement.PlacementC;
 
 import javax.imageio.ImageIO;
 import javax.websocket.*;
@@ -91,6 +96,18 @@ public class CrobbyController  implements Initializable, Dialog {
     private FXMLLoader loader;
 
     private Stage stage;
+
+    private String currentWord;
+
+
+    @FXML
+    private ToolBar tbUtensiles;
+
+    @FXML
+    private TextField txtRounds;
+
+    @FXML
+    private ListView<String> lvRankings;
 
     @FXML
     private ListView<String> messageLV;
@@ -125,6 +142,8 @@ public class CrobbyController  implements Initializable, Dialog {
 
     private JSONObject games;
 
+    private MusicPlayer mp = new MusicPlayer();
+
 
     private boolean isPublic = true;
     @FXML
@@ -134,6 +153,9 @@ public class CrobbyController  implements Initializable, Dialog {
 
     @FXML
     private TextField txtDrawer;
+    private JSONObject lastMessage;
+    @FXML
+    private Text txtCurrentDrawer;
 
 
     public void intializeSocket(URI endpointURI) {
@@ -163,9 +185,18 @@ public class CrobbyController  implements Initializable, Dialog {
     }
 
     @OnClose
-    public void onClose(Session userSession, CloseReason reason) {
+    public void onClose(Session userSession, CloseReason reason) throws IOException {
         System.out.println("closing websocket");
         this.userSession = null;
+
+        Platform.runLater(() -> {
+            try {
+                Navigation.navigatePlacement(this.inviteBtn, "/placement/PlacementV.fxml", this.statement, CrobbyController.user, this.lastMessage, new PlacementC());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     @OnMessage
@@ -203,6 +234,22 @@ public class CrobbyController  implements Initializable, Dialog {
             case "games":
                 this.games = new JSONObject(message);
                 break;
+
+
+            case "newround":
+
+
+                Platform.runLater(() -> {
+                    txtRounds.setText("Round:" +  jso.getJSONObject("game").getInt("curRound") + "/" + jso.getJSONObject("game").getInt("roundSize"));
+                    g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                });
+
+                this.updateRankings(jso);
+                break;
+
+            case "updateRankings":
+                this.updateRankings(jso);
+                break;
             case "leave":
                 System.out.println(ConsoleColor.SERVER + "PLAYER LEFT THE GAME.");
 
@@ -218,19 +265,41 @@ public class CrobbyController  implements Initializable, Dialog {
 
                 String newWord = "";
                 String placeHolder = "";
+
+                this.currentWord = jso.getString("word");
+
                 for (char c : jso.getString("word").toCharArray()) {
                     placeHolder += "_ ";
                     newWord += c + " ";
                 }
 
 
+
+
                 if(!this.user.getUsername().equals(jso.getJSONObject("drawer").getString("username"))) {
                     this.wordToGuess.setText(placeHolder);
+                    this.guessInputField.setDisable(false);
                 }else {
                     this.wordToGuess.setText(newWord);
+                    this.guessInputField.setDisable(true);
                 }
 
                 this.txtDrawer.setText("Drawer:" + jso.getJSONObject("drawer").getString("username"));
+
+
+                chooseWord.setDisable(false);
+                chooseWord.setVisible(true);
+                txtCurrentDrawer.setText("Zeichner: " + jso.getJSONObject("drawer").getString("username"));
+                mp.stop();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mp.play();
+                chooseWord.setDisable(true);
+                chooseWord.setVisible(false);
+
 
                 break;
 
@@ -241,11 +310,16 @@ public class CrobbyController  implements Initializable, Dialog {
                 } else {
                     g.setFill(Paint.valueOf(jso.getString("color")));
                     if (jso.getBoolean("bucket")) {
+                        step = 0.05;
                         g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                     } else {
+                        step = jso.getDouble("size") * (1/10000);
                         g.fillOval(jso.getDouble("x"), jso.getDouble("y"), jso.getDouble("size"), jso.getDouble("size"));
                     }
+
+                    progressBar.setProgress(progressBar.getProgress() - step);
                 }
+
                 break;
 
             case "chat":
@@ -253,6 +327,27 @@ public class CrobbyController  implements Initializable, Dialog {
                     chatMessages.add(jso.getString("username") + " - " + jso.getString("message"));
                 });
                 break;
+
+            case "topic":
+                progressBar.setProgress(1);
+                timeLeft.setText("100");
+                roundEnd = false;
+                break;
+
+            case "gamefinished":
+                txtDrawer.setText("Das Spiel ist vorbei!");
+                mp.stop();
+                this.lastMessage = jso;
+                try {
+                    this.userSession.close();
+
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+
+
+                break;
+
 
             case "status":
                 switch(jso.getInt("code")) {
@@ -309,10 +404,38 @@ public class CrobbyController  implements Initializable, Dialog {
 
     }
 
+    private void updateRankings(JSONObject jso) {
+        Platform.runLater(() -> {
+            lvRankings.getItems().clear();
+        });
+
+
+        for (Object o : jso.getJSONObject("game").getJSONArray("players")) {
+            JSONObject player = new JSONObject(o.toString());
+            String element = player.getInt("points") + "-" + player.getString("username");
+
+            for(Object el : jso.getJSONObject("game").getJSONArray("guessedRight")) {
+                if(el.toString().equals(player.getString("username"))) {
+                    if(player.getString("username").equals(CrobbyController.user.getUsername())) {
+                        this.guessInputField.setDisable(true);
+                    }
+
+                    element = player.getInt("points") + "-" + player.getString("username") + " - guessed.";
+                }
+            }
+
+            String finalElement = element;
+            Platform.runLater(() -> {
+                lvRankings.getItems().add(finalElement);
+            });
+
+
+        }
+    }
+
 
     public void sendMessage(String message) {
         this.userSession.getAsyncRemote().sendText(message);
-
     }
 
 
@@ -370,6 +493,19 @@ public class CrobbyController  implements Initializable, Dialog {
                 lvFriends.getItems().add(username);
             }
         }
+
+
+        if(jso.getJSONObject("game").getJSONArray("players").length() == jso.getJSONObject("game").getInt("maxPlayers")) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.sendMessage("{\"type\": \"startGame\"}");
+        }
+
+
+
     }
 
 
@@ -401,7 +537,18 @@ public class CrobbyController  implements Initializable, Dialog {
 
             crobbyController = loader.getController();
             crobbyController.intializeSocket(new URI("ws://localhost:8025/websockets/draw"));
-            crobbyController.statement = statement;
+
+
+            String url = "jdbc:derby://localhost:1527/skribblify_database";
+            String userDB = "app";
+            String pwd = "app";
+
+            Connection connection = DriverManager.getConnection(url, userDB, pwd);
+
+
+
+
+            crobbyController.statement = connection.createStatement();
             crobbyController.init();
             crobbyController.connectServer();
             crobbyController.initializeCanvas();
@@ -423,7 +570,6 @@ public class CrobbyController  implements Initializable, Dialog {
             stage.setOnCloseRequest(event -> {
                 System.out.println(gameCode);
                 crobbyController.sendMessage("{\"type\": \"leaveGame\", \"lobbyID\": '" + gameCode + "'}");
-
             });
 
 
@@ -437,8 +583,10 @@ public class CrobbyController  implements Initializable, Dialog {
         }
     }
 
+    @Override
+    public void showPlacement(Stage stage, Statement statement, User user, JSONObject jso) {
 
-
+    }
 
 
     public void joinNewLobby() throws SQLException, InterruptedException {
@@ -449,7 +597,7 @@ public class CrobbyController  implements Initializable, Dialog {
     }
 
     @FXML
-    private void inviteFriends(ActionEvent event) {
+    private void inviteFriends() {
     }
 
 
@@ -458,13 +606,13 @@ public class CrobbyController  implements Initializable, Dialog {
 
 
     @FXML
-    private void copyClip(MouseEvent event) {
+    private void copyClip() {
         Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
         clpbrd.setContents(new StringSelection(inviteBtn.getText()), null);
     }
 
     @FXML
-    private void joinLobby(MouseEvent event) {
+    private void joinLobby() {
         if(this.lobbyCodeInput.getText().trim().length() > 0) {
             this.sendMessage("{\"type\": \"joinLobby\", \"lobbyID\": '" + this.lobbyCodeInput.getText() + "'}");
 
@@ -477,7 +625,7 @@ public class CrobbyController  implements Initializable, Dialog {
         }
     }
 
-    public void connectServer() throws InterruptedException, SQLException {
+    public void connectServer() throws InterruptedException {
         this.sendMessage("{\"type\": \"login\", \"username\": '" + CrobbyController.user.getUsername() + "'}");
         Thread.sleep(1000);
         this.sendMessage("{\"type\": \"getGames\"}");
@@ -548,19 +696,19 @@ public class CrobbyController  implements Initializable, Dialog {
         playerSlider.valueProperty().addListener((obs, oldval, newVal) -> {
             playerSlider.setValue((int) Math.round(newVal.doubleValue()));
             newVal = newVal.intValue();
-            playersLabel.setText(newVal + " Player(s)");
+            playersLabel.setText(newVal + " Spieler");
         });
 
         durationSlider.valueProperty().addListener((obs, oldval, newVal) -> {
             durationSlider.setValue((int) Math.round(newVal.doubleValue()));
             newVal = newVal.intValue();
-            durationLabel.setText(newVal + " Seconds");
+            durationLabel.setText(newVal + " Liter Farbe");
         });
 
         roundSlider.valueProperty().addListener((obs, oldval, newVal) -> {
             roundSlider.setValue((int) Math.round(newVal.doubleValue()));
             newVal = newVal.intValue();
-            roundsLabel.setText(newVal + " Round(s)");
+            roundsLabel.setText(newVal + " Runde");
         });
     }
 
@@ -595,16 +743,16 @@ public class CrobbyController  implements Initializable, Dialog {
         durationSlider.valueProperty().removeListener((obs, oldval, newVal) -> {
             durationSlider.setValue((int) Math.round(newVal.doubleValue()));
             newVal = newVal.intValue();
-            durationLabel.setText(newVal + " Seconds");
+            durationLabel.setText(newVal + " Liter Farbe");
         });
         roundSlider.valueProperty().removeListener((obs, oldval, newVal) -> {
             roundSlider.setValue((int) Math.round(newVal.doubleValue()));
             newVal = newVal.intValue();
-            roundsLabel.setText(newVal + " Seconds");
+            roundsLabel.setText(newVal + " Runden");
         });
-        playersLabel.setText(lvFriends.getItems().size() + " Player(s) joined");
+        playersLabel.setText(lvFriends.getItems().size() + " Spieler beigetreten");
         playerSlider.valueProperty().addListener((obs, oldval, newVal) -> {
-            playersLabel.setText(lvFriends.getItems().size() + " Player(s) joined");
+            playersLabel.setText(lvFriends.getItems().size() + " Spieler beigetreten");
         });
     }
 
@@ -714,16 +862,13 @@ public class CrobbyController  implements Initializable, Dialog {
         private ProgressBar progressBar;
         @FXML
         private Pane chooseWord;
-        @FXML
-        private javafx.scene.control.Button option1;
-        @FXML
-        private javafx.scene.control.Button option2;
-        @FXML
-        private javafx.scene.control.Button option3;
+        javafx.scene.control.Button option1;
+        javafx.scene.control.Button option2;
+        javafx.scene.control.Button option3;
         @FXML
         private Button knopf;
 
-        private double step = 0.0001;
+        private double step = 0.001;
         private boolean roundEnd = false;
         private LinkedList<game_ui.client.Point> layerLA = new LinkedList<>();
         private LinkedList<game_ui.client.Point> layerHistory = new LinkedList<>();
@@ -738,15 +883,19 @@ public class CrobbyController  implements Initializable, Dialog {
                 timeLeft.setText(String.valueOf(Math.round(progressBar.getProgress() *  100 )));
             }else{
                 roundEnd = true;
-                chooseWord.setVisible(true);
+                this.sendMessage("{\"type\":\"nextRound\"}");
+                progressBar.setProgress(1);
+                timeLeft.setText("100");
+
             }
         }
 
         public void initializeCanvas() {
-           
-
 
             progressBar.setProgress(1);
+            timeLeft.setText("100");
+
+
             chooseWord.setVisible(false);
             colorPicker.setValue(Color.BLACK);
             g = canvas.getGraphicsContext2D();
@@ -830,13 +979,17 @@ public class CrobbyController  implements Initializable, Dialog {
 
 
                 if (p.isEraser()) {
+                    step = 0;
+
                     g.clearRect(x, y, size, size);
                 } else {
                     g.setFill(p.getColor());
 
                     if (bucket.isSelected()) {
+                        step = size / 6000;
                         g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                     } else {
+                        step = size / 6000;
                         g.fillOval(x, y, size, size);
                     }
                 }
@@ -844,18 +997,15 @@ public class CrobbyController  implements Initializable, Dialog {
 
         }
 
-        @FXML
-        private void option1Ready(ActionEvent event) {
+        void option1Ready(ActionEvent event) {
             nextRound(option1.getText());
         }
 
-        @FXML
-        private void option2Ready(ActionEvent event) {
+        void option2Ready(ActionEvent event) {
             nextRound(option2.getText());
         }
 
-        @FXML
-        private void option3Ready(ActionEvent event) {
+        void option3Ready(ActionEvent event) {
             nextRound(option3.getText());
         }
 
@@ -887,6 +1037,17 @@ public class CrobbyController  implements Initializable, Dialog {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 if (guessInputField.getText().isEmpty()) {
                 } else {
+
+
+                    // check for close call
+
+                    System.out.println(StringUtils.getJaroWinklerDistance(guessInputField.getText().toLowerCase(), currentWord.toLowerCase()));
+                    double percentage = StringUtils.getJaroWinklerDistance(guessInputField.getText().toLowerCase(), currentWord.toLowerCase());
+
+                    if(percentage > 0.90 && percentage < 1) {
+                        chatMessages.add(guessInputField.getText() + " stimmt fast!");
+                    }
+
                     this.sendMessage("{\"type\": \"chat\", \"sender\": '" + this.userSession.getId() + "', \"message\": '" + guessInputField.getText() + "'}");
                     guessInputField.setText("");//clear 1st user's textfield
 

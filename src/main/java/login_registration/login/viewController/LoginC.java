@@ -23,6 +23,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import login_registration.model.User;
 import login_registration.registration.viewController.RegisterC;
+import org.json.JSONObject;
 
 public class LoginC implements Dialog {
     private Statement statement;
@@ -45,14 +46,7 @@ public class LoginC implements Dialog {
     private Tooltip loginTT;
 
 
-    public LoginC() {
-
-    }
-
     public void show(Stage stage, Statement statement, User user) {
-
-        // Animation test
-
         try {
 
 
@@ -82,6 +76,11 @@ public class LoginC implements Dialog {
             ex.printStackTrace(System.err);
             System.exit(1);
         }
+    }
+
+    @Override
+    public void showPlacement(Stage stage, Statement statement, User user, JSONObject jso) {
+
     }
 
     @FXML
@@ -199,5 +198,10 @@ public class LoginC implements Dialog {
 
     @FXML
     public void guest_pressed(ActionEvent actionEvent) {
+    }
+    @FXML
+    public void onEnter(ActionEvent ae) throws IOException, SQLException {
+        System.out.println("ENTER PRESSED");
+        login_pressed(ae);
     }
 }

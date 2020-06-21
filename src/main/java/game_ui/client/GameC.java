@@ -30,6 +30,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
+import org.json.JSONObject;
 
 public class GameC implements Dialog {
     @FXML
@@ -106,6 +107,11 @@ public class GameC implements Dialog {
             ex.printStackTrace(System.err);
             System.exit(1);
         }
+    }
+
+    @Override
+    public void showPlacement(Stage stage, Statement statement, User user, JSONObject jso) {
+
     }
 
     private void initializeSockets() throws URISyntaxException {

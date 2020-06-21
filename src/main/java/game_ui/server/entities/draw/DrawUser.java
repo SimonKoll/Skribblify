@@ -6,6 +6,7 @@ public class DrawUser {
     private String username;
     private Session session;
     private String gameID = "";
+    private int points = 0;
 
     public DrawUser(){
 
@@ -50,5 +51,13 @@ public class DrawUser {
                 ", session=" + session +
                 ", gameID='" + gameID + '\'' +
                 '}';
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

@@ -32,9 +32,9 @@
          <Slider fx:id="durationSlider" blockIncrement="1.0" cache="true" majorTickUnit="15.0" max="90.0" min="15.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" translateX="68.0" translateY="210.0" value="30.0" />
          <Text layoutX="14.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rounds" />
          <Slider fx:id="roundSlider" blockIncrement="1.0" cache="true" majorTickUnit="1.0" max="9.0" min="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" translateX="68.0" translateY="273.0" value="3.0" />
-         <Text fx:id="playersLabel" layoutX="241.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 Player(s)" />
-         <Text fx:id="durationLabel" layoutX="241.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 Seconds" />
-         <Text fx:id="roundsLabel" layoutX="241.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 Round(s)" />
+         <Text fx:id="playersLabel" layoutX="241.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 Spieler" />
+         <Text fx:id="durationLabel" layoutX="241.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 Liter" />
+         <Text fx:id="roundsLabel" layoutX="241.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3 Runden" />
 
       </children>
    </AnchorPane>
@@ -69,7 +69,7 @@
                         <MenuItem onAction="#onSave" text="Save" />
                      </Menu>
                   </MenuBar>
-                  <ToolBar layoutX="1.0" layoutY="31.0" prefHeight="39.0" prefWidth="847.0">
+                  <ToolBar fx:id="tbUtensiles" layoutX="1.0" layoutY="31.0" prefHeight="39.0" prefWidth="847.0">
                      <HBox alignment="CENTER" spacing="5">
                         <Slider fx:id="brushSize" blockIncrement="9.0" majorTickUnit="3.0" max="60.0" min="5.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" />
                         <ColorPicker fx:id="colorPicker" />
@@ -97,8 +97,9 @@
                         <ListView fx:id="messageLV" editable="true" prefHeight="148.0" prefWidth="281.0" />
                      </children></Pane>
                   <Pane prefHeight="148.0" prefWidth="281.0">
-
-                  </Pane>
+                     <children>
+                        <ListView fx:id="lvRankings" prefHeight="148.0" prefWidth="281.0" />
+                     </children></Pane>
                </children>
             </Pane>
             <Pane layoutX="56.0" layoutY="14.0" prefHeight="53.0" prefWidth="849.0">
@@ -108,26 +109,33 @@
                         <Font name="Comic Sans MS Bold" size="32.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtDrawer" editable="false" promptText="Drawer:" style="-fx-background-color: #FF5151;">
+                  <TextField fx:id="txtDrawer" editable="false" promptText="Zeichner:" style="-fx-background-color: #FF5151;">
                      <font>
                         <Font size="19.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtRounds" layoutY="32.0" promptText="Runde: " style="-fx-background-color: #FF5151;">
+                     <font>
+                        <Font size="14.0" />
                      </font>
                   </TextField>
                </children>
             </Pane>
             <ProgressBar fx:id="progressBar" layoutY="531.0" prefHeight="11.0" prefWidth="960.0" progress="0.0" stylesheets="@../style/game_ui.css" />
-            <Text fx:id="timeLeft" layoutX="7.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0" text="80" wrappingWidth="37.13671875">
+            <Text fx:id="timeLeft" layoutX="7.0" layoutY="514.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" wrappingWidth="37.13671875">
                <font>
-                  <Font size="34.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
          </children>
       </Pane>
       <Pane fx:id="chooseWord" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: rgb(255,255,255, 0.6);">
          <children>
-            <Button fx:id="option1" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" onAction="#option1Ready" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Ampel" translateX="-300.0" />
-            <Button fx:id="option2" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" onAction="#option2Ready" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Wasserflasche" />
-            <Button fx:id="option3" layoutX="386.0" layoutY="218.0" mnemonicParsing="false" onAction="#option3Ready" prefHeight="72.0" prefWidth="189.0" styleClass="button-design" stylesheets="@../style/login_register.css" text="Sonnenuntergang" translateX="300.0" />
+            <Text fx:id="txtCurrentDrawer" strokeType="OUTSIDE" strokeWidth="0.0" text="Zeichner: Matthias" translateX="220.0" translateY="300.0">
+               <font>
+                  <Font size="60.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </Pane>

@@ -21,9 +21,6 @@ public class CreateCode {
                     if (id.equals(checkId)) {
                         createIdCode("friendship", statement);
                     }
-                    else {
-                        id = checkId;
-                    }
                 }
                 break;
             case "user":
@@ -34,9 +31,7 @@ public class CreateCode {
                     if (id.equals(checkId)) {
                         createIdCode("user", statement);
                     }
-                    else{
-                        id = checkId;
-                    }
+
                 }
                 break;
 
@@ -46,11 +41,9 @@ public class CreateCode {
                 ResultSet rSetLobby = statement.executeQuery(sqlLobby);
                 while (rSetLobby.next()) {
                     String checkId = rSetLobby.getString("LOBBY_ID");
+                    System.out.println("CHECKING:" + checkId + "," + id + ":" + checkId.equals(id));
                     if (id.equals(checkId)) {
                         createIdCode("lobby", statement);
-                    }
-                    else{
-                        id = checkId;
                     }
                 }
                 break;
