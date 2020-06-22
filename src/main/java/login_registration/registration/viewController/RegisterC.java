@@ -75,15 +75,10 @@ public class RegisterC implements Initializable, Dialog {
         String newusername = username.getText();
         String newpassword_1 = password_1.getText();
 
-
-
             if(registerTT.getText().length() == 0) {
 
-
                 User.newToDB(newusername, newpassword_1, this.statement);
-
-
-
+                Navigation.navigate(goToLoginBtn, "/login_registration/login/LoginV.fxml", this.statement, null, new LoginC());
 
             }
 

@@ -56,17 +56,11 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import jdk.nashorn.internal.scripts.JS;
 import login_registration.login.viewController.LoginC;
 import login_registration.model.User;
-import login_registration.registration.viewController.RegisterC;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.tyrus.client.ClientManager;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.mortbay.util.ajax.JSON;
 import placement.PlacementC;
 
 import javax.imageio.ImageIO;
@@ -145,6 +139,7 @@ public class CrobbyController  implements Initializable, Dialog {
     private MusicPlayer mp = new MusicPlayer();
 
 
+
     private boolean isPublic = true;
     @FXML
     private Pane crobbyPane;
@@ -156,6 +151,8 @@ public class CrobbyController  implements Initializable, Dialog {
     private JSONObject lastMessage;
     @FXML
     private Text txtCurrentDrawer;
+    @FXML
+    private CheckBox cbMusic;
 
 
     public void intializeSocket(URI endpointURI) {
@@ -191,7 +188,11 @@ public class CrobbyController  implements Initializable, Dialog {
 
         Platform.runLater(() -> {
             try {
-                Navigation.navigatePlacement(this.inviteBtn, "/placement/PlacementV.fxml", this.statement, CrobbyController.user, this.lastMessage, new PlacementC());
+                if(this.lastMessage == null) {
+                    Navigation.navigate(this.inviteBtn, "/dashboard/DashboardV.fxml", this.statement, CrobbyController.user, new DashboardC());
+                }else {
+                    Navigation.navigatePlacement(this.inviteBtn, "/placement/PlacementV.fxml", this.statement, CrobbyController.user, this.lastMessage, new PlacementC());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -238,10 +239,12 @@ public class CrobbyController  implements Initializable, Dialog {
 
             case "newround":
 
-
                 Platform.runLater(() -> {
                     txtRounds.setText("Round:" +  jso.getJSONObject("game").getInt("curRound") + "/" + jso.getJSONObject("game").getInt("roundSize"));
                     g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                    progressBar.setProgress(1);
+                    timeLeft.setText("100");
+
                 });
 
                 this.updateRankings(jso);
@@ -306,6 +309,7 @@ public class CrobbyController  implements Initializable, Dialog {
             case "updateGame":
 
                 if (jso.getBoolean("eraser")) {
+                    step = 0;
                     g.clearRect(jso.getDouble("x"), jso.getDouble("y"), jso.getDouble("size"), jso.getDouble("size"));
                 } else {
                     g.setFill(Paint.valueOf(jso.getString("color")));
@@ -316,9 +320,15 @@ public class CrobbyController  implements Initializable, Dialog {
                         step = jso.getDouble("size") * (1/10000);
                         g.fillOval(jso.getDouble("x"), jso.getDouble("y"), jso.getDouble("size"), jso.getDouble("size"));
                     }
-
-                    progressBar.setProgress(progressBar.getProgress() - step);
                 }
+
+                Platform.runLater(() -> {
+                    if((progressBar.getProgress() - step) >= 0){
+                        progressBar.setProgress(progressBar.getProgress() - step);
+                        System.out.println(progressBar.getProgress() + "," + step);
+                        timeLeft.setText(String.valueOf(Math.round(progressBar.getProgress() *  100 )));
+                    }
+                });
 
                 break;
 
@@ -865,10 +875,8 @@ public class CrobbyController  implements Initializable, Dialog {
         javafx.scene.control.Button option1;
         javafx.scene.control.Button option2;
         javafx.scene.control.Button option3;
-        @FXML
-        private Button knopf;
 
-        private double step = 0.001;
+        private double step;
         private boolean roundEnd = false;
         private LinkedList<game_ui.client.Point> layerLA = new LinkedList<>();
         private LinkedList<game_ui.client.Point> layerHistory = new LinkedList<>();
@@ -878,8 +886,12 @@ public class CrobbyController  implements Initializable, Dialog {
 
 
         public void countDown() {
+
+
+
             if((progressBar.getProgress() - step) >= 0){
                 progressBar.setProgress(progressBar.getProgress() - step);
+                System.out.println(progressBar.getProgress() + "," + step);
                 timeLeft.setText(String.valueOf(Math.round(progressBar.getProgress() *  100 )));
             }else{
                 roundEnd = true;
@@ -889,6 +901,8 @@ public class CrobbyController  implements Initializable, Dialog {
 
             }
         }
+
+
 
         public void initializeCanvas() {
 
@@ -904,47 +918,42 @@ public class CrobbyController  implements Initializable, Dialog {
 
             canvas.setOnMouseClicked(e -> {
                 if(!roundEnd && CrobbyController.user.getUsername().equals(txtDrawer.getText().split(":")[1])){
-                    addDrawHistory(e);
+                    addDrawHistory(e, false);
                 }
             });
 
             canvas.setOnMouseDragged(e -> {
+
                 if(!roundEnd && CrobbyController.user.getUsername().equals(txtDrawer.getText().split(":")[1])){
-                    addDrawHistory(e);
+                    addDrawHistory(e, true);
                 }
             });
         }
 
-        @FXML
-        private void undo(){
-            if(!layerHistory.isEmpty()) {
-                layerHistory.removeLast();
-            }
-            drawPoint(false);
-            layerLA.clear();
-        }
 
 
 
-
-        private void addDrawHistory(MouseEvent e) {
+        private void addDrawHistory(MouseEvent e, boolean dragging) {
             game_ui.client.Point p = new game_ui.client.Point(eraser.isSelected(), bucket.isSelected(), e.getX(), e.getY(), brushSize.getValue(), colorPicker.getValue());
 
 
+            if(!layerLA.isEmpty() && layerLA.getLast().getColor().equals(colorPicker.getValue()) && (layerLA.getLast().isBucket() && bucket.isSelected())) {
 
-            layerLA.clear();
-            layerLA.add(p);
-            if(e.isDragDetect()){
-                layerChain.add(p);
-            }else{
-                layerHistory.addAll(layerLA);
+            }else {
+                layerLA.clear();
+                layerLA.add(p);
+
+                if(e.isDragDetect()){
+                    layerChain.add(p);
+                }else{
+                    layerHistory.addAll(layerLA);
+                }
+
+                drawPoint(true, dragging);
+                countDown();
             }
 
 
-            drawPoint(true);
-
-
-            countDown();
         }
         @FXML
         public void onSave(){
@@ -955,7 +964,7 @@ public class CrobbyController  implements Initializable, Dialog {
                 System.out.println("Failed to save image: " + e);
             }
         }
-        public void drawPoint(boolean lastAction){
+        public void drawPoint(boolean lastAction, boolean dragging){
             LinkedList<Point> layer = new LinkedList<>();
             if(lastAction){
                 layer = layerLA;
@@ -985,11 +994,11 @@ public class CrobbyController  implements Initializable, Dialog {
                 } else {
                     g.setFill(p.getColor());
 
+                    step = (1.0/5000.0) * ((3.0/100.0) * size + 1.0);
+                    System.out.println(ConsoleColor.SERVER + "STEP:" + step + ConsoleColor.reset());
                     if (bucket.isSelected()) {
-                        step = size / 6000;
                         g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                     } else {
-                        step = size / 6000;
                         g.fillOval(x, y, size, size);
                     }
                 }
@@ -1069,6 +1078,16 @@ public class CrobbyController  implements Initializable, Dialog {
                 eraser.setSelected(false);
             }
     }
+
+        @FXML
+        private void changeMusic(MouseEvent event) {
+            System.out.println(cbMusic.isSelected());
+               if(cbMusic.isSelected()) {
+                   mp.mute();
+               } else {
+                   mp.unmute();
+               }
+        }
     }
 
 

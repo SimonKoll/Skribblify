@@ -1,5 +1,6 @@
 package login_registration.model;
 
+import dialog.Navigation;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -110,7 +111,7 @@ public class User {
 
             System.out.println(sql);
             statement.executeUpdate(sql);
-    user = new User();
+            user = new User();
 
             user.setUsername(username);
             user.setPassword(password);

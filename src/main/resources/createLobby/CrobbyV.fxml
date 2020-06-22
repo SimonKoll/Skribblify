@@ -75,7 +75,7 @@
                         <ColorPicker fx:id="colorPicker" />
                         <CheckBox fx:id="eraser" onMouseClicked="#eraserSelected" text="Eraser" />
                         <CheckBox fx:id="bucket" onMouseClicked="#fillSelected" text="Fill" />
-                        <Button fx:id="knopf" mnemonicParsing="false" onAction="#undo" text="Undo" />
+                        <CheckBox fx:id="cbMusic" mnemonicParsing="false" onMouseClicked="#changeMusic" text="Music" />
                      </HBox>
                   </ToolBar>
                </children>

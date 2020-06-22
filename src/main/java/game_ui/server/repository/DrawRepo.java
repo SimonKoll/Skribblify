@@ -136,8 +136,7 @@ public class DrawRepo {
 
     private String chooseRandomTopic(String gameID) {
         DrawGame game = findGameById(gameID);
-        // Später select aus DB
-        
+
         String query = "SELECT WORD_NAME from words";
 
         String topic = "";
@@ -218,6 +217,10 @@ public class DrawRepo {
                         break;
                     }
                 }
+
+
+                System.out.println(this.games.toString());
+
                 this.games.removeIf(ga -> ga.getPlayers().size() < 1);
                 this.availableGames.clear();
                 this.availableGames.addAll(this.games);
